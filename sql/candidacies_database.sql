@@ -57,12 +57,16 @@ CREATE TABLE IF NOT EXISTS candidates (
 	insert_date datetime NOT NULL,
 	update_date datetime NOT NULL,
 	send_date datetime NOT NULL,
-	writer varchar(5) REFERENCES users(initials),
-	job_type varchar(20) REFERENCES jobs_types(title),
+	writer varchar(5) NOT NULL REFERENCES users(initials),
+	job_type varchar(20) NOT NULL REFERENCES jobs_types(title),
 	job_function varchar(20) REFERENCES jobs_functions(title),
-	answer varchar(50) REFERENCES answers(name)
+	answer varchar(50) NOT NULL REFERENCES answers(name)
 
 	-- CONSTRAINT fk_locality FOREIGN KEY (locality) REFERENCES localities(name)
 )
 
 ENGINE=INNODB;
+
+INSERT INTO localities (name) VALUES ('Genève'), ('Carouge'), ('Meyrin'), ('Veyrier');
+
+INSERT INTO countries (name) VALUES ('Suisse'), ('France'), ('Allemagne'), ('Belgique');

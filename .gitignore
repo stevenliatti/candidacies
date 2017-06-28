@@ -1,1 +1,8 @@
 config
+.metadata
+RemoteSystemsTempFiles
+/build/
+.classpath
+.project
+.settings
+
