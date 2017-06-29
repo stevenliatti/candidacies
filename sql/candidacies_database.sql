@@ -46,8 +46,8 @@ CREATE TABLE IF NOT EXISTS candidates (
 	title varchar(15) NOT NULL,
 	last_name varchar(50) NOT NULL,
 	first_name varchar(50) NOT NULL,
-	lives_at varchar(100),
 	email varchar(100),
+	lives_at varchar(100),
 	street varchar(100),
 	num_street varchar(10),
 	post_code varchar(10),
@@ -58,8 +58,8 @@ CREATE TABLE IF NOT EXISTS candidates (
 	update_date datetime NOT NULL,
 	send_date datetime NOT NULL,
 	writer varchar(5) NOT NULL REFERENCES users(initials),
-	job_type varchar(20) NOT NULL REFERENCES jobs_types(title),
-	job_function varchar(20) REFERENCES jobs_functions(title),
+	job_type varchar(50) NOT NULL REFERENCES jobs_types(title),
+	job_function varchar(50) REFERENCES jobs_functions(title),
 	answer varchar(50) NOT NULL REFERENCES answers(name)
 
 	-- CONSTRAINT fk_locality FOREIGN KEY (locality) REFERENCES localities(name)
