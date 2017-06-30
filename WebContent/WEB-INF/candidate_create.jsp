@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,16 +18,18 @@
 				<input type="radio" name="title" value="Mademoiselle"> Mademoiselle
 				<br />
 				
-				<label for="name">Nom<span class="required">*</span></label>
-				<input type="text" id="name" name="name" value="" size="20" maxlength="50" />
+				<label for="last_name">Nom<span class="required">*</span></label>
+				<input type="text" id="last_name" name="last_name" value="<c:out value="${candidate.lastName}"/>" size="20" maxlength="50" />
+				<span class="error">${form.errors['last_name']}</span>
 				<br />
 				
-				<label for="name">Prénom<span class="required">*</span></label>
-				<input type="text" id="name" name="name" value="" size="20" maxlength="50" />
+				<label for="first_name">Prénom<span class="required">*</span></label>
+				<input type="text" id="first_name" name="first_name" value="" size="20" maxlength="50" />
 				<br />
 				
 				<label for="email">Email</label>
-				<input type="email" id="email" name="email" value="" size="30" maxlength="100" />
+				<input type="email" id="email" name="email" value="<c:out value="${candidate.email}"/>" size="30" maxlength="100" />
+				<span class="error">${form.errors['email']}</span>
 				<br />
 
 				<label for="lives_at">Vit chez</label>
@@ -53,7 +56,7 @@
 				<br />
 				
 				<label for="request_date">Date de demande</label>
-				<input type="date" id="request_date" name="request_date" value="" size="20" maxlength="50" />
+				<input type="date" id="request_date" name="request_date" value="<c:out value="${candidate.requestDate}"/>" size="20" maxlength="50" />
 				<br />
 				
 				<label for="job_type">Job<span class="required">*</span></label>
@@ -74,5 +77,6 @@
 				<br />
 			</fieldset>
 		</form>
+		<p class="${empty form.errors ? 'success' : 'error'}">${form.result}</p>
 	</body>
 </html>
