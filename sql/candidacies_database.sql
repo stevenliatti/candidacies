@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS countries (
 
 CREATE TABLE IF NOT EXISTS users (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	username varchar(20) NOT NULL UNIQUE,
-	password varchar(255) NOT NULL,
+	user_name varchar(20) NOT NULL UNIQUE,
+	password char(56) NOT NULL,
 	last_name varchar(50) NOT NULL,
 	first_name varchar(50) NOT NULL,
 	initials varchar(5) NOT NULL UNIQUE

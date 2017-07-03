@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Candidate {
+	private Long id;
 	private String title;
 	private String lastName;
 	private String firstName;
@@ -25,10 +26,11 @@ public class Candidate {
 	
 	public Candidate() {}
 	
-	public Candidate(String title, String lastName, String firstName, String email, String livesAt, String street,
+	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt, String street,
 			String numStreet, String postCode, String locality, String country, LocalDate requestDate,
 			LocalDateTime insertDate, LocalDateTime updateDate, String writer, String jobType,
 			String jobFunction, String answer) {
+		this.id = id;
 		this.title = title;
 		this.lastName = lastName;
 		this.firstName = firstName;
@@ -46,6 +48,14 @@ public class Candidate {
 		this.jobType = jobType;
 		this.jobFunction = jobFunction;
 		this.answer = answer;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getTitle() {

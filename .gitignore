@@ -6,3 +6,4 @@ RemoteSystemsTempFiles
 .project
 .settings
 WebContent/META-INF/*
+*.class

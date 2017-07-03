@@ -71,7 +71,7 @@ public class CandidateCreateForm {
 		
 		LocalDateTime now = LocalDateTime.now();
 		
-		return new Candidate(getField(r, titleField), getField(r, lastNameField), getField(r, firstNameField), 
+		return new Candidate(null, getField(r, titleField), getField(r, lastNameField), getField(r, firstNameField), 
 				getField(r, emailField), getField(r, livesAtField), getField(r, streetField),
 				getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
 				getField(r, countryField), getDateField(r, requestDateField), now, now, null,
@@ -116,9 +116,7 @@ public class CandidateCreateForm {
 		if (value.isEmpty() || value == null) {
 			return null;
 		}
-		System.out.println("value : " + value);
 		String dateArray[] = value.split("\\.");
-		System.out.println("length : " + dateArray.length);
 		for (int i = 0; i < dateArray.length; i++) {
 			System.out.println(dateArray[i]);
 		}
