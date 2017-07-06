@@ -26,9 +26,9 @@ public class Candidate {
 	
 	public Candidate() {}
 	
-	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt, String street,
-			String numStreet, String postCode, String locality, String country, LocalDate requestDate,
-			LocalDateTime insertDate, LocalDateTime updateDate, String writer, String jobType,
+	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt,
+			String street, String numStreet, String postCode, String locality, String country, LocalDate requestDate,
+			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String writer, String jobType,
 			String jobFunction, String answer) {
 		this.id = id;
 		this.title = title;
@@ -44,10 +44,21 @@ public class Candidate {
 		this.requestDate = requestDate;
 		this.insertDate = insertDate;
 		this.updateDate = updateDate;
+		this.sendDate = sendDate;
 		this.writer = writer;
 		this.jobType = jobType;
 		this.jobFunction = jobFunction;
 		this.answer = answer;
+	}
+	
+	@Override
+	public String toString() {
+		return "Candidate [id=" + id + ", title=" + title + ", lastName=" + lastName + ", firstName=" + firstName
+				+ ", email=" + email + ", livesAt=" + livesAt + ", street=" + street + ", numStreet=" + numStreet
+				+ ", postCode=" + postCode + ", locality=" + locality + ", country=" + country + ", requestDate="
+				+ requestDate + ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", sendDate=" + sendDate
+				+ ", writer=" + writer + ", jobType=" + jobType + ", jobFunction=" + jobFunction + ", answer=" + answer
+				+ "]";
 	}
 
 	public Long getId() {

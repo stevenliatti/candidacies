@@ -60,4 +60,8 @@ public class DAOFactory {
 	public UserDAO getUserDao() {
         return new UserDAO(this);
     }
+	
+	public CandidateDAO getCandidateDao() {
+        return new CandidateDAO(this);
+    }
 }

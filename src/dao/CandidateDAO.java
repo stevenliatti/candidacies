@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import beans.Candidate;
 
@@ -27,10 +27,10 @@ public class CandidateDAO {
 		try {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, 
-					"INSERT INTO users (title, last_name, first_name, email, lives_at, street, num_street, "
+					"INSERT INTO candidates (title, last_name, first_name, email, lives_at, street, num_street, "
 					+ "post_code, locality, country, request_date, insert_date, update_date, send_date, "
-					+ "writer, job_type, job_function, answer "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), NULL, ?, ?, ?, ?)", true, 
+					+ "writer, job_type, job_function, answer) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?)", true, 
 					candidate.getTitle(), 
 					candidate.getLastName(), 
 					candidate.getFirstName(),
@@ -42,11 +42,13 @@ public class CandidateDAO {
 					candidate.getLocality(),
 					candidate.getCountry(),
 					candidate.getRequestDate(),
-					// datetime -> NOW() or null
+					// datetime -> NOW()
+					candidate.getSendDate(),
 					candidate.getWriter(),
 					candidate.getJobType(),
 					candidate.getJobFunction(),
-					candidate.getAnswer());
+					candidate.getAnswer()
+			);
 			
 			int status = preparedStatement.executeUpdate();
 			if (status == 0) {
@@ -74,10 +76,10 @@ public class CandidateDAO {
 		
 		try {
 			connection = daoFactory.getConnection();
-			preparedStatement = initPreparedStatement(connection, "SELECT * FROM users WHERE id = ?", false, id);
+			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE id = ?", false, id);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-	            //candidate = map(resultSet);
+	            candidate = map(resultSet);
 	        }
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -98,19 +100,20 @@ public class CandidateDAO {
 	
 	/**
 	 * 
-	 * @param resultSet
+	 * @param r
 	 * @return
 	 * @throws SQLException
 	 */
-//	private static Candidate map(ResultSet resultSet) throws SQLException {
-//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-//	    return new Candidate(resultSet.getLong("id"), resultSet.getString("title"), resultSet.getString("last_name"), 
-//	    		resultSet.getString("first_name"), resultSet.getString("email"), resultSet.getString("lives_at"), 
-//	    		resultSet.getString("street"), resultSet.getString("num_street"), resultSet.getString("post_code"), 
-//	    		resultSet.getString("locality"), resultSet.getString("country"), LocalDate.p,
-//	    		resultSet.getDate("insert_date"), resultSet.getDate("update_date"), resultSet.getDate("send_date"),
-//	    		resultSet.getString("writer"), resultSet.getString("job_type"), resultSet.getString("job_function"),
-//	    		resultSet.getString("answer"));
-//	    
-//	}
+	private static Candidate map(ResultSet r) throws SQLException {
+	    return new Candidate(r.getLong("id"), r.getString("title"), r.getString("last_name"), 
+	    		r.getString("first_name"), r.getString("email"), r.getString("lives_at"), 
+	    		r.getString("street"), r.getString("num_street"), r.getString("post_code"), 
+	    		r.getString("locality"), r.getString("country"), r.getDate("request_date").toLocalDate(),
+	    		LocalDateTime.ofInstant(r.getDate("insert_date").toInstant(), ZoneId.systemDefault()), 
+	    		LocalDateTime.ofInstant(r.getDate("update_date").toInstant(), ZoneId.systemDefault()), 
+	    		LocalDateTime.ofInstant(r.getDate("send_date").toInstant(), ZoneId.systemDefault()),
+	    		r.getString("writer"), r.getString("job_type"), r.getString("job_function"),
+	    		r.getString("answer"));
+	    
+	}
 }

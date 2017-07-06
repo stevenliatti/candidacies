@@ -7,3 +7,5 @@ RemoteSystemsTempFiles
 .settings
 WebContent/META-INF/*
 *.class
+WebContent/WEB-INF/classes/*
+

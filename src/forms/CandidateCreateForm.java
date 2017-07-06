@@ -1,15 +1,16 @@
 package forms;
 
+import static java.lang.Integer.parseInt;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static java.lang.Integer.parseInt;
-
 import javax.servlet.http.HttpServletRequest;
 
 import beans.Candidate;
+import dao.CandidateDAO;
 
 public class CandidateCreateForm {
 	private static final String titleField = "title";
@@ -29,6 +30,12 @@ public class CandidateCreateForm {
 	private String result;
 	private Map<String, String> errors = new HashMap<>();
 	
+	private CandidateDAO candidateDAO;
+	
+	public CandidateCreateForm(CandidateDAO candidateDAO) {
+		this.candidateDAO = candidateDAO;
+	}
+
 	public String getResult() {
 		return result;
 	}
@@ -62,20 +69,24 @@ public class CandidateCreateForm {
 			setError(requestDateField, e.getMessage());
 		}
 		
+		LocalDateTime now = LocalDateTime.now();
+
+		Candidate candidate = new Candidate(null, getField(r, titleField), getField(r, lastNameField), 
+				getField(r, firstNameField), 
+				getField(r, emailField), getField(r, livesAtField), getField(r, streetField),
+				getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
+				getField(r, countryField), getDateField(r, requestDateField), now, now, now,
+				"bob", getField(r, jobTypeField), getField(r, jobFunctionField), "non");
+		
 		if (errors.isEmpty()) {
+			candidateDAO.create(candidate);
 			result = "success";
 		}
 		else {
 			result = "errors";
 		}
 		
-		LocalDateTime now = LocalDateTime.now();
-		
-		return new Candidate(null, getField(r, titleField), getField(r, lastNameField), getField(r, firstNameField), 
-				getField(r, emailField), getField(r, livesAtField), getField(r, streetField),
-				getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
-				getField(r, countryField), getDateField(r, requestDateField), now, now, null,
-				getField(r, jobTypeField), getField(r, jobFunctionField), null);
+		return candidate;
 	}
 	
 	private void validateLastName(String lastName) throws Exception {
@@ -117,9 +128,6 @@ public class CandidateCreateForm {
 			return null;
 		}
 		String dateArray[] = value.split("\\.");
-		for (int i = 0; i < dateArray.length; i++) {
-			System.out.println(dateArray[i]);
-		}
 		return LocalDate.of(parseInt(dateArray[2]), parseInt(dateArray[1]), parseInt(dateArray[0]));
 	}
 	
