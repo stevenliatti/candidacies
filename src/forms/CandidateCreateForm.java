@@ -63,8 +63,10 @@ public class CandidateCreateForm {
 			setError(emailField, e.getMessage());
 		}
 
+		LocalDate requestDate = null;
 		try {
-			validateRequestDate(getDateField(r, requestDateField));
+			requestDate = getDateField(r, requestDateField);
+			validateRequestDate(requestDate);
 		} catch (Exception e) {
 			setError(requestDateField, e.getMessage());
 		}
@@ -75,7 +77,7 @@ public class CandidateCreateForm {
 				getField(r, firstNameField), 
 				getField(r, emailField), getField(r, livesAtField), getField(r, streetField),
 				getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
-				getField(r, countryField), getDateField(r, requestDateField), now, now, now,
+				getField(r, countryField), requestDate, now, now, now,
 				"bob", getField(r, jobTypeField), getField(r, jobFunctionField), "non");
 		
 		if (errors.isEmpty()) {
@@ -89,12 +91,18 @@ public class CandidateCreateForm {
 		return candidate;
 	}
 	
+	
+	
 	private void validateLastName(String lastName) throws Exception {
-		
+		if (lastName == null || lastName.isEmpty()) {
+			throw new Exception("Merci de saisir un nom de famille.");
+		}
 	}
 	
-	private void validateFirstName(String lastName) throws Exception {
-		
+	private void validateFirstName(String firstName) throws Exception {
+		if (firstName == null || firstName.isEmpty()) {
+			throw new Exception("Merci de saisir un prénom.");
+		}
 	}
 	
 	private void validateEmail(String email) throws Exception {
@@ -109,7 +117,11 @@ public class CandidateCreateForm {
 	}
 
 	private void validateRequestDate(LocalDate requestDate) throws Exception {
-		
+		if (requestDate != null) {
+			if (requestDate.isAfter(LocalDate.now())) {
+				throw new Exception("Merci de saisir une date antérieure ou égale à aujourd'hui.");
+			}
+		}
 	}
 	
 	private String getField(HttpServletRequest request, String fieldName) {
@@ -122,10 +134,13 @@ public class CandidateCreateForm {
 		}
 	}
 	
-	private LocalDate getDateField(HttpServletRequest request, String fieldName) {
+	private LocalDate getDateField(HttpServletRequest request, String fieldName) throws Exception {
 		String value = request.getParameter(fieldName);
 		if (value.isEmpty() || value == null) {
 			return null;
+		}
+		if (!value.matches("(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](20[0-9][0-9])")) {
+			throw new Exception("Merci de saisir une date au format suivant : jj.mm.aaaa");
 		}
 		String dateArray[] = value.split("\\.");
 		return LocalDate.of(parseInt(dateArray[2]), parseInt(dateArray[1]), parseInt(dateArray[0]));

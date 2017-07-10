@@ -114,6 +114,5 @@ public class CandidateDAO {
 	    		LocalDateTime.ofInstant(r.getDate("send_date").toInstant(), ZoneId.systemDefault()),
 	    		r.getString("writer"), r.getString("job_type"), r.getString("job_function"),
 	    		r.getString("answer"));
-	    
 	}
 }

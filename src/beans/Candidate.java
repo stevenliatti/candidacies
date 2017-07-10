@@ -2,6 +2,7 @@ package beans;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Candidate {
 	private Long id;
@@ -23,6 +24,8 @@ public class Candidate {
 	private String jobType;
 	private String jobFunction;
 	private String answer;
+	
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 	
 	public Candidate() {}
 	
@@ -49,6 +52,10 @@ public class Candidate {
 		this.jobType = jobType;
 		this.jobFunction = jobFunction;
 		this.answer = answer;
+	}
+	
+	public String getRequestDateFormatted() {
+		return requestDate == null ? null : requestDate.format(formatter);
 	}
 	
 	@Override
