@@ -1,6 +1,6 @@
 package beans;
 
-public class User {
+public class User implements Bean {
 	private Long id;
 	private String userName;
 	private String password;

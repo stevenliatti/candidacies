@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Candidate {
+public class Candidate implements Bean {
 	private Long id;
 	private String title;
 	private String lastName;
