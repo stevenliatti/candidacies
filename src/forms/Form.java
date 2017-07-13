@@ -47,25 +47,15 @@ public abstract class Form {
 	public Map<String, String> getErrors() {
 		return errors;
 	}
-
-	protected String validateLastName(String lastName) throws Exception {
+	
+	protected String validateName(String name, String field, String message) throws Exception {
 		try {
-			if (lastName == null || lastName.isEmpty())
-				throw new Exception("Merci de saisir un nom de famille.");
+			if (name == null || name.isEmpty())
+				throw new Exception(message);
 		} catch (Exception e) {
-			setError(lastNameField, e.getMessage());
+			setError(field, e.getMessage());
 		}
-		return lastName;
-	}
-
-	protected String validateFirstName(String firstName) throws Exception {
-		try {
-			if (firstName == null || firstName.isEmpty())
-				throw new Exception("Merci de saisir un prénom.");
-		} catch (Exception e) {
-			setError(firstNameField, e.getMessage());
-		}
-		return firstName;
+		return name;
 	}
 
 	protected String validateEmail(String email) throws Exception {

@@ -8,7 +8,7 @@
 		<link type="text/css" rel="stylesheet" href="form.css" />
 	</head>
 	<body>
-		<form method="post" action="create">
+		<form method="post" action="<c:url value="create" />">
 			<fieldset>
 				<legend>Candidat - Insertion</legend>
 				

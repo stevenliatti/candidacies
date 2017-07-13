@@ -27,7 +27,7 @@ public class UserDAO extends ObjectDAO {
 		try {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, "INSERT INTO users (user_name, password, last_name, "
-					+ "first_name, initials VALUES (?, ?, ?, ?, ?)", true, user.getUserName(), user.getPassword(), 
+					+ "first_name, initials) VALUES (?, ?, ?, ?, ?)", true, user.getUserName(), user.getPassword(), 
 					user.getLastName(), user.getFirstName(), user.getInitials());
 			
 			int status = preparedStatement.executeUpdate();
