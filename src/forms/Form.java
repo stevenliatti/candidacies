@@ -48,7 +48,7 @@ public abstract class Form {
 		return errors;
 	}
 	
-	protected String validateName(String name, String field, String message) throws Exception {
+	protected String validateString(String name, String field, String message) throws Exception {
 		try {
 			if (name == null || name.isEmpty())
 				throw new Exception(message);

@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Connexion</title>
-		<link type="text/css" rel="stylesheet" href="form.css" />
+		<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/form.css"/>" />
 	</head>
 	<body>
 		<form method="post" action="<c:url value="login" />">

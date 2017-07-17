@@ -19,8 +19,8 @@ public class LoginForm extends Form {
 		result = "errors";
 		
 		try {
-			userName = validateName(userName, userNameField, "Merci de saisir un nom d'utilisateur.");
-			password = validateName(password, passwordField, "Merci de saisir un mot de passe.");
+			userName = validateString(userName, userNameField, "Merci de saisir un nom d'utilisateur.");
+			password = validateString(password, passwordField, "Merci de saisir un mot de passe.");
 
 //			user = new User(null, userName, password, getField(request, lastNameField), getField(request, firstNameField), 
 //					getField(request, initialsField));

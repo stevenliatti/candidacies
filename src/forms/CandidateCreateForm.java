@@ -22,8 +22,8 @@ public class CandidateCreateForm extends Form {
 		LocalDate requestDate = null;
 		Candidate candidate = null;
 		try {
-			lastName = validateName(lastName, lastNameField, "Merci de saisir un nom de famille.");
-			firstName = validateName(firstName, firstNameField, "Merci de saisir un prénom.");
+			lastName = validateString(lastName, lastNameField, "Merci de saisir un nom de famille.");
+			firstName = validateString(firstName, firstNameField, "Merci de saisir un prénom.");
 			email = validateEmail(email);
 			requestDate = validateRequestDate(getField(r, requestDateField));
 			LocalDateTime now = LocalDateTime.now();
@@ -57,8 +57,8 @@ public class CandidateCreateForm extends Form {
 		String email = candidate.getEmail();
 		LocalDate requestDate = candidate.getRequestDate();
 		try {
-			lastName = validateName(lastName, lastNameField, "Merci de saisir un nom de famille.");
-			firstName = validateName(firstName, firstNameField, "Merci de saisir un prénom.");
+			lastName = validateString(lastName, lastNameField, "Merci de saisir un nom de famille.");
+			firstName = validateString(firstName, firstNameField, "Merci de saisir un prénom.");
 			email = validateEmail(email);
 			requestDate = validateRequestDate(getField(r, requestDateField));
 			LocalDateTime now = LocalDateTime.now();

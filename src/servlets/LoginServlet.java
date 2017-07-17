@@ -26,14 +26,11 @@ public class LoginServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		this.getServletContext().getRequestDispatcher(view).forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		
 		LoginForm form = new LoginForm(userDAO);
 		User user = form.loginUser(request);
 		HttpSession session = request.getSession();
@@ -48,6 +45,6 @@ public class LoginServlet extends HttpServlet {
 		request.setAttribute("form", form);
 		request.setAttribute("user", user);
 		
-		this.getServletContext().getRequestDispatcher(view).forward(request, response);
+		response.sendRedirect(request.getContextPath());
 	}
 }

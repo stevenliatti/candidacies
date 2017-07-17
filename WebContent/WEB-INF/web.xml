@@ -7,6 +7,23 @@
       <page-encoding>UTF-8</page-encoding>
     </jsp-property-group>
   </jsp-config>
+  
+  <filter>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+        <param-name>ignore</param-name>
+        <param-value>false</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SetCharacterEncoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
   <servlet>
     <servlet-name>IndexServlet</servlet-name>
@@ -48,17 +65,21 @@
     <url-pattern>/create</url-pattern>
   </servlet-mapping>
 
-  <servlet>
-    <servlet-name>CandidateUpdateServlet</servlet-name>
-    <servlet-class>servlets.CandidateUpdateServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CandidateUpdateServlet</servlet-name>
-    <url-pattern>/update</url-pattern>
-  </servlet-mapping>
+ 
 
   <listener>
     <listener-class>config.InitDAOFactory</listener-class>
   </listener>
+  
+  <!--
+  <filter>
+    <filter-name>RestrictionFilter</filter-name>
+    <filter-class>filters.RestrictionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>RestrictionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+-->
+
 </web-app>

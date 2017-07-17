@@ -12,7 +12,6 @@ public class IndexServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		String param = request.getParameter( "author" );
 		String message = "Transmission variables : OK !" + param;
 	    request.setAttribute("index", message);
