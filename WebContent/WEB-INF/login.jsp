@@ -12,9 +12,9 @@
 			<fieldset>
 				<legend>Connexion</legend>
 
-				<label for="user_name">Utilisateur <span class="required">*</span></label>
-				<input type="text" id="user_name" name="user_name" value="<c:out value="${user.userName}"/>" size="20" maxlength="60" />
-				<span class="erreur">${form.errors['user_name']}</span>
+				<label for="userName">Utilisateur <span class="required">*</span></label>
+				<input type="text" id="userName" name="userName" value="<c:out value="${user.userName}"/>" size="20" maxlength="60" />
+				<span class="erreur">${form.errors['userName']}</span>
 				<br />
 
 				<label for="password">Mot de passe <span class="requis">*</span></label>

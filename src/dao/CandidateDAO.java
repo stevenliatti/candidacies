@@ -29,9 +29,9 @@ public class CandidateDAO extends ObjectDAO {
 		try {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, 
-					"INSERT INTO candidates (title, last_name, first_name, email, lives_at, street, num_street, "
-					+ "post_code, locality, country, request_date, insert_date, update_date, send_date, "
-					+ "writer, job_type, job_function, answer) "
+					"INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, "
+					+ "postCode, locality, country, requestDate, insertDate, updateDate, sendDate, "
+					+ "writer, jobType, jobFunction, answer) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?)", true, 
 					candidate.getTitle(), 
 					candidate.getLastName(), 
@@ -110,14 +110,14 @@ public class CandidateDAO extends ObjectDAO {
 	 * @throws SQLException
 	 */
 	private static Candidate map(ResultSet r) throws SQLException {
-	    return new Candidate(r.getLong("id"), r.getString("title"), r.getString("last_name"), 
-	    		r.getString("first_name"), r.getString("email"), r.getString("lives_at"), 
-	    		r.getString("street"), r.getString("num_street"), r.getString("post_code"), 
-	    		r.getString("locality"), r.getString("country"), r.getDate("request_date").toLocalDate(),
-	    		LocalDateTime.ofInstant(r.getDate("insert_date").toInstant(), ZoneId.systemDefault()), 
-	    		LocalDateTime.ofInstant(r.getDate("update_date").toInstant(), ZoneId.systemDefault()), 
-	    		LocalDateTime.ofInstant(r.getDate("send_date").toInstant(), ZoneId.systemDefault()),
-	    		r.getString("writer"), r.getString("job_type"), r.getString("job_function"),
+	    return new Candidate(r.getLong("id"), r.getString("title"), r.getString("lastName"), 
+	    		r.getString("firstName"), r.getString("email"), r.getString("livesAt"), 
+	    		r.getString("street"), r.getString("numStreet"), r.getString("postCode"), 
+	    		r.getString("locality"), r.getString("country"), r.getDate("requestDate").toLocalDate(),
+	    		LocalDateTime.ofInstant(r.getDate("insertDate").toInstant(), ZoneId.systemDefault()), 
+	    		LocalDateTime.ofInstant(r.getDate("updateDate").toInstant(), ZoneId.systemDefault()), 
+	    		LocalDateTime.ofInstant(r.getDate("sendDate").toInstant(), ZoneId.systemDefault()),
+	    		r.getString("writer"), r.getString("jobType"), r.getString("jobFunction"),
 	    		r.getString("answer"));
 	}
 }

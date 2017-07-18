@@ -5,3 +5,5 @@ model.pdf: model.tex
 
 clean:
 	rm -rf model.pdf *.log *.aux
+
+rebuild: clean all

@@ -12,20 +12,20 @@ import dao.ObjectDAO;
 
 public abstract class Form {
 	protected static final String titleField = "title";
-	protected static final String lastNameField = "last_name";
-	protected static final String firstNameField = "first_name";
+	protected static final String lastNameField = "lastName";
+	protected static final String firstNameField = "firstName";
 	protected static final String emailField = "email";
-	protected static final String livesAtField = "lives_at";
+	protected static final String livesAtField = "livesAt";
 	protected static final String streetField = "street";
-	protected static final String numStreetField = "num_street";
-	protected static final String postCodeField = "post_code";
+	protected static final String numStreetField = "numStreet";
+	protected static final String postCodeField = "postCode";
 	protected static final String localityField = "locality";
 	protected static final String countryField = "country";
-	protected static final String requestDateField = "request_date";
-	protected static final String jobTypeField = "job_type";
-	protected static final String jobFunctionField = "job_function";
+	protected static final String requestDateField = "requestDate";
+	protected static final String jobTypeField = "jobType";
+	protected static final String jobFunctionField = "jobFunction";
 	
-	protected static final String userNameField = "user_name";
+	protected static final String userNameField = "userName";
 	protected static final String passwordField = "password";
 	protected static final String initialsField = "initials";
 	

@@ -26,8 +26,8 @@ public class UserDAO extends ObjectDAO {
 		
 		try {
 			connection = daoFactory.getConnection();
-			preparedStatement = initPreparedStatement(connection, "INSERT INTO users (user_name, password, last_name, "
-					+ "first_name, initials) VALUES (?, ?, ?, ?, ?)", true, user.getUserName(), user.getPassword(), 
+			preparedStatement = initPreparedStatement(connection, "INSERT INTO users (userName, password, lastName, "
+					+ "firstName, initials) VALUES (?, ?, ?, ?, ?)", true, user.getUserName(), user.getPassword(), 
 					user.getLastName(), user.getFirstName(), user.getInitials());
 			
 			int status = preparedStatement.executeUpdate();
@@ -88,7 +88,7 @@ public class UserDAO extends ObjectDAO {
 	 * @throws SQLException
 	 */
 	private static User map(ResultSet resultSet) throws SQLException {
-	    return new User(resultSet.getLong("id"), resultSet.getString("user_name"), resultSet.getString("password"), 
-	    		resultSet.getString("last_name"), resultSet.getString("first_name"), resultSet.getString("initials"));
+	    return new User(resultSet.getLong("id"), resultSet.getString("userName"), resultSet.getString("password"), 
+	    		resultSet.getString("lastName"), resultSet.getString("firstName"), resultSet.getString("initials"));
 	}
 }

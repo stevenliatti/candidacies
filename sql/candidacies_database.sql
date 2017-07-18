@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS countries (
 
 CREATE TABLE IF NOT EXISTS users (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	user_name varchar(20) NOT NULL UNIQUE,
+	userName varchar(20) NOT NULL UNIQUE,
 	password char(56) NOT NULL,
-	last_name varchar(50) NOT NULL,
-	first_name varchar(50) NOT NULL,
+	lastName varchar(50) NOT NULL,
+	firstName varchar(50) NOT NULL,
 	initials varchar(5) NOT NULL UNIQUE
 );
 
@@ -44,22 +44,22 @@ CREATE TABLE IF NOT EXISTS answers (
 CREATE TABLE IF NOT EXISTS candidates (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	title varchar(15) NOT NULL,
-	last_name varchar(50) NOT NULL,
-	first_name varchar(50) NOT NULL,
+	lastName varchar(50) NOT NULL,
+	firstName varchar(50) NOT NULL,
 	email varchar(100),
-	lives_at varchar(100),
+	livesAt varchar(100),
 	street varchar(100),
-	num_street varchar(10),
-	post_code varchar(10),
+	numStreet varchar(10),
+	postCode varchar(10),
 	locality varchar(50) REFERENCES localities(name),
 	country varchar(50) REFERENCES countries(name),
-	request_date date,
-	insert_date datetime NOT NULL,
-	update_date datetime NOT NULL,
-	send_date datetime NOT NULL,
+	requestDate date,
+	insertDate datetime NOT NULL,
+	updateDate datetime NOT NULL,
+	sendDate datetime NOT NULL,
 	writer varchar(5) NOT NULL REFERENCES users(initials),
-	job_type varchar(50) NOT NULL REFERENCES jobs_types(title),
-	job_function varchar(50) REFERENCES jobs_functions(title),
+	jobType varchar(50) NOT NULL REFERENCES jobs_types(title),
+	jobFunction varchar(50) REFERENCES jobs_functions(title),
 	answer varchar(50) NOT NULL REFERENCES answers(name)
 
 	-- CONSTRAINT fk_locality FOREIGN KEY (locality) REFERENCES localities(name)
