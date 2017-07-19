@@ -1,9 +1,18 @@
-all: model.pdf
+all: negatif.pdf negatifSixMois.pdf suspensSixMois.pdf mostlyclean
 
-model.pdf: model.tex
-	pdflatex model.tex
+negatif.pdf: negatif.tex
+	pdflatex negatif.tex
+
+negatifSixMois.pdf: negatifSixMois.tex
+	pdflatex negatifSixMois.tex
+
+suspensSixMois.pdf: suspensSixMois.tex
+	pdflatex suspensSixMois.tex
+
+mostlyclean:
+	rm -rf *.log *.aux
 
 clean:
-	rm -rf model.pdf *.log *.aux
+	rm -rf negatif.pdf negatifSixMois.pdf suspensSixMois.pdf *.log *.aux
 
 rebuild: clean all
