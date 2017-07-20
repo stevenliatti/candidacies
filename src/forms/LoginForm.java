@@ -1,5 +1,7 @@
 package forms;
 
+import static beans.Bean.*;
+
 import javax.servlet.http.HttpServletRequest;
 
 import beans.User;

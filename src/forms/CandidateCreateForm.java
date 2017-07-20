@@ -1,5 +1,7 @@
 package forms;
 
+import static beans.Bean.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -32,7 +34,7 @@ public class CandidateCreateForm extends Form {
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
 					getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
 					getField(r, countryField), requestDate, now, now, now,
-					"bob", getField(r, jobTypeField), getField(r, jobFunctionField), "non");
+					"bob - CandidateCreateForm", getField(r, jobFunctionField), "non - CandidateCreateForm");
 
 			if (errors.isEmpty()) {
 				objectDAO.create(candidate);
@@ -67,7 +69,7 @@ public class CandidateCreateForm extends Form {
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
 					getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
 					getField(r, countryField), requestDate, candidate.getInsertDate(), now, candidate.getSendDate(),
-					"bob", getField(r, jobTypeField), getField(r, jobFunctionField), "non");
+					"bob - CandidateCreateForm", getField(r, jobFunctionField), "non - CandidateCreateForm");
 
 			if (errors.isEmpty()) {
 				objectDAO.update(candidate);

@@ -31,8 +31,8 @@ public class CandidateDAO extends ObjectDAO {
 			preparedStatement = initPreparedStatement(connection, 
 					"INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, "
 					+ "postCode, locality, country, requestDate, insertDate, updateDate, sendDate, "
-					+ "writer, jobType, jobFunction, answer) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?)", true, 
+					+ "writer, jobFunction, answer) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?)", true, 
 					candidate.getTitle(), 
 					candidate.getLastName(), 
 					candidate.getFirstName(),
@@ -47,7 +47,6 @@ public class CandidateDAO extends ObjectDAO {
 					// datetime -> NOW()
 					candidate.getSendDate(),
 					candidate.getWriter(),
-					candidate.getJobType(),
 					candidate.getJobFunction(),
 					candidate.getAnswer()
 			);
@@ -117,7 +116,7 @@ public class CandidateDAO extends ObjectDAO {
 	    		LocalDateTime.ofInstant(r.getDate("insertDate").toInstant(), ZoneId.systemDefault()), 
 	    		LocalDateTime.ofInstant(r.getDate("updateDate").toInstant(), ZoneId.systemDefault()), 
 	    		LocalDateTime.ofInstant(r.getDate("sendDate").toInstant(), ZoneId.systemDefault()),
-	    		r.getString("writer"), r.getString("jobType"), r.getString("jobFunction"),
+	    		r.getString("writer"), r.getString("jobFunction"),
 	    		r.getString("answer"));
 	}
 }

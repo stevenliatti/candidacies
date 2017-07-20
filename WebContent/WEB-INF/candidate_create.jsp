@@ -68,13 +68,6 @@
 				<span class="error">${form.errors['requestDate']}</span>
 				<br />
 				
-				<label for="jobType">Job<span class="required">*</span></label>
-				<input type="radio" name="jobType" value="poste" checked> poste
-				<input type="radio" name="jobType" value="place d'apprentissage"> place d'apprentissage
-				<input type="radio" name="jobType" value="place de stage"> place de stage
-				<span class="error">${form.errors['jobType']}</span>
-				<br />
-				
 				<label for="jobFunction">Fonction<span class="required">*</span></label>
 				<select id="jobFunction" name="jobFunction">
 					<option value="infirmier">infirmier</option>

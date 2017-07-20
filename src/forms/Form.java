@@ -1,6 +1,7 @@
 package forms;
 
 import static java.lang.Integer.parseInt;
+import static beans.Bean.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -11,27 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import dao.ObjectDAO;
 
 public abstract class Form {
-	protected static final String titleField = "title";
-	protected static final String lastNameField = "lastName";
-	protected static final String firstNameField = "firstName";
-	protected static final String emailField = "email";
-	protected static final String livesAtField = "livesAt";
-	protected static final String streetField = "street";
-	protected static final String numStreetField = "numStreet";
-	protected static final String postCodeField = "postCode";
-	protected static final String localityField = "locality";
-	protected static final String countryField = "country";
-	protected static final String requestDateField = "requestDate";
-	protected static final String jobTypeField = "jobType";
-	protected static final String jobFunctionField = "jobFunction";
-	
-	protected static final String userNameField = "userName";
-	protected static final String passwordField = "password";
-	protected static final String initialsField = "initials";
-	
-	protected static final String nameField = "name";
-	protected static final String contentField = "content";
-
 	protected String result;
 	protected Map<String, String> errors = new HashMap<>();
 	protected ObjectDAO objectDAO;

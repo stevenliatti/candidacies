@@ -1,18 +1,21 @@
-all: negatif.pdf negatifSixMois.pdf suspensSixMois.pdf mostlyclean
+all: test.pdf negatif.pdf negatifSixMois.pdf suspensSixMois.pdf mostlyclean
 
-negatif.pdf: negatif.tex
+test.pdf: test.tex
+	pdflatex test.tex
+
+negatif.pdf: negatif.tex preamble.tex header.tex footer.tex
 	pdflatex negatif.tex
 
-negatifSixMois.pdf: negatifSixMois.tex
+negatifSixMois.pdf: negatifSixMois.tex preamble.tex header.tex footer.tex
 	pdflatex negatifSixMois.tex
 
-suspensSixMois.pdf: suspensSixMois.tex
+suspensSixMois.pdf: suspensSixMois.tex preamble.tex header.tex footer.tex
 	pdflatex suspensSixMois.tex
 
 mostlyclean:
 	rm -rf *.log *.aux
 
 clean:
-	rm -rf negatif.pdf negatifSixMois.pdf suspensSixMois.pdf *.log *.aux
+	rm -rf test.* negatif.pdf negatifSixMois.pdf suspensSixMois.pdf *.log *.aux
 
 rebuild: clean all

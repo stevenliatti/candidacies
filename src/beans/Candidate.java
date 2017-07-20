@@ -2,7 +2,8 @@ package beans;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Candidate implements Bean {
 	private Long id;
@@ -21,18 +22,18 @@ public class Candidate implements Bean {
 	private LocalDateTime updateDate;
 	private LocalDateTime sendDate;
 	private String writer;
-	private String jobType;
 	private String jobFunction;
 	private String answer;
-	
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-	
+
+	private Map<String, String> map;
+
 	public Candidate() {}
-	
+
 	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt,
 			String street, String numStreet, String postCode, String locality, String country, LocalDate requestDate,
-			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String writer, String jobType,
+			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String writer,
 			String jobFunction, String answer) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.lastName = lastName;
@@ -49,23 +50,48 @@ public class Candidate implements Bean {
 		this.updateDate = updateDate;
 		this.sendDate = sendDate;
 		this.writer = writer;
-		this.jobType = jobType;
 		this.jobFunction = jobFunction;
 		this.answer = answer;
+		
+		candidateAsMap();
 	}
-	
+
+	public static String formatField(String field) {
+		return "<" + field + ">";
+	}
+
+	private void candidateAsMap() {
+		map = new HashMap<>();
+		map.put(formatField(titleField), title);
+		map.put(formatField(lastNameField), lastName);
+		map.put(formatField(firstNameField), firstName);
+		map.put(formatField(emailField), email);
+		map.put(formatField(livesAtField), livesAt);
+		map.put(formatField(streetField), street);
+		map.put(formatField(numStreetField), numStreet);
+		map.put(formatField(postCodeField), postCode);
+		map.put(formatField(localityField), locality);
+		map.put(formatField(countryField), country);
+		map.put(formatField(requestDateField), getRequestDateFormatted());
+		map.put(formatField(sendDateField), getSendDateFormatted());
+		map.put(formatField(jobFunctionField), jobFunction);
+	}
+
 	public String getRequestDateFormatted() {
 		return requestDate == null ? null : requestDate.format(formatter);
 	}
 	
+	public String getSendDateFormatted() {
+		return sendDate == null ? null : sendDate.format(formatter);
+	}
+
 	@Override
 	public String toString() {
 		return "Candidate [id=" + id + ", title=" + title + ", lastName=" + lastName + ", firstName=" + firstName
 				+ ", email=" + email + ", livesAt=" + livesAt + ", street=" + street + ", numStreet=" + numStreet
 				+ ", postCode=" + postCode + ", locality=" + locality + ", country=" + country + ", requestDate="
 				+ requestDate + ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", sendDate=" + sendDate
-				+ ", writer=" + writer + ", jobType=" + jobType + ", jobFunction=" + jobFunction + ", answer=" + answer
-				+ "]";
+				+ ", writer=" + writer + ", jobFunction=" + jobFunction + ", answer=" + answer + ", map=" + map + "]";
 	}
 
 	public Long getId() {
@@ -196,14 +222,6 @@ public class Candidate implements Bean {
 		this.writer = writer;
 	}
 
-	public String getJobType() {
-		return jobType;
-	}
-
-	public void setJobType(String jobType) {
-		this.jobType = jobType;
-	}
-
 	public String getJobFunction() {
 		return jobFunction;
 	}
@@ -218,5 +236,9 @@ public class Candidate implements Bean {
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	public Map<String, String> getMap() {
+		return map;
 	}
 }

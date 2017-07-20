@@ -8,12 +8,12 @@ USE candidacies;
 
 CREATE TABLE IF NOT EXISTS localities (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	name varchar(50) NOT NULL
+	name varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS countries (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	name varchar(50) NOT NULL
+	name varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -58,7 +58,6 @@ CREATE TABLE IF NOT EXISTS candidates (
 	updateDate datetime NOT NULL,
 	sendDate datetime NOT NULL,
 	writer varchar(5) NOT NULL REFERENCES users(initials),
-	jobType varchar(50) NOT NULL REFERENCES jobs_types(title),
 	jobFunction varchar(50) REFERENCES jobs_functions(title),
 	answer varchar(50) NOT NULL REFERENCES answers(name)
 
