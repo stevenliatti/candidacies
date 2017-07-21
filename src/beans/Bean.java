@@ -17,6 +17,8 @@ public interface Bean {
 	public static final String sendDateField = "sendDate";
 	public static final String jobTypeField = "jobType";
 	public static final String jobFunctionField = "jobFunction";
+	public static final String answerField = "answer";
+	public static final String folderField = "folder";
 	
 	public static final String userNameField = "userName";
 	public static final String passwordField = "password";
@@ -25,5 +27,5 @@ public interface Bean {
 	public static final String nameField = "name";
 	public static final String contentField = "content";
 	
-	public final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 }

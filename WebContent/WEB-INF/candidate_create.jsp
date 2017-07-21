@@ -77,6 +77,19 @@
 				<span class="error">${form.errors['jobFunction']}</span>
 				<br />
 				
+				<label for="answer">Réponse<span class="required">*</span></label>
+				<input type="radio" name="answer" id="negative" value="negative" <c:out value="${candidate.answer == 'negative' ? 'checked' : '' }"/>> Négatif
+				<input type="radio" name="answer" id="negativeSixMonths" value="negativeSixMonths" <c:out value="${candidate.answer == 'negativeSixMonths' ? 'checked' : '' }"/>> Négatif après six mois
+				<input type="radio" name="answer" id="suspendSixMonths" value="suspendSixMonths" <c:out value="${candidate.answer == 'suspendSixMonths' ? 'checked' : '' }"/>> Suspens pour six mois
+				<span class="error">${form.errors['answer']}</span>
+				<br />
+				
+				<label for="folder">Annexe dossier ?<span class="required">*</span></label>
+				<input type="radio" name="folder" id="folderYes" value="yes" <c:out value="${candidate.folder == 'yes' ? 'checked' : '' }"/>> Oui
+				<input type="radio" name="folder" id="folderNo" value="no" <c:out value="${candidate.folder == 'no' ? 'checked' : '' }"/>> Non
+				<span class="error">${form.errors['folder']}</span>
+				<br />
+				
 				<input type="submit" value="Insertion" />
 				<br />
 			</fieldset>

@@ -19,9 +19,9 @@ import beans.User;
 
 public class Letter {
 	private static final String latexPath = "data/latex/";
-	private static final String modelNegative = read(latexPath + "negatif.tex");
-	private static final String modelNegativeSixMonths = read(latexPath + "negatifSixMois.tex");
-	private static final String modelSuspendSixMonths = read(latexPath + "suspensSixMois.tex");
+	public static final String modelNegative = read(latexPath + "negatif.tex");
+	public static final String modelNegativeSixMonths = read(latexPath + "negatifSixMois.tex");
+	public static final String modelSuspendSixMonths = read(latexPath + "suspensSixMois.tex");
 
 	private Candidate candidate;
 	private User user;
@@ -30,18 +30,17 @@ public class Letter {
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		Candidate candidate = new Candidate(null, "M.", "Dupont", "Jean", "jean@mail.com", "Bob", "Rue de Lyon", 
 				"4", "1202", "Genève", "Suisse", LocalDate.now(), LocalDateTime.now(), LocalDateTime.now(), 
-				LocalDateTime.now(), "sl", "infirmier", "Négatif");
+				LocalDateTime.now(), "sl", "infirmier", "negative", "yes");
 		User user = new User(null, "steven", "abc", "Liatti", "Steven", "sl");
-		Letter letter = new Letter(candidate, user);
-		System.out.println("----- parse -----");
-		letter.parse(modelNegative);
-		System.out.println(letter.finalContent);
-		letter.write("data/latex/test.tex");
+		Letter letter = new Letter(candidate, user, modelNegative, "data/latex/test.tex");
+		System.out.println(letter);
 	}
-
-	public Letter(Candidate candidate, User user) throws IllegalArgumentException, IOException {
+	
+	public Letter(Candidate candidate, User user, String model, String filename) throws IllegalArgumentException, IOException {
 		this.candidate = candidate;
 		this.user = user;
+		parse(model);
+		write(filename);
 	}
 
 	private static String read(String filename) {
@@ -92,5 +91,10 @@ public class Letter {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
 		bw.write(finalContent);
 		bw.close();
+	}
+
+	@Override
+	public String toString() {
+		return finalContent;
 	}
 }

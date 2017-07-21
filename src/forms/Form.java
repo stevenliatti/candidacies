@@ -73,8 +73,11 @@ public abstract class Form {
 	}
 
 	protected String getField(HttpServletRequest request, String fieldName) {
+		if (fieldName == null || fieldName.isEmpty()) {
+			return null;
+		}
 		String value = request.getParameter(fieldName);
-		if (value.isEmpty() || value == null) { return null; }
+		if (value == null || value.isEmpty()) { return null; }
 		else { return value.trim(); }
 	}
 

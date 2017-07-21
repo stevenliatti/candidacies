@@ -57,9 +57,10 @@ CREATE TABLE IF NOT EXISTS candidates (
 	insertDate datetime NOT NULL,
 	updateDate datetime NOT NULL,
 	sendDate datetime NOT NULL,
-	writer varchar(5) NOT NULL REFERENCES users(initials),
+	writer varchar(10) NOT NULL REFERENCES users(initials),
 	jobFunction varchar(50) REFERENCES jobs_functions(title),
-	answer varchar(50) NOT NULL REFERENCES answers(name)
+	answer varchar(50) NOT NULL REFERENCES answers(name),
+	folder varchar(3) NOT NULL
 
 	-- CONSTRAINT fk_locality FOREIGN KEY (locality) REFERENCES localities(name)
 )

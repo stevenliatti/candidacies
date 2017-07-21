@@ -24,6 +24,7 @@ public class Candidate implements Bean {
 	private String writer;
 	private String jobFunction;
 	private String answer;
+	private String folder;
 
 	private Map<String, String> map;
 
@@ -32,8 +33,7 @@ public class Candidate implements Bean {
 	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt,
 			String street, String numStreet, String postCode, String locality, String country, LocalDate requestDate,
 			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String writer,
-			String jobFunction, String answer) {
-		super();
+			String jobFunction, String answer, String folder) {
 		this.id = id;
 		this.title = title;
 		this.lastName = lastName;
@@ -52,7 +52,8 @@ public class Candidate implements Bean {
 		this.writer = writer;
 		this.jobFunction = jobFunction;
 		this.answer = answer;
-		
+		this.folder = folder;
+
 		candidateAsMap();
 	}
 
@@ -66,7 +67,7 @@ public class Candidate implements Bean {
 		map.put(formatField(lastNameField), lastName);
 		map.put(formatField(firstNameField), firstName);
 		map.put(formatField(emailField), email);
-		map.put(formatField(livesAtField), livesAt);
+		map.put(formatField(livesAtField), getFullLivesAt());
 		map.put(formatField(streetField), street);
 		map.put(formatField(numStreetField), numStreet);
 		map.put(formatField(postCodeField), postCode);
@@ -75,14 +76,51 @@ public class Candidate implements Bean {
 		map.put(formatField(requestDateField), getRequestDateFormatted());
 		map.put(formatField(sendDateField), getSendDateFormatted());
 		map.put(formatField(jobFunctionField), jobFunction);
+		map.put(formatField(answerField), getFullAnswer());
+		map.put(formatField(folderField), getFullFolder());
+	}
+	
+	private String getFullLivesAt() {
+		if (livesAt == null || livesAt.isEmpty()) {
+			return "";
+		}
+		else {
+			return "Chez " + livesAt;
+		}
 	}
 
 	public String getRequestDateFormatted() {
-		return requestDate == null ? null : requestDate.format(formatter);
+		return requestDate == null ? null : requestDate.format(dateFormatter);
+	}
+
+	public String getSendDateFormatted() {
+		return sendDate == null ? null : sendDate.format(dateFormatter);
+	}
+
+	private String getFullAnswer() {
+		if (answer == null || answer.isEmpty()) {
+			return "";
+		}
+		else if (answer.equals("negative")) {
+			return "Réponse négative";
+		}
+		else if (answer.equals("negativeSixMonths")) {
+			return "Réponse négative après mise en suspens";
+		}
+		else if (answer.equals("suspendSixMonths")) {
+			return "Mise en suspens de votre dossier de candidature";
+		}
+		return "";
 	}
 	
-	public String getSendDateFormatted() {
-		return sendDate == null ? null : sendDate.format(formatter);
+	private String getFullFolder() {
+		if (folder == null || folder.isEmpty()) {
+			return "";
+		}
+		else if (folder.equals("yes")) {
+			return "Annexe : votre dossier";
+		}
+		return "";
 	}
 
 	@Override
@@ -236,6 +274,14 @@ public class Candidate implements Bean {
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	public String getFolder() {
+		return folder;
+	}
+
+	public void setFolder(String folder) {
+		this.folder = folder;
 	}
 
 	public Map<String, String> getMap() {
