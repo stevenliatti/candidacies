@@ -101,13 +101,13 @@ public class Candidate implements Bean {
 		if (answer == null || answer.isEmpty()) {
 			return "";
 		}
-		else if (answer.equals("negative")) {
+		else if (answer.equals(negative)) {
 			return "Réponse négative";
 		}
-		else if (answer.equals("negativeSixMonths")) {
+		else if (answer.equals(negativeSixMonths)) {
 			return "Réponse négative après mise en suspens";
 		}
-		else if (answer.equals("suspendSixMonths")) {
+		else if (answer.equals(suspendSixMonths)) {
 			return "Mise en suspens de votre dossier de candidature";
 		}
 		return "";

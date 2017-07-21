@@ -27,5 +27,9 @@ public interface Bean {
 	public static final String nameField = "name";
 	public static final String contentField = "content";
 	
+	public static final String negative = "negative";
+	public static final String negativeSixMonths = "negativeSixMonths";
+	public static final String suspendSixMonths = "suspendSixMonths";
+	
 	public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 }

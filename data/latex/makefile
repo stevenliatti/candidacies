@@ -1,4 +1,7 @@
-all: test.pdf negatif.pdf negatifSixMois.pdf suspensSixMois.pdf mostlyclean
+all: letters.pdf test.pdf negatif.pdf negatifSixMois.pdf suspensSixMois.pdf mostlyclean
+
+letters.pdf: letters.tex
+	pdflatex letters.tex
 
 test.pdf: test.tex
 	pdflatex test.tex
@@ -16,6 +19,6 @@ mostlyclean:
 	rm -rf *.log *.aux
 
 clean:
-	rm -rf test.* negatif.pdf negatifSixMois.pdf suspensSixMois.pdf *.log *.aux
+	rm -rf letters.* test.* negatif.pdf negatifSixMois.pdf suspensSixMois.pdf *.log *.aux
 
 rebuild: clean all

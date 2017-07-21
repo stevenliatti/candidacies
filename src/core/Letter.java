@@ -19,6 +19,7 @@ import beans.User;
 
 public class Letter {
 	private static final String latexPath = "data/latex/";
+	public static final String modelPreamble = read(latexPath + "preamble.tex");
 	public static final String modelNegative = read(latexPath + "negatif.tex");
 	public static final String modelNegativeSixMonths = read(latexPath + "negatifSixMois.tex");
 	public static final String modelSuspendSixMonths = read(latexPath + "suspensSixMois.tex");
@@ -34,6 +35,12 @@ public class Letter {
 		User user = new User(null, "steven", "abc", "Liatti", "Steven", "sl");
 		Letter letter = new Letter(candidate, user, modelNegative, "data/latex/test.tex");
 		System.out.println(letter);
+	}
+	
+	public Letter(Candidate candidate, User user, String model) throws IllegalArgumentException, IOException {
+		this.candidate = candidate;
+		this.user = user;
+		parse(model);
 	}
 	
 	public Letter(Candidate candidate, User user, String model, String filename) throws IllegalArgumentException, IOException {
