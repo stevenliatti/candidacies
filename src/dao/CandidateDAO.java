@@ -7,8 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import beans.Bean;
 import beans.Candidate;
@@ -17,6 +22,28 @@ public class CandidateDAO extends ObjectDAO {
 	
 	public CandidateDAO(DAOFactory daoFactory) {
 		super(daoFactory);
+	}
+	
+	public List<Candidate> readAll() {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Candidate> list = new ArrayList<>();
+		
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates", false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				list.add(map(resultSet));
+	        }
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+		
+		return list;
 	}
 
 	@Override
@@ -43,16 +70,14 @@ public class CandidateDAO extends ObjectDAO {
 					candidate.getPostCode(),
 					candidate.getLocality(),
 					candidate.getCountry(),
-					candidate.getRequestDate(),
+					candidate.getRequestDateSQLFormatted(),
 					// datetime -> NOW()
-					candidate.getSendDate(),
+					candidate.getSendDateSQLFormatted(),
 					candidate.getWriter(),
 					candidate.getJobFunction(),
 					candidate.getAnswer(),
 					candidate.getFolder()
 			);
-			
-			System.out.println(preparedStatement);
 			
 			int status = preparedStatement.executeUpdate();
 			if (status == 0) {
@@ -105,20 +130,31 @@ public class CandidateDAO extends ObjectDAO {
 		// TODO Auto-generated method stub
 	}
 	
-	/**
-	 * 
-	 * @param r
-	 * @return
-	 * @throws SQLException
-	 */
-	private static Candidate map(ResultSet r) throws SQLException {
-	    return new Candidate(r.getLong("id"), r.getString("title"), r.getString("lastName"), 
+	private static LocalDate parseLocalDate(String str) {
+		if (str == null || str.isEmpty()) {
+			return null;
+		}
+		return LocalDate.parse(str);
+	}
+	
+	private static LocalDateTime parseLocalDateTime(String str, DateTimeFormatter formatter) {
+		if (str == null || str.isEmpty()) {
+			return null;
+		}
+		return LocalDateTime.parse(str, formatter);
+	}
+	
+	private static Candidate map(ResultSet r) throws SQLException {		
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss.S");
+		
+	    return new Candidate(r.getLong(idField), r.getString("title"), r.getString("lastName"), 
 	    		r.getString("firstName"), r.getString("email"), r.getString("livesAt"), 
 	    		r.getString("street"), r.getString("numStreet"), r.getString("postCode"), 
-	    		r.getString("locality"), r.getString("country"), r.getDate("requestDate").toLocalDate(),
-	    		LocalDateTime.ofInstant(r.getDate("insertDate").toInstant(), ZoneId.systemDefault()), 
-	    		LocalDateTime.ofInstant(r.getDate("updateDate").toInstant(), ZoneId.systemDefault()), 
-	    		LocalDateTime.ofInstant(r.getDate("sendDate").toInstant(), ZoneId.systemDefault()),
+	    		r.getString("locality"), r.getString("country"),
+	    		parseLocalDate(r.getString("requestDate")),
+	    		parseLocalDateTime(r.getString("insertDate"), formatter),
+	    		parseLocalDateTime(r.getString("updateDate"), formatter),
+	    		parseLocalDateTime(r.getString("sendDate"), formatter),
 	    		r.getString("writer"), r.getString("jobFunction"),
 	    		r.getString("answer"), r.getString("folder"));
 	}

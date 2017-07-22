@@ -8,6 +8,8 @@
 		<link type="text/css" rel="stylesheet" href="form.css" />
 	</head>
 	<body>
+		<p><a href="<c:url value="/"/>">Retour à l'index</a></p>
+		
 		<form method="post" action="<c:url value="create" />">
 			<fieldset>
 				<legend>Candidat - Insertion</legend>
@@ -64,7 +66,7 @@
 				<br />
 				
 				<label for="requestDate">Date de demande</label>
-				<input type="date" id="requestDate" name="requestDate" value="<c:out value="${empty form.errors ? '' : candidate.getRequestDateFormatted() }"/>" size="20" maxlength="50" />
+				<input type="date" id="requestDate" name="requestDate" value="<c:out value="${empty form.errors ? '' : candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" />
 				<span class="error">${form.errors['requestDate']}</span>
 				<br />
 				

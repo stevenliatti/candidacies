@@ -1,9 +1,10 @@
 package beans;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 public class Candidate implements Bean {
 	private Long id;
@@ -89,12 +90,32 @@ public class Candidate implements Bean {
 		}
 	}
 
-	public String getRequestDateFormatted() {
-		return requestDate == null ? null : requestDate.format(dateFormatter);
+	public final String getRequestDateFormatted() {
+		return requestDate == null ? null : requestDate.toString(dateShowFormatter);
+	}
+	
+	public final String getRequestDateFormFormatted() {
+		return requestDate == null ? null : requestDate.toString(dateFormFormatter);
+	}
+	
+	public final String getRequestDateSQLFormatted() {
+		return requestDate == null ? null : requestDate.toString(sqlDateFormatter);
+	}
+	
+	public final String getInsertDateFormatted() {
+		return sendDate == null ? null : insertDate.toString(dateTimeFormatter);
+	}
+	
+	public final String getUpdateDateFormatted() {
+		return sendDate == null ? null : updateDate.toString(dateTimeFormatter);
 	}
 
-	public String getSendDateFormatted() {
-		return sendDate == null ? null : sendDate.format(dateFormatter);
+	public final String getSendDateFormatted() {
+		return sendDate == null ? null : sendDate.toString(dateShowFormatter);
+	}
+	
+	public final String getSendDateSQLFormatted() {
+		return sendDate == null ? null : sendDate.toString(sqlDateTimeFormatter);
 	}
 
 	private String getFullAnswer() {

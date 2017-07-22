@@ -1,11 +1,24 @@
 package forms;
 
-import static beans.Bean.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import static beans.Bean.answerField;
+import static beans.Bean.countryField;
+import static beans.Bean.emailField;
+import static beans.Bean.firstNameField;
+import static beans.Bean.folderField;
+import static beans.Bean.jobFunctionField;
+import static beans.Bean.lastNameField;
+import static beans.Bean.livesAtField;
+import static beans.Bean.localityField;
+import static beans.Bean.numStreetField;
+import static beans.Bean.postCodeField;
+import static beans.Bean.requestDateField;
+import static beans.Bean.streetField;
+import static beans.Bean.titleField;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import beans.Candidate;
 import dao.DAOException;
@@ -39,7 +52,7 @@ public class CandidateCreateForm extends Form {
 			candidate = new Candidate(null, title, lastName, 
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
 					getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
-					getField(r, countryField), requestDate, now, now, now,
+					getField(r, countryField), requestDate, now, now, null,
 					"bob - form", 
 					getField(r, jobFunctionField), 
 					answer, 

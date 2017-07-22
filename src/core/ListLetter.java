@@ -3,10 +3,11 @@ package core;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import beans.Bean;
 import beans.Candidate;
@@ -15,6 +16,7 @@ import beans.User;
 public class ListLetter implements Bean {
 	private List<Letter> letters;
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		Candidate candidate1 = new Candidate(null, "M.", "Dupont", "Jean", "jean@mail.com", "Bob", "Rue de Lyon", 
 				"4", "1202", "Genève", "Suisse", LocalDate.now(), LocalDateTime.now(), LocalDateTime.now(), 

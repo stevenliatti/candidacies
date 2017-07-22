@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS candidates (
 	requestDate date,
 	insertDate datetime NOT NULL,
 	updateDate datetime NOT NULL,
-	sendDate datetime NOT NULL,
+	sendDate datetime,
 	writer varchar(10) NOT NULL REFERENCES users(initials),
 	jobFunction varchar(50) REFERENCES jobs_functions(title),
 	answer varchar(50) NOT NULL REFERENCES answers(name),
@@ -70,3 +70,33 @@ ENGINE=INNODB;
 INSERT INTO localities (name) VALUES ('Genève'), ('Carouge'), ('Meyrin'), ('Veyrier');
 
 INSERT INTO countries (name) VALUES ('Suisse'), ('France'), ('Allemagne'), ('Belgique');
+
+INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
+	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, writer, 
+	jobFunction, answer, folder) VALUES ("Madame", "Dupont", "Jessica", "max@mail.com", 
+	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
+	NULL, "steven", "infirmier", "negative", "yes");
+
+INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
+	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, writer, 
+	jobFunction, answer, folder) VALUES ("Monsieur", "Dupont", "Jean", "max@mail.com", 
+	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
+	NULL, "steven", "infirmier", "negativeSixMonths", "yes");
+
+INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
+	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, writer, 
+	jobFunction, answer, folder) VALUES ("Mademoiselle", "Dupuis", "Nina", "max@mail.com", 
+	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
+	NULL, "steven", "animateur", "suspendSixMonths", "no");
+
+INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
+	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, writer, 
+	jobFunction, answer, folder) VALUES ("Monsieur", "Dupont", "Fred", "max@mail.com", 
+	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
+	NULL, "steven", "cuisinier", "negative", "yes");
+
+INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
+	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, writer, 
+	jobFunction, answer, folder) VALUES ("Monsieur", "Dupont", "Max", "max@mail.com", 
+	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NULL, NOW(), NOW(), 
+	NULL, "steven", "cuisinier", "negative", "yes");

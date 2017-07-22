@@ -1,8 +1,10 @@
 package beans;
 
-import java.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public interface Bean {
+	public static final String idField = "id";
 	public static final String titleField = "title";
 	public static final String lastNameField = "lastName";
 	public static final String firstNameField = "firstName";
@@ -31,5 +33,9 @@ public interface Bean {
 	public static final String negativeSixMonths = "negativeSixMonths";
 	public static final String suspendSixMonths = "suspendSixMonths";
 	
-	public final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	public final static DateTimeFormatter dateFormFormatter = DateTimeFormat.forPattern("dd.MM.yyyy");
+	public final static DateTimeFormatter dateShowFormatter = DateTimeFormat.forPattern("d MMMM yyyy");
+	public final static DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("d MMMM yyyy à HH:mm:ss");
+	public final static DateTimeFormatter sqlDateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+	public final static DateTimeFormatter sqlDateTimeFormatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 }

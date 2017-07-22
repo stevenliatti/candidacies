@@ -4,23 +4,12 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Test</title>
+	<title>Index</title>
 </head>
 <body>
-	<p>Hello World !!!!</p>
-	<p>
-	<% 
-	String attribut = (String) request.getAttribute("index");
-
-    out.println( attribut );
-
-
-    String parameter = request.getParameter( "author" );
-
-    out.println( parameter );
-	%>
-	</p>
+	<h1>Index</h1>
 	
-	<c:out value="test" />
+	<p><a href="<c:url value="/create"/>">Créer candidat</a></p>
+	<p><a href="<c:url value="/candidates"/>">Tous les candidats</a></p>
 </body>
 </html>

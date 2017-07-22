@@ -1,13 +1,15 @@
 package forms;
 
+import static beans.Bean.emailField;
+import static beans.Bean.requestDateField;
 import static java.lang.Integer.parseInt;
-import static beans.Bean.*;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.joda.time.LocalDate;
 
 import dao.ObjectDAO;
 
@@ -61,7 +63,7 @@ public abstract class Form {
 					throw new Exception("Merci de saisir une date au format suivant : jj.mm.aaaa");
 				}
 				String dateArray[] = dateString.split("\\.");
-				requestDate = LocalDate.of(parseInt(dateArray[2]), parseInt(dateArray[1]), parseInt(dateArray[0]));
+				requestDate = new LocalDate(parseInt(dateArray[2]), parseInt(dateArray[1]), parseInt(dateArray[0]));
 				if (requestDate.isAfter(LocalDate.now())) {
 					throw new Exception("Merci de saisir une date antérieure ou égale à aujourd'hui.");
 				}

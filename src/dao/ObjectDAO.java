@@ -2,7 +2,7 @@ package dao;
 
 import beans.Bean;
 
-public abstract class ObjectDAO {
+public abstract class ObjectDAO implements Bean {
 	protected DAOFactory daoFactory;
 
 	public ObjectDAO(DAOFactory daoFactory) {
