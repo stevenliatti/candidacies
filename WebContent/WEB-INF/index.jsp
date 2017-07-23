@@ -11,5 +11,6 @@
 	
 	<p><a href="<c:url value="/create"/>">Créer candidat</a></p>
 	<p><a href="<c:url value="/candidates"/>">Tous les candidats</a></p>
+	<p><a href="<c:url value="/generate"/>">Générer le pdf</a></p>
 </body>
 </html>

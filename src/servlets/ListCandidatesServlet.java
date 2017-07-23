@@ -24,16 +24,7 @@ public class ListCandidatesServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Candidate> candidates = candidateDAO.readAll();
-//		Map<Long, Candidate> mapCandidates = new HashMap<>();
-//		for (Candidate candidate : candidates) {
-//			mapCandidates.put(candidate.getId(), candidate);
-//		}
 		request.setAttribute("candidates", candidates);
 		this.getServletContext().getRequestDispatcher(view).forward(request, response);
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-	}
-
 }

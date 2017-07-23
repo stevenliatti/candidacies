@@ -47,7 +47,7 @@
 			<td><c:out value="${candidate.getRequestDateFormatted()}"></c:out></td>
 			<td><c:out value="${candidate.getInsertDateFormatted()}"></c:out></td>
 			<td><c:out value="${candidate.getUpdateDateFormatted()}"></c:out></td>
-			<td><c:out value="${candidate.getSendDateFormatted()}"></c:out></td>
+			<td><c:out value="${candidate.getSendDateShowFormatted()}"></c:out></td>
 			<td><c:out value="${candidate.writer}"></c:out></td>
 			<td><c:out value="${candidate.jobFunction}"></c:out></td>
 			<td><c:out value="${candidate.answer}"></c:out></td>

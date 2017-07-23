@@ -67,6 +67,30 @@
     <servlet-name>ListCandidatesServlet</servlet-name>
     <url-pattern>/candidates</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>GeneratePDFServlet</servlet-name>
+    <servlet-class>servlets.GeneratePDFServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GeneratePDFServlet</servlet-name>
+    <url-pattern>/generate</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Download</servlet-name>
+    <servlet-class>servlets.Download</servlet-class>
+    <init-param>
+        <param-name>path</param-name> 
+        <param-value>/home/stevenliatti/Bureau/Candidacies</param-value> 
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Download</servlet-name>
+    <url-pattern>/download/*</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>config.InitDAOFactory</listener-class>
   </listener>

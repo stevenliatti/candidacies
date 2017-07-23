@@ -68,53 +68,61 @@ public class Candidate implements Bean {
 		map.put(formatField(lastNameField), lastName);
 		map.put(formatField(firstNameField), firstName);
 		map.put(formatField(emailField), email);
-		map.put(formatField(livesAtField), getFullLivesAt());
+		map.put(formatField(livesAtField), getFullLivesAtLatex());
 		map.put(formatField(streetField), street);
 		map.put(formatField(numStreetField), numStreet);
 		map.put(formatField(postCodeField), postCode);
 		map.put(formatField(localityField), locality);
 		map.put(formatField(countryField), country);
-		map.put(formatField(requestDateField), getRequestDateFormatted());
-		map.put(formatField(sendDateField), getSendDateFormatted());
+		map.put(formatField(requestDateField), getRequestDateLatexFormatted());
+		map.put(formatField(sendDateField), getSendDateLatexFormatted());
 		map.put(formatField(jobFunctionField), jobFunction);
 		map.put(formatField(answerField), getFullAnswer());
 		map.put(formatField(folderField), getFullFolder());
 	}
 	
-	private String getFullLivesAt() {
+	private String getFullLivesAtLatex() {
 		if (livesAt == null || livesAt.isEmpty()) {
-			return "";
+			return null;
 		}
 		else {
-			return "Chez " + livesAt;
+			return "Chez " + livesAt + " \\\\\\\\";
 		}
 	}
 
-	public final String getRequestDateFormatted() {
+	public String getRequestDateFormatted() {
 		return requestDate == null ? null : requestDate.toString(dateShowFormatter);
 	}
 	
-	public final String getRequestDateFormFormatted() {
+	public String getRequestDateLatexFormatted() {
+		return requestDate == null ? null : "du " + requestDate.toString(dateShowFormatter);
+	}
+	
+	public String getRequestDateFormFormatted() {
 		return requestDate == null ? null : requestDate.toString(dateFormFormatter);
 	}
 	
-	public final String getRequestDateSQLFormatted() {
+	public String getRequestDateSQLFormatted() {
 		return requestDate == null ? null : requestDate.toString(sqlDateFormatter);
 	}
 	
-	public final String getInsertDateFormatted() {
-		return sendDate == null ? null : insertDate.toString(dateTimeFormatter);
+	public String getInsertDateFormatted() {
+		return insertDate == null ? null : insertDate.toString(dateTimeFormatter);
 	}
 	
-	public final String getUpdateDateFormatted() {
-		return sendDate == null ? null : updateDate.toString(dateTimeFormatter);
+	public String getUpdateDateFormatted() {
+		return updateDate == null ? null : updateDate.toString(dateTimeFormatter);
 	}
 
-	public final String getSendDateFormatted() {
+	public String getSendDateLatexFormatted() {
 		return sendDate == null ? null : sendDate.toString(dateShowFormatter);
 	}
 	
-	public final String getSendDateSQLFormatted() {
+	public String getSendDateShowFormatted() {
+		return sendDate == null ? null : sendDate.toString(dateTimeFormatter);
+	}
+	
+	public String getSendDateSQLFormatted() {
 		return sendDate == null ? null : sendDate.toString(sqlDateTimeFormatter);
 	}
 
@@ -271,6 +279,7 @@ public class Candidate implements Bean {
 
 	public void setSendDate(LocalDateTime sendDate) {
 		this.sendDate = sendDate;
+		candidateAsMap();
 	}
 
 	public String getWriter() {

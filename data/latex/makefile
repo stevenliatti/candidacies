@@ -1,4 +1,4 @@
-all: letters.pdf test.pdf negatif.pdf negatifSixMois.pdf suspensSixMois.pdf mostlyclean
+all: letters.pdf mostlyclean
 
 letters.pdf: letters.tex
 	pdflatex letters.tex
