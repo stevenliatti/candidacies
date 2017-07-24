@@ -27,7 +27,7 @@
 			<th>Date d'insertion</th>
 			<th>Date de modification</th>
 			<th>Date d'envoi</th>
-			<th>Auteur</th>
+			<th>Initiales Auteur</th>
 			<th>Job Fonction</th>
 			<th>Réponse</th>
 		</tr>
@@ -48,9 +48,9 @@
 			<td><c:out value="${candidate.getInsertDateFormatted()}"></c:out></td>
 			<td><c:out value="${candidate.getUpdateDateFormatted()}"></c:out></td>
 			<td><c:out value="${candidate.getSendDateShowFormatted()}"></c:out></td>
-			<td><c:out value="${candidate.writer}"></c:out></td>
+			<td><c:out value="${candidate.initials}"></c:out></td>
 			<td><c:out value="${candidate.jobFunction}"></c:out></td>
-			<td><c:out value="${candidate.answer}"></c:out></td>
+			<td><c:out value="${candidate.getFullAnswer()}"></c:out></td>
 		</tr>
 		</c:forEach>
 	</table>

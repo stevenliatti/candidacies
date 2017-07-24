@@ -57,10 +57,6 @@ public class DAOFactory {
 		return DriverManager.getConnection(url, username, password);
 	}
 	
-	public UserDAO getUserDao() {
-        return new UserDAO(this);
-    }
-	
 	public CandidateDAO getCandidateDao() {
         return new CandidateDAO(this);
     }

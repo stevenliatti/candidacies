@@ -110,7 +110,7 @@ public class CandidateDAO extends ObjectDAO {
 			preparedStatement = initPreparedStatement(connection, 
 					"INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, "
 					+ "postCode, locality, country, requestDate, insertDate, updateDate, sendDate, "
-					+ "writer, jobFunction, answer, folder) "
+					+ "initials, jobFunction, answer, folder) "
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?)", true, 
 					candidate.getTitle(), 
 					candidate.getLastName(), 
@@ -125,7 +125,7 @@ public class CandidateDAO extends ObjectDAO {
 					candidate.getRequestDateSQLFormatted(),
 					// datetime -> NOW()
 					candidate.getSendDateSQLFormatted(),
-					candidate.getWriter(),
+					candidate.getInitials(),
 					candidate.getJobFunction(),
 					candidate.getAnswer(),
 					candidate.getFolder()
@@ -184,7 +184,7 @@ public class CandidateDAO extends ObjectDAO {
 			preparedStatement = initPreparedStatement(connection, 
 					"UPDATE candidates SET title=?, lastName=?, firstName=?, email=?, livesAt=?, street=?, numStreet=?, "
 					+ "postCode=?, locality=?, country=?, requestDate=?, updateDate=NOW(), "
-					+ "writer=?, jobFunction=?, answer=?, folder=? "
+					+ "initials=?, jobFunction=?, answer=?, folder=? "
 					+ "WHERE id=?", true, 
 					candidate.getTitle(), 
 					candidate.getLastName(), 
@@ -197,7 +197,7 @@ public class CandidateDAO extends ObjectDAO {
 					candidate.getLocality(),
 					candidate.getCountry(),
 					candidate.getRequestDateSQLFormatted(),
-					candidate.getWriter(),
+					candidate.getInitials(),
 					candidate.getJobFunction(),
 					candidate.getAnswer(),
 					candidate.getFolder(),
@@ -252,7 +252,7 @@ public class CandidateDAO extends ObjectDAO {
 	    		parseLocalDateTime(r.getString("insertDate"), formatter),
 	    		parseLocalDateTime(r.getString("updateDate"), formatter),
 	    		parseLocalDateTime(r.getString("sendDate"), formatter),
-	    		r.getString("writer"), r.getString("jobFunction"),
+	    		r.getString("initials"), r.getString("jobFunction"),
 	    		r.getString("answer"), r.getString("folder"));
 	}
 }

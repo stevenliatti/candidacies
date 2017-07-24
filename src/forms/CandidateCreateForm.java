@@ -5,6 +5,7 @@ import static beans.Bean.countryField;
 import static beans.Bean.emailField;
 import static beans.Bean.firstNameField;
 import static beans.Bean.folderField;
+import static beans.Bean.initialsField;
 import static beans.Bean.jobFunctionField;
 import static beans.Bean.lastNameField;
 import static beans.Bean.livesAtField;
@@ -53,7 +54,7 @@ public class CandidateCreateForm extends Form {
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
 					getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
 					getField(r, countryField), requestDate, now, now, null,
-					"bob - form", 
+					getField(r, initialsField), 
 					getField(r, jobFunctionField), 
 					answer, 
 					folder
@@ -98,7 +99,7 @@ public class CandidateCreateForm extends Form {
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
 					getField(r, numStreetField), getField(r, postCodeField), getField(r, localityField),
 					getField(r, countryField), requestDate, candidate.getInsertDate(), now, candidate.getSendDate(),
-					"bob - form", getField(r, jobFunctionField), 
+					getField(r, initialsField), getField(r, jobFunctionField), 
 					answer, 
 					folder
 					);

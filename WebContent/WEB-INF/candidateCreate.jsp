@@ -70,6 +70,11 @@
 				<span class="error">${form.errors['requestDate']}</span>
 				<br />
 				
+				<label for="initials">Initiales auteur</label>
+				<input type="text" id="initials" name="initials" value="<c:out value="${empty form.errors ? '' : candidate.initials }"/>" size="10" maxlength="10" />
+				<span class="error">${form.errors['initials']}</span>
+				<br />
+				
 				<label for="jobFunction">Fonction<span class="required">*</span></label>
 				<select id="jobFunction" name="jobFunction">
 					<option value="infirmier">infirmier</option>

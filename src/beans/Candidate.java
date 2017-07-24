@@ -22,7 +22,7 @@ public class Candidate implements Bean {
 	private LocalDateTime insertDate;
 	private LocalDateTime updateDate;
 	private LocalDateTime sendDate;
-	private String writer;
+	private String initials;
 	private String jobFunction;
 	private String answer;
 	private String folder;
@@ -33,7 +33,7 @@ public class Candidate implements Bean {
 
 	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt,
 			String street, String numStreet, String postCode, String locality, String country, LocalDate requestDate,
-			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String writer,
+			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String initials,
 			String jobFunction, String answer, String folder) {
 		this.id = id;
 		this.title = title;
@@ -50,7 +50,7 @@ public class Candidate implements Bean {
 		this.insertDate = insertDate;
 		this.updateDate = updateDate;
 		this.sendDate = sendDate;
-		this.writer = writer;
+		this.initials = initials;
 		this.jobFunction = jobFunction;
 		this.answer = answer;
 		this.folder = folder;
@@ -76,6 +76,7 @@ public class Candidate implements Bean {
 		map.put(formatField(countryField), country);
 		map.put(formatField(requestDateField), getRequestDateLatexFormatted());
 		map.put(formatField(sendDateField), getSendDateLatexFormatted());
+		map.put(formatField(initialsField), initials);
 		map.put(formatField(jobFunctionField), jobFunction);
 		map.put(formatField(answerField), getFullAnswer());
 		map.put(formatField(folderField), getFullFolder());
@@ -126,7 +127,7 @@ public class Candidate implements Bean {
 		return sendDate == null ? null : sendDate.toString(sqlDateTimeFormatter);
 	}
 
-	private String getFullAnswer() {
+	public String getFullAnswer() {
 		if (answer == null || answer.isEmpty()) {
 			return "";
 		}
@@ -158,7 +159,7 @@ public class Candidate implements Bean {
 				+ ", email=" + email + ", livesAt=" + livesAt + ", street=" + street + ", numStreet=" + numStreet
 				+ ", postCode=" + postCode + ", locality=" + locality + ", country=" + country + ", requestDate="
 				+ requestDate + ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", sendDate=" + sendDate
-				+ ", writer=" + writer + ", jobFunction=" + jobFunction + ", answer=" + answer + ", map=" + map + "]";
+				+ ", writer=" + initials + ", jobFunction=" + jobFunction + ", answer=" + answer + ", map=" + map + "]";
 	}
 
 	public Long getId() {
@@ -282,12 +283,12 @@ public class Candidate implements Bean {
 		candidateAsMap();
 	}
 
-	public String getWriter() {
-		return writer;
+	public String getInitials() {
+		return initials;
 	}
 
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setInitials(String initials) {
+		this.initials = initials;
 	}
 
 	public String getJobFunction() {

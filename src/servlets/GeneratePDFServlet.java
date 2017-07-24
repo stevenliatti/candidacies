@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.Candidate;
-import beans.User;
 import core.ListLetter;
 import core.Paths;
 import dao.CandidateDAO;
@@ -39,10 +38,9 @@ public class GeneratePDFServlet extends HttpServlet {
 		}
 		
 		candidates = candidateDAO.applySendDate(candidates);
-		User user = new User(null, "steven", "abc", "Liatti", "Steven", "sl");
 		String pathAndFile = outputPath + "/" + generatedFileName + ".tex";
 		
-		ListLetter lt = new ListLetter(candidates, user, pathAndFile);
+		ListLetter lt = new ListLetter(candidates, pathAndFile);
 		
 		try {
 			Process p = Runtime.getRuntime().exec("pdflatex -output-directory " + outputPath + " " + pathAndFile);
