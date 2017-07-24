@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import beans.Candidate;
 import beans.User;
@@ -30,6 +31,13 @@ public class GeneratePDFServlet extends HttpServlet {
 	@SuppressWarnings({ "unused", "resource" })
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Candidate> candidates = candidateDAO.candidatesOfDay();
+		if (candidates == null || candidates.isEmpty()) {
+			HttpSession session = request.getSession();
+			session.setAttribute("message", "Pas de candidats inscrits aujourd'hui");
+			response.sendRedirect(request.getContextPath());
+			return;
+		}
+		
 		candidates = candidateDAO.applySendDate(candidates);
 		User user = new User(null, "steven", "abc", "Liatti", "Steven", "sl");
 		String pathAndFile = outputPath + "/" + generatedFileName + ".tex";
