@@ -65,22 +65,18 @@
 				<span class="error">${form.errors['country']}</span>
 				<br />
 				
-				<label for="requestDate">Date de demande</label>
+				<label for="requestDate">Date de demande (format jj.mm.aaaa)</label>
 				<input type="date" id="requestDate" name="requestDate" value="<c:out value="${empty form.errors ? '' : candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" />
 				<span class="error">${form.errors['requestDate']}</span>
 				<br />
 				
-				<label for="initials">Initiales auteur</label>
-				<input type="text" id="initials" name="initials" value="<c:out value="${empty form.errors ? '' : candidate.initials }"/>" size="10" maxlength="10" />
+				<label for="initials">Initiales auteur<span class="required">*</span></label>
+				<input type="text" id="initials" name="initials" value="<c:out value="${empty form.errors ? '' : candidate.initials }"/>" size="10" maxlength="10" required />
 				<span class="error">${form.errors['initials']}</span>
 				<br />
 				
-				<label for="jobFunction">Fonction<span class="required">*</span></label>
-				<select id="jobFunction" name="jobFunction">
-					<option value="infirmier">infirmier</option>
-					<option value="animateur">animateur</option>
-					<option value="cuisinier">cuisinier</option>
-				</select>
+				<label for="jobFunction">Job<span class="required">*</span></label>
+				<input type="text" id="jobFunction" name="jobFunction" value="<c:out value="${empty form.errors ? '' : candidate.jobFunction }"/>" size="20" maxlength="50" required />
 				<span class="error">${form.errors['jobFunction']}</span>
 				<br />
 				
@@ -99,6 +95,7 @@
 				
 				<input type="submit" value="Insertion" />
 				<br />
+				<p class="info">Les champs marqués d'un * sont obligatoires.</p>
 			</fieldset>
 		</form>
 		<p class="${empty form.errors ? 'success' : 'error'}">${form.result}</p>

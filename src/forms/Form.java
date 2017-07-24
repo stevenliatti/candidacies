@@ -46,13 +46,22 @@ public abstract class Form {
 				if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)"))
 					throw new Exception("Merci de saisir une adresse mail valide.");
 			} 
-			//			else {
-			//				throw new Exception("Merci de saisir une adresse mail.");
-			//			}
 		} catch (Exception e) {
 			setError(emailField, e.getMessage());
 		}
 		return email;
+	}
+	
+	protected String validatePositiveNumber(String str, String field) throws Exception {
+		int number = Integer.parseInt(str);
+		try {
+			if (number < 0) {
+				throw new Exception("Merci d'indiquer un nombre positif");
+			}
+		} catch (Exception e) {
+			setError(field, e.getMessage());
+		}
+		return str;
 	}
 
 	protected LocalDate validateRequestDate(String dateString) throws Exception {
