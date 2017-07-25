@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS candidates (
 	initials varchar(10) NOT NULL,
 	jobFunction varchar(50) REFERENCES jobs_functions(title),
 	answer varchar(50) NOT NULL REFERENCES answers(name),
-	folder varchar(3) NOT NULL
+	folder varchar(3) NOT NULL,
+	sendType varchar(10) NOT NULL
 )
 
 ENGINE=INNODB;
@@ -57,30 +58,30 @@ INSERT INTO countries (name) VALUES ('Suisse'), ('France'), ('Allemagne'), ('Bel
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
-	jobFunction, answer, folder) VALUES ("Madame", "Dupont", "Jessica", "max@mail.com", 
+	jobFunction, answer, folder, sendType) VALUES ("Madame", "Dupont", "Jessica", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "infirmier", "negative", "yes");
+	NULL, "sl", "infirmier", "negative", "yes", "paper");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
-	jobFunction, answer, folder) VALUES ("Monsieur", "Dupont", "Jean", "max@mail.com", 
+	jobFunction, answer, folder, sendType) VALUES ("Monsieur", "Dupont", "Jean", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "infirmier", "negativeSixMonths", "yes");
+	NULL, "sl", "infirmier", "negativeSixMonths", "yes", "paper");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
-	jobFunction, answer, folder) VALUES ("Mademoiselle", "Dupuis", "Nina", "max@mail.com", 
+	jobFunction, answer, folder, sendType) VALUES ("Mademoiselle", "Dupuis", "Nina", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "animateur", "suspendSixMonths", "no");
+	NULL, "sl", "animateur", "suspendSixMonths", "no", "paper");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
-	jobFunction, answer, folder) VALUES ("Monsieur", "Dupont", "Fred", "max@mail.com", 
+	jobFunction, answer, folder, sendType) VALUES ("Monsieur", "Dupont", "Fred", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "cuisinier", "negative", "yes");
+	NULL, "sl", "cuisinier", "negative", "yes", "paper");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
-	jobFunction, answer, folder) VALUES ("Monsieur", "Dupont", "Max", "max@mail.com", 
+	jobFunction, answer, folder, sendType) VALUES ("Monsieur", "Dupont", "Max", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NULL, NOW(), NOW(), 
-	NULL, "sl", "cuisinier", "negative", "yes");
+	NULL, "sl", "cuisinier", "negative", "yes", "paper");

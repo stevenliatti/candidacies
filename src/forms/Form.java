@@ -1,7 +1,12 @@
 package forms;
 
+import static beans.Bean.countryField;
 import static beans.Bean.emailField;
+import static beans.Bean.localityField;
+import static beans.Bean.numStreetField;
+import static beans.Bean.postCodeField;
 import static beans.Bean.requestDateField;
+import static beans.Bean.streetField;
 import static java.lang.Integer.parseInt;
 
 import java.util.HashMap;
@@ -11,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.LocalDate;
 
+import beans.Bean;
 import dao.ObjectDAO;
 
 public abstract class Form {
@@ -29,7 +35,7 @@ public abstract class Form {
 	public Map<String, String> getErrors() {
 		return errors;
 	}
-	
+
 	protected String validateString(String name, String field, String message) throws Exception {
 		try {
 			if (name == null || name.isEmpty())
@@ -51,12 +57,28 @@ public abstract class Form {
 		}
 		return email;
 	}
-	
-	protected String validatePositiveNumber(String str, String field) throws Exception {
-		int number = Integer.parseInt(str);
+
+	protected String validatePositiveNumber(String str, String field, String message) throws Exception {
 		try {
-			if (number < 0) {
-				throw new Exception("Merci d'indiquer un nombre positif");
+			if (str == null || str.isEmpty()) {
+				throw new Exception(message);
+			}
+			else {
+				return validatePositiveNumber(str, field);
+			}
+		} catch (Exception e) {
+			setError(field, message);
+		}
+		return str;
+	}
+
+	protected String validatePositiveNumber(String str, String field) throws Exception {
+		try {
+			if (str != null) {
+				int number = Integer.parseInt(str);
+				if (number < 0) {
+					throw new Exception("Merci d'indiquer un nombre positif");
+				}
 			}
 		} catch (Exception e) {
 			setError(field, e.getMessage());
@@ -81,6 +103,33 @@ public abstract class Form {
 			setError(requestDateField, e.getMessage());
 		}
 		return requestDate;
+	}
+
+	protected String validateSendType(String email, String street, String numStreet, String postCode, 
+			String locality, String country, String sendType) throws Exception {
+		try {
+			if (sendType.equals("email")) {
+				if (email == null || email.isEmpty()) {
+					throw new Exception("Pour envoyer un mail, il faut renseigner une adresse valide.");
+				}
+				validateEmail(email);
+			}
+			else if (sendType.equals("paper")) {
+				validateString(street, streetField, "Manque la rue.");
+				validateString(numStreet, numStreetField, "Manque le numéro de rue.");
+				validatePositiveNumber(postCode, postCodeField, "Manque le numéro postal.");
+				validateString(locality, localityField, "Manque la localité");
+				validateString(country, countryField, "Manque le pays.");
+			}
+			else {
+				throw new NullPointerException("Merci de renseigner un type d'envoi");
+			}
+		} catch (NullPointerException e) {
+			setError(Bean.sendTypeField, e.getMessage());
+		} catch (Exception e) {
+			setError(Bean.sendTypeField, e.getMessage());
+		}
+		return sendType;
 	}
 
 	protected String getField(HttpServletRequest request, String fieldName) {

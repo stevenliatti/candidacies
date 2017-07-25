@@ -16,11 +16,14 @@ public interface Bean {
 	public static final String localityField = "locality";
 	public static final String countryField = "country";
 	public static final String requestDateField = "requestDate";
+	public static final String insertDateField = "insertDate";
+	public static final String updateDateField = "updateDate";
 	public static final String sendDateField = "sendDate";
 	public static final String jobTypeField = "jobType";
 	public static final String jobFunctionField = "jobFunction";
 	public static final String answerField = "answer";
 	public static final String folderField = "folder";
+	public static final String sendTypeField = "sendType";
 	
 	public static final String userNameField = "userName";
 	public static final String passwordField = "password";

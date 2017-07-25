@@ -60,7 +60,7 @@ public class DAOFactory {
             config.setMaxConnectionsPerPartition(10);
             config.setPartitionCount(2);
 
-            connectionPool = new BoneCP( config );
+            connectionPool = new BoneCP(config);
 		} catch (SQLException e) {
 			e.printStackTrace();
             throw new DAOConfigurationException("Error configuration connections' pool.", e);

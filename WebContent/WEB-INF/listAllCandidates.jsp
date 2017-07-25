@@ -30,6 +30,7 @@
 			<th>Initiales Auteur</th>
 			<th>Job Fonction</th>
 			<th>Réponse</th>
+			<th>Envoyé par</th>
 		</tr>
 		<c:forEach items="${candidates}" var="candidate">
 		<tr>
@@ -51,6 +52,7 @@
 			<td><c:out value="${candidate.initials}"></c:out></td>
 			<td><c:out value="${candidate.jobFunction}"></c:out></td>
 			<td><c:out value="${candidate.getFullAnswer()}"></c:out></td>
+			<td><c:out value="${candidate.sendType}"></c:out></td>
 		</tr>
 		</c:forEach>
 	</table>

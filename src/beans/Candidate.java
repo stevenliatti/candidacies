@@ -26,6 +26,7 @@ public class Candidate implements Bean {
 	private String jobFunction;
 	private String answer;
 	private String folder;
+	private String sendType;
 
 	private Map<String, String> map;
 
@@ -34,7 +35,7 @@ public class Candidate implements Bean {
 	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt,
 			String street, String numStreet, String postCode, String locality, String country, LocalDate requestDate,
 			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String initials,
-			String jobFunction, String answer, String folder) {
+			String jobFunction, String answer, String folder, String sendType) {
 		this.id = id;
 		this.title = title;
 		this.lastName = lastName;
@@ -54,6 +55,7 @@ public class Candidate implements Bean {
 		this.jobFunction = jobFunction;
 		this.answer = answer;
 		this.folder = folder;
+		this.sendType = sendType;
 
 		candidateAsMap();
 	}
@@ -71,7 +73,7 @@ public class Candidate implements Bean {
 		map.put(formatField(livesAtField), getFullLivesAtLatex());
 		map.put(formatField(streetField), street);
 		map.put(formatField(numStreetField), numStreet);
-		map.put(formatField(postCodeField), postCode);
+		map.put(formatField(postCodeField), getFullPostCode());
 		map.put(formatField(localityField), locality);
 		map.put(formatField(countryField), country);
 		map.put(formatField(requestDateField), getRequestDateLatexFormatted());
@@ -81,7 +83,7 @@ public class Candidate implements Bean {
 		map.put(formatField(answerField), getFullAnswer());
 		map.put(formatField(folderField), getFullFolder());
 	}
-	
+
 	private String getFullLivesAtLatex() {
 		if (livesAt == null || livesAt.isEmpty()) {
 			return null;
@@ -91,26 +93,36 @@ public class Candidate implements Bean {
 		}
 	}
 
+	private String getFullPostCode() {
+		if (postCode == null || postCode.isEmpty()) {
+			return null;
+		}
+		else if (country != null && !country.isEmpty() && !country.equalsIgnoreCase("suisse")) {
+			return country.charAt(0) + "-" + postCode;
+		}
+		return postCode;
+	}
+
 	public String getRequestDateFormatted() {
 		return requestDate == null ? null : requestDate.toString(dateShowFormatter);
 	}
-	
+
 	public String getRequestDateLatexFormatted() {
 		return requestDate == null ? null : "du " + requestDate.toString(dateShowFormatter);
 	}
-	
+
 	public String getRequestDateFormFormatted() {
 		return requestDate == null ? null : requestDate.toString(dateFormFormatter);
 	}
-	
+
 	public String getRequestDateSQLFormatted() {
 		return requestDate == null ? null : requestDate.toString(sqlDateFormatter);
 	}
-	
+
 	public String getInsertDateFormatted() {
 		return insertDate == null ? null : insertDate.toString(dateTimeFormatter);
 	}
-	
+
 	public String getUpdateDateFormatted() {
 		return updateDate == null ? null : updateDate.toString(dateTimeFormatter);
 	}
@@ -118,11 +130,11 @@ public class Candidate implements Bean {
 	public String getSendDateLatexFormatted() {
 		return sendDate == null ? null : sendDate.toString(dateShowFormatter);
 	}
-	
+
 	public String getSendDateShowFormatted() {
 		return sendDate == null ? null : sendDate.toString(dateTimeFormatter);
 	}
-	
+
 	public String getSendDateSQLFormatted() {
 		return sendDate == null ? null : sendDate.toString(sqlDateTimeFormatter);
 	}
@@ -142,7 +154,7 @@ public class Candidate implements Bean {
 		}
 		return "";
 	}
-	
+
 	private String getFullFolder() {
 		if (folder == null || folder.isEmpty()) {
 			return "";
@@ -313,6 +325,14 @@ public class Candidate implements Bean {
 
 	public void setFolder(String folder) {
 		this.folder = folder;
+	}
+
+	public String getSendType() {
+		return sendType;
+	}
+
+	public void setSendType(String sendType) {
+		this.sendType = sendType;
 	}
 
 	public Map<String, String> getMap() {

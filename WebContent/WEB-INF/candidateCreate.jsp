@@ -15,7 +15,7 @@
 				<legend>Candidat - Insertion</legend>
 				
 				<label for="title">Titre<span class="required">*</span></label>
-				<input type="radio" name="title" id="title_mme" value="Madame" <c:out value="${candidate.title == 'Madame' ? 'checked' : '' }"/>> Madame
+				<input type="radio" name="title" id="title_mme" value="Madame" <c:out value="${candidate.title == 'Madame' ? 'checked' : '' }"/> required > Madame
 				<input type="radio" name="title" id="title_m" value="Monsieur" <c:out value="${candidate.title == 'Monsieur' ? 'checked' : '' }"/>> Monsieur
 				<input type="radio" name="title" id="title_mlle" value="Mademoiselle" <c:out value="${candidate.title == 'Mademoiselle' ? 'checked' : '' }"/>> Mademoiselle
 				<span class="error">${form.errors['title']}</span>
@@ -46,11 +46,11 @@
 				<span class="error">${form.errors['street']}</span>
 				
 				<label for="numStreet">Numéro Rue</label>
-				<input type="number" id="numStreet" name="numStreet" value="<c:out value="${empty form.errors ? '' : candidate.numStreet }"/>" size="5" maxlength="10" />
+				<input type="text" id="numStreet" name="numStreet" value="<c:out value="${empty form.errors ? '' : candidate.numStreet }"/>" size="5" maxlength="10" />
 				<span class="error">${form.errors['numStreet']}</span>
 				<br />
 				
-				<label for="postCode">NPA</label>
+				<label for="postCode">Code postal (chiffres uniquement)</label>
 				<input type="number" id="postCode" name="postCode" value="<c:out value="${empty form.errors ? '' : candidate.postCode }"/>" size="5" maxlength="10" />
 				<span class="error">${form.errors['postCode']}</span>
 				<br />
@@ -81,16 +81,22 @@
 				<br />
 				
 				<label for="answer">Réponse<span class="required">*</span></label>
-				<input type="radio" name="answer" id="negative" value="negative" <c:out value="${candidate.answer == 'negative' ? 'checked' : '' }"/>> Négatif
+				<input type="radio" name="answer" id="negative" value="negative" <c:out value="${candidate.answer == 'negative' ? 'checked' : '' }"/> required > Négatif
 				<input type="radio" name="answer" id="negativeSixMonths" value="negativeSixMonths" <c:out value="${candidate.answer == 'negativeSixMonths' ? 'checked' : '' }"/>> Négatif après six mois
 				<input type="radio" name="answer" id="suspendSixMonths" value="suspendSixMonths" <c:out value="${candidate.answer == 'suspendSixMonths' ? 'checked' : '' }"/>> Suspens pour six mois
 				<span class="error">${form.errors['answer']}</span>
 				<br />
 				
 				<label for="folder">Annexe dossier ?<span class="required">*</span></label>
-				<input type="radio" name="folder" id="folderYes" value="yes" <c:out value="${candidate.folder == 'yes' ? 'checked' : '' }"/>> Oui
+				<input type="radio" name="folder" id="folderYes" value="yes" <c:out value="${candidate.folder == 'yes' ? 'checked' : '' }"/> required > Oui
 				<input type="radio" name="folder" id="folderNo" value="no" <c:out value="${candidate.folder == 'no' ? 'checked' : '' }"/>> Non
 				<span class="error">${form.errors['folder']}</span>
+				<br />
+				
+				<label for="sendType">Type d'envoi<span class="required">*</span></label>
+				<input type="radio" name="sendType" id="sendTypePaper" value="paper" <c:out value="${candidate.sendType == 'paper' ? 'checked' : '' }"/> required > Papier (pdf)
+				<input type="radio" name="sendType" id="sendTypeEmail" value="email" <c:out value="${candidate.sendType == 'email' ? 'checked' : '' }"/>> Email
+				<span class="error">${form.errors['sendType']}</span>
 				<br />
 				
 				<input type="submit" value="Insertion" />

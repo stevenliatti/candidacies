@@ -13,6 +13,7 @@ import static beans.Bean.localityField;
 import static beans.Bean.numStreetField;
 import static beans.Bean.postCodeField;
 import static beans.Bean.requestDateField;
+import static beans.Bean.sendTypeField;
 import static beans.Bean.streetField;
 import static beans.Bean.titleField;
 
@@ -36,32 +37,34 @@ public class CandidateCreateForm extends Form {
 		String lastName = getField(r, lastNameField);
 		String firstName = getField(r, firstNameField);
 		String email = getField(r, emailField);
-		String numStreet = getField(r, numStreetField);
 		String postCode = getField(r, postCodeField);
 		LocalDate requestDate = null;
 		String answer = getField(r, answerField);
 		String folder = getField(r, folderField);
+		String sendType = getField(r, sendTypeField);
 		Candidate candidate = null;
 		try {
 			title = validateString(title, titleField, "Merci de sélectionner un titre");
 			lastName = validateString(lastName, lastNameField, "Merci de saisir un nom de famille.");
 			firstName = validateString(firstName, firstNameField, "Merci de saisir un prénom.");
 			email = validateEmail(email);
-			numStreet = validatePositiveNumber(numStreet, numStreetField);
 			postCode = validatePositiveNumber(postCode, postCodeField);
 			requestDate = validateRequestDate(getField(r, requestDateField));
 			answer = validateString(answer, answerField, "Merci de choisir une réponse");
 			folder = validateString(folder, folderField, "Merci d'indiquer annexe dossier");
+			sendType = validateSendType(email, getField(r, streetField), getField(r, numStreetField), postCode, getField(r, localityField), 
+					getField(r, countryField), sendType);
 			LocalDateTime now = LocalDateTime.now();
 
 			candidate = new Candidate(null, title, lastName, 
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
-					postCode, postCode, getField(r, localityField),
+					getField(r, numStreetField), postCode, getField(r, localityField),
 					getField(r, countryField), requestDate, now, now, null,
 					getField(r, initialsField), 
 					getField(r, jobFunctionField), 
 					answer, 
-					folder
+					folder,
+					sendType
 					);
 
 			if (errors.isEmpty()) {
@@ -86,30 +89,32 @@ public class CandidateCreateForm extends Form {
 		String lastName = getField(r, lastNameField);
 		String firstName = getField(r, firstNameField);
 		String email = getField(r, emailField);
-		String numStreet = getField(r, numStreetField);
 		String postCode = getField(r, postCodeField);
 		LocalDate requestDate = null;
 		String answer = getField(r, answerField);
 		String folder = getField(r, folderField);
+		String sendType = getField(r, sendTypeField);
 		try {
 			title = validateString(title, titleField, "Merci de sélectionner un titre");
 			lastName = validateString(lastName, lastNameField, "Merci de saisir un nom de famille.");
 			firstName = validateString(firstName, firstNameField, "Merci de saisir un prénom.");
 			email = validateEmail(email);
-			numStreet = validatePositiveNumber(numStreet, numStreetField);
 			postCode = validatePositiveNumber(postCode, postCodeField);
 			requestDate = validateRequestDate(getField(r, requestDateField));
 			answer = validateString(answer, answerField, "Merci de choisir une réponse");
 			folder = validateString(folder, folderField, "Merci d'indiquer annexe dossier");
+			sendType = validateSendType(email, getField(r, streetField), getField(r, numStreetField), postCode, getField(r, localityField), 
+					getField(r, countryField), sendType);
 			LocalDateTime now = LocalDateTime.now();
 
 			candidate = new Candidate(null, getField(r, titleField), lastName, 
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
-					numStreet, postCode, getField(r, localityField),
+					getField(r, numStreetField), postCode, getField(r, localityField),
 					getField(r, countryField), requestDate, candidate.getInsertDate(), now, 
 					candidate.getSendDate(), getField(r, initialsField), getField(r, jobFunctionField), 
 					answer, 
-					folder
+					folder,
+					sendType
 					);
 
 			if (errors.isEmpty()) {
