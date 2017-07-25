@@ -11,7 +11,7 @@
 	
 	<p><a href="<c:url value="/create"/>">Créer candidat</a></p>
 	<p><a href="<c:url value="/candidates"/>">Afficher tous les candidats</a></p>
-	<p><a href="<c:url value="/generate"/>">Générer le pdf des candidats du jour</a></p>
+	<p><a href="<c:url value="/generate"/>">Générer le pdf des candidats du jour (<c:out value="${countPaper}"></c:out> candidats)</a></p>
 	<p><span class="error">${message}</span></p>
 	<c:remove var="message" scope="session" />
 </body>

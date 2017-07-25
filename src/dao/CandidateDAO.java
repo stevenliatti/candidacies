@@ -23,8 +23,31 @@ public class CandidateDAO extends ObjectDAO {
 	public CandidateDAO(DAOFactory daoFactory) {
 		super(daoFactory);
 	}
+	
+	public int countCandidatesOfDay(String sendType) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int count = 0;
+		
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT COUNT(*) FROM candidates "
+					+ "WHERE date(updateDate) = curdate() AND sendType = '" + sendType + "'", false);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
 
-	public List<Candidate> candidatesOfDay() {
+		return count;
+	}
+
+	public List<Candidate> candidatesOfDay(String sendType) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -34,7 +57,7 @@ public class CandidateDAO extends ObjectDAO {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates "
 					+ "WHERE date(updateDate) = CURDATE() "
-					+ "AND sendType='paper'", false);
+					+ "AND sendType='" + sendType + "'", false);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				candidates.add(map(resultSet));

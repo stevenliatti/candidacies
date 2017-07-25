@@ -29,7 +29,7 @@ public class GeneratePDFServlet extends HttpServlet {
 
 	@SuppressWarnings({ "unused", "resource" })
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Candidate> candidates = candidateDAO.candidatesOfDay();
+		List<Candidate> candidates = candidateDAO.candidatesOfDay("paper");
 		if (candidates == null || candidates.isEmpty()) {
 			HttpSession session = request.getSession();
 			session.setAttribute("message", "Pas de candidats inscrits aujourd'hui");

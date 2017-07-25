@@ -7,14 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CandidateDAO;
+import dao.DAOFactory;
+
 @SuppressWarnings("serial")
 public class IndexServlet extends HttpServlet {
+	private CandidateDAO candidateDAO;
+
+	public void init() throws ServletException {
+		this.candidateDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getCandidateDao();
+	}
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String param = request.getParameter( "author" );
-		String message = "Transmission variables : OK !" + param;
-	    request.setAttribute("index", message);
+		int countPaper = candidateDAO.countCandidatesOfDay("paper");
+		int countEmail = candidateDAO.countCandidatesOfDay("email");
+		request.setAttribute("countPaper", countPaper);
+		request.setAttribute("countEmail", countEmail);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 }
