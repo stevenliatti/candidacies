@@ -114,7 +114,7 @@ public abstract class Form {
 				}
 				validateEmail(email);
 			}
-			else if (sendType.equals("paper")) {
+			else if (sendType.equals("pdf")) {
 				validateString(street, streetField, "Manque la rue.");
 				validateString(numStreet, numStreetField, "Manque le numéro de rue.");
 				validatePositiveNumber(postCode, postCodeField, "Manque le numéro postal.");

@@ -20,9 +20,9 @@ public class IndexServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int countPaper = candidateDAO.countCandidatesOfDay("paper");
+		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
 		int countEmail = candidateDAO.countCandidatesOfDay("email");
-		request.setAttribute("countPaper", countPaper);
+		request.setAttribute("countPDF", countPDF);
 		request.setAttribute("countEmail", countEmail);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}

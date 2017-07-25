@@ -59,7 +59,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>GeneratePDFServlet</servlet-name>
-    <url-pattern>/generate</url-pattern>
+    <url-pattern>/generatePDF</url-pattern>
   </servlet-mapping>
   
   <servlet>

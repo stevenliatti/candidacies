@@ -60,28 +60,28 @@ INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numS
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
 	jobFunction, answer, folder, sendType) VALUES ("Madame", "Dupont", "Jessica", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "infirmier", "negative", "yes", "paper");
+	NULL, "sl", "infirmier", "negative", "yes", "pdf");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
 	jobFunction, answer, folder, sendType) VALUES ("Monsieur", "Dupont", "Jean", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "infirmier", "negativeSixMonths", "yes", "paper");
+	NULL, "sl", "infirmier", "negativeSixMonths", "yes", "pdf");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
 	jobFunction, answer, folder, sendType) VALUES ("Mademoiselle", "Dupuis", "Nina", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "animateur", "suspendSixMonths", "no", "paper");
+	NULL, "sl", "animateur", "suspendSixMonths", "no", "pdf");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
 	jobFunction, answer, folder, sendType) VALUES ("Monsieur", "Dupont", "Fred", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NOW(), NOW(), NOW(), 
-	NULL, "sl", "cuisinier", "negative", "yes", "paper");
+	NULL, "sl", "cuisinier", "negative", "yes", "pdf");
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, sendDate, initials, 
 	jobFunction, answer, folder, sendType) VALUES ("Monsieur", "Dupont", "Max", "max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NULL, NOW(), NOW(), 
-	NULL, "sl", "cuisinier", "negative", "yes", "paper");
+	NULL, "sl", "cuisinier", "negative", "yes", "pdf");

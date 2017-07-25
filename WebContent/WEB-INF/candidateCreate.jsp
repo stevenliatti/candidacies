@@ -94,7 +94,7 @@
 				<br />
 				
 				<label for="sendType">Type d'envoi<span class="required">*</span></label>
-				<input type="radio" name="sendType" id="sendTypePaper" value="paper" <c:out value="${candidate.sendType == 'paper' ? 'checked' : '' }"/> required > Papier (pdf)
+				<input type="radio" name="sendType" id="sendTypePDF" value="pdf" <c:out value="${candidate.sendType == 'pdf' ? 'checked' : '' }"/> required > PDF (impression)
 				<input type="radio" name="sendType" id="sendTypeEmail" value="email" <c:out value="${candidate.sendType == 'email' ? 'checked' : '' }"/>> Email
 				<span class="error">${form.errors['sendType']}</span>
 				<br />
