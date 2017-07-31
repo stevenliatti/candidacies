@@ -20,6 +20,7 @@ import dao.DAOFactory;
 public class GeneratePDFServlet extends HttpServlet {
 	private static final String outputPath = Paths.getInstance().getOutputPath();
 	private static final String generatedFileName = Paths.getInstance().getGeneratedFileName();
+	private static final String latexPath = Paths.getInstance().getLatexPath();
 
 	private CandidateDAO candidateDAO;
 
@@ -38,7 +39,7 @@ public class GeneratePDFServlet extends HttpServlet {
 		}
 		
 		candidates = candidateDAO.applySendDate(candidates);
-		String pathAndFile = outputPath + "/" + generatedFileName + ".tex";
+		String pathAndFile = latexPath + "/" + generatedFileName + ".tex";
 		
 		ListLetter lt = new ListLetter(candidates, pathAndFile);
 		
@@ -53,6 +54,6 @@ public class GeneratePDFServlet extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		
-		response.sendRedirect("download/" + generatedFileName + ".pdf");
+		response.sendRedirect(request.getContextPath() + "download/" + generatedFileName + ".pdf");
 	}
 }

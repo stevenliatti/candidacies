@@ -60,6 +60,11 @@ public class DAOUtilities {
 	    close(resultSet);
 	    close(statement);
 	}
+	
+	public static void closeAll(Statement statement, Connection connection) {
+	    close(statement);
+	    close(connection);
+	}
 
 	public static void closeAll(ResultSet resultSet, Statement statement, Connection connection) {
 	    close(resultSet);

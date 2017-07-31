@@ -42,6 +42,27 @@
     <servlet-name>CandidateCreateServlet</servlet-name>
     <url-pattern>/create</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CandidateUpdateServlet</servlet-name>
+    <servlet-class>servlets.CandidateUpdateServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CandidateUpdateServlet</servlet-name>
+    <url-pattern>/update</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>CandidateDeleteServlet</servlet-name>
+    <servlet-class>servlets.CandidateDeleteServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CandidateDeleteServlet</servlet-name>
+    <url-pattern>/delete</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>ListCandidatesServlet</servlet-name>
     <servlet-class>servlets.ListCandidatesServlet</servlet-class>
@@ -74,6 +95,8 @@
     <servlet-name>Download</servlet-name>
     <url-pattern>/download/*</url-pattern>
   </servlet-mapping>
+  
+  
 
   <listener>
     <listener-class>config.InitDAOFactory</listener-class>

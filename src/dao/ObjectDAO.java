@@ -12,5 +12,5 @@ public abstract class ObjectDAO implements Bean {
 	public abstract void create(Bean bean) throws DAOException;
 	public abstract Bean read(Long id) throws DAOException;
 	public abstract void update(Bean bean) throws DAOException;
-	public abstract void delete(Bean bean) throws DAOException;
+	public abstract void delete(Long id) throws DAOException;
 }

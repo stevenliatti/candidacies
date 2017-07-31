@@ -31,6 +31,8 @@
 			<th>Job Fonction</th>
 			<th>Réponse</th>
 			<th>Envoyé par</th>
+			<th></th>
+			<th></th>
 		</tr>
 		<c:forEach items="${candidates}" var="candidate">
 		<tr>
@@ -53,6 +55,8 @@
 			<td><c:out value="${candidate.jobFunction}"></c:out></td>
 			<td><c:out value="${candidate.getFullAnswer()}"></c:out></td>
 			<td><c:out value="${candidate.sendType}"></c:out></td>
+			<td><a href="<c:url value="/update?id="/><c:out value="${candidate.id}"/>">Modifier</a></td>
+			<td><a href="<c:url value="/delete?id="/><c:out value="${candidate.id}"/>">Supprimer</a></td>
 		</tr>
 		</c:forEach>
 	</table>
