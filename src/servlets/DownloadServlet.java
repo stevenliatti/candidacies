@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class Download extends HttpServlet {
+public class DownloadServlet extends HttpServlet {
 	public static final int bufferSize = 10240; // 10ko
 
-	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+	@Override
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = this.getServletConfig().getInitParameter("path");
 		String requestedFile = request.getPathInfo();
 		if (requestedFile == null) {

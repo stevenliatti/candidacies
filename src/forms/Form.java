@@ -17,16 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.joda.time.LocalDate;
 
 import beans.Bean;
-import dao.ObjectDAO;
 
 public abstract class Form {
 	protected String result;
 	protected Map<String, String> errors = new HashMap<>();
-	protected ObjectDAO objectDAO;
-
-	public Form(ObjectDAO objectDAO) {
-		this.objectDAO = objectDAO;
-	}
 
 	public String getResult() {
 		return result;

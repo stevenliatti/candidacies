@@ -24,16 +24,6 @@
   </filter-mapping>
 
   <servlet>
-    <servlet-name>IndexServlet</servlet-name>
-    <servlet-class>servlets.IndexServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>IndexServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
     <servlet-name>CandidateCreateServlet</servlet-name>
     <servlet-class>servlets.CandidateCreateServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
@@ -70,29 +60,29 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>ListCandidatesServlet</servlet-name>
-    <url-pattern>/candidates</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>GeneratePDFServlet</servlet-name>
-    <servlet-class>servlets.GeneratePDFServlet</servlet-class>
+    <servlet-name>GenerateLettersOfDayServlet</servlet-name>
+    <servlet-class>servlets.GenerateLettersOfDayServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GeneratePDFServlet</servlet-name>
-    <url-pattern>/generatePDF</url-pattern>
+    <servlet-name>GenerateLettersOfDayServlet</servlet-name>
+    <url-pattern>/generate</url-pattern>
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>Download</servlet-name>
-    <servlet-class>servlets.Download</servlet-class>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>servlets.DownloadServlet</servlet-class>
     <init-param>
         <param-name>path</param-name> 
         <param-value>/home/stevenliatti/Bureau/Candidacies</param-value> 
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Download</servlet-name>
+    <servlet-name>DownloadServlet</servlet-name>
     <url-pattern>/download/*</url-pattern>
   </servlet-mapping>
   

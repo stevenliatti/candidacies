@@ -77,4 +77,8 @@ public class DAOFactory {
 	public CandidateDAO getCandidateDao() {
 		return new CandidateDAO(this);
 	}
+	
+	public AnswerDAO getAnswerDao() {
+		return new AnswerDAO(this);
+	}
 }

@@ -8,15 +8,14 @@
 		<link type="text/css" rel="stylesheet" href="form.css" />
 	</head>
 	<body>
-		<p><a href="<c:url value="/"/>">Retour à l'index</a></p>
-		<p><a href="<c:url value="/candidates"/>">Afficher tous les candidats</a></p>
+		<p><a href="<c:url value="/"/>">Afficher tous les candidats</a></p>
 		
 		<form method="post" action="<c:url value="update?id=" /><c:out value="${ candidate.id }"/>">
 			<fieldset>
 				<legend>Candidat - Modification</legend>
 				
 				<label for="title">Titre<span class="required">*</span></label>
-				<input type="radio" name="title" id="title_mme" value="Madame" <c:out value="${candidate.title == 'Madame' ? 'checked' : '' }"/> required > Madame
+				<input type="radio" name="title" id="title_mme" value="Madame" <c:out value="${candidate.title == 'Madame' ? 'checked' : '' }"/> required autofocus > Madame
 				<input type="radio" name="title" id="title_m" value="Monsieur" <c:out value="${candidate.title == 'Monsieur' ? 'checked' : '' }"/>> Monsieur
 				<input type="radio" name="title" id="title_mlle" value="Mademoiselle" <c:out value="${candidate.title == 'Mademoiselle' ? 'checked' : '' }"/>> Mademoiselle
 				<span class="error">${form.errors['title']}</span>
@@ -82,9 +81,11 @@
 				<br />
 				
 				<label for="answer">Réponse<span class="required">*</span></label>
-				<input type="radio" name="answer" id="negative" value="negative" <c:out value="${candidate.answer == 'negative' ? 'checked' : '' }"/> required > Négatif
-				<input type="radio" name="answer" id="negativeSixMonths" value="negativeSixMonths" <c:out value="${candidate.answer == 'negativeSixMonths' ? 'checked' : '' }"/>> Négatif après six mois
-				<input type="radio" name="answer" id="suspendSixMonths" value="suspendSixMonths" <c:out value="${candidate.answer == 'suspendSixMonths' ? 'checked' : '' }"/>> Suspens pour six mois
+				<select name="answer">
+					<c:forEach items="${answers}" var="answer">
+					<option value="<c:out value="${answer.name}"/>" <c:out value="${candidate.answer == answer.name ? 'selected' : '' }"/>><c:out value="${answer.name}"/></option>
+					</c:forEach>
+				</select>
 				<span class="error">${form.errors['answer']}</span>
 				<br />
 				
@@ -106,9 +107,5 @@
 			</fieldset>
 		</form>
 		<p class="${empty form.errors ? 'success' : 'error'}">${form.result}</p>
-		
-		<script type="text/javascript">
-			document.getElementById('title_mme').focus();
-		</script>
 	</body>
 </html>

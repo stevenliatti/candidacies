@@ -24,13 +24,18 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import beans.Candidate;
+import core.Letter;
+import dao.AnswerDAO;
+import dao.CandidateDAO;
 import dao.DAOException;
-import dao.ObjectDAO;
 
 public class CandidateForm extends Form {
+	private CandidateDAO candidateDAO; 
+	private AnswerDAO answerDAO;
 
-	public CandidateForm(ObjectDAO objectDAO) {
-		super(objectDAO);
+	public CandidateForm(CandidateDAO candidateDAO, AnswerDAO answerDAO) {
+		this.candidateDAO = candidateDAO;
+		this.answerDAO = answerDAO;
 	}
 
 	public Candidate createCandidate(HttpServletRequest r) {
@@ -44,6 +49,7 @@ public class CandidateForm extends Form {
 		String folder = getField(r, folderField);
 		String sendType = getField(r, sendTypeField);
 		Candidate candidate = null;
+		
 		try {
 			title = validateString(title, titleField, "Merci de sélectionner un titre");
 			lastName = validateString(lastName, lastNameField, "Merci de saisir un nom de famille.");
@@ -60,16 +66,17 @@ public class CandidateForm extends Form {
 			candidate = new Candidate(null, title, lastName, 
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
 					getField(r, numStreetField), postCode, getField(r, localityField),
-					getField(r, countryField), requestDate, now, now, null,
-					getField(r, initialsField), 
+					getField(r, countryField), requestDate, now, now, getField(r, initialsField), 
 					getField(r, jobFunctionField), 
-					answer, 
+					answer, null,
 					folder,
-					sendType
+					sendType, null
 					);
+			
+			Letter.makeLetter(candidate, answerDAO.read(answer));
 
 			if (errors.isEmpty()) {
-				objectDAO.create(candidate);
+				candidateDAO.create(candidate);
 				result = "success";
 			}
 			else {
@@ -112,20 +119,22 @@ public class CandidateForm extends Form {
 					getField(r, countryField), sendType);
 			LocalDateTime now = LocalDateTime.now();
 			
-			Candidate candidate = (Candidate) objectDAO.read(id);
+			Candidate candidate = candidateDAO.read(id);
 
 			updateCandidate = new Candidate(id, getField(r, titleField), lastName, 
 					firstName, email, getField(r, livesAtField), getField(r, streetField),
 					getField(r, numStreetField), postCode, getField(r, localityField),
 					getField(r, countryField), requestDate, candidate.getInsertDate(), now, 
-					candidate.getSendDate(), getField(r, initialsField), getField(r, jobFunctionField), 
-					answer, 
+					getField(r, initialsField), getField(r, jobFunctionField), 
+					answer, null,
 					folder,
-					sendType
+					sendType, null
 					);
 
+			Letter.makeLetter(updateCandidate, answerDAO.read(answer));
+			
 			if (errors.isEmpty()) {
-				objectDAO.update(updateCandidate);
+				candidateDAO.update(updateCandidate);
 				result = "success";
 			}
 			else {

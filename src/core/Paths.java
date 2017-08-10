@@ -11,14 +11,12 @@ public class Paths {
 	private String outputPath;
 	private String latexPath;
 	private String generatedFileName;
+	private String emsName;
+	private String rhWriter;
 	
 	private final static Paths instance = new Paths();
 	
 	private Paths() {
-		initPaths();
-	}
-	
-	private void initPaths() {
 		Properties properties = new Properties();
         InputStream propertiesFile = Thread.currentThread().getContextClassLoader().getResourceAsStream(PROPERTIES_FILE);
         
@@ -31,6 +29,8 @@ public class Paths {
 			outputPath = properties.getProperty("outputPath");
 			latexPath = properties.getProperty("latexPath");
 			generatedFileName = properties.getProperty("generatedFileName");
+			emsName = properties.getProperty("emsName");
+			rhWriter = properties.getProperty("rhWriter");
 		} catch (IOException e) {
 			throw new DAOConfigurationException("Impossible to load the properties file " + PROPERTIES_FILE, e);
 		}
@@ -50,5 +50,13 @@ public class Paths {
 
 	public final String getGeneratedFileName() {
 		return generatedFileName;
+	}
+
+	public String getEmsName() {
+		return emsName;
+	}
+
+	public String getRhWriter() {
+		return rhWriter;
 	}
 }

@@ -1,5 +1,26 @@
 package dao;
 
+import static beans.Bean.answerField;
+import static beans.Bean.answerTitleField;
+import static beans.Bean.countryField;
+import static beans.Bean.emailField;
+import static beans.Bean.firstNameField;
+import static beans.Bean.folderField;
+import static beans.Bean.idField;
+import static beans.Bean.initialsField;
+import static beans.Bean.insertDateField;
+import static beans.Bean.jobFunctionField;
+import static beans.Bean.lastNameField;
+import static beans.Bean.letterField;
+import static beans.Bean.livesAtField;
+import static beans.Bean.localityField;
+import static beans.Bean.numStreetField;
+import static beans.Bean.postCodeField;
+import static beans.Bean.requestDateField;
+import static beans.Bean.sendTypeField;
+import static beans.Bean.streetField;
+import static beans.Bean.titleField;
+import static beans.Bean.updateDateField;
 import static dao.DAOUtilities.closeAll;
 import static dao.DAOUtilities.initPreparedStatement;
 
@@ -18,10 +39,45 @@ import org.joda.time.format.DateTimeFormatter;
 import beans.Bean;
 import beans.Candidate;
 
-public class CandidateDAO extends ObjectDAO {
+public class CandidateDAO {
+	private DAOFactory daoFactory;
 
 	public CandidateDAO(DAOFactory daoFactory) {
-		super(daoFactory);
+		this.daoFactory = daoFactory;
+	}
+
+	public List<Candidate> listCandidates(String[] ids, String sendType) {
+		if (ids == null || ids.length == 0) {
+			return null;
+		}
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Candidate> candidates = new ArrayList<>();
+		
+		StringBuilder query = new StringBuilder("SELECT * FROM candidates WHERE sendType = '" + sendType + "' AND (");
+		for (String id : ids) {
+			query.append(" id=" + id + " OR");
+		}
+		query.delete(query.length() - 3, query.length());
+		query.append(");");
+		
+		System.out.println(query.toString());
+		
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, query.toString(), false);
+			resultSet = preparedStatement.executeQuery(query.toString());
+			while (resultSet.next()) {
+				candidates.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+
+		return candidates;
 	}
 
 	public int countCandidatesOfDay(String sendType) {
@@ -71,35 +127,6 @@ public class CandidateDAO extends ObjectDAO {
 		return candidates;
 	}
 
-	public List<Candidate> applySendDate(List<Candidate> candidates) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		try {
-			connection = daoFactory.getConnection();
-			for (Candidate candidate : candidates) {
-				candidate.setSendDate(LocalDateTime.now());
-
-				preparedStatement = initPreparedStatement(connection, 
-						"UPDATE candidates SET sendDate=NOW() WHERE id=?", false, 
-						candidate.getId()
-						);
-
-				int status = preparedStatement.executeUpdate();
-				if (status == 0) {
-					throw new DAOException("Fail to update sendDate candidate");
-				}
-			}
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		} finally {
-			closeAll(resultSet, preparedStatement, connection);
-		}
-
-		return candidates;
-	}
-
 	public List<Candidate> readAll() {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -122,7 +149,6 @@ public class CandidateDAO extends ObjectDAO {
 		return list;
 	}
 
-	@Override
 	public void create(Bean bean) throws DAOException {
 		Candidate candidate = (Candidate) bean;
 		Connection connection = null;
@@ -133,9 +159,9 @@ public class CandidateDAO extends ObjectDAO {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, 
 					"INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, "
-							+ "postCode, locality, country, requestDate, insertDate, updateDate, sendDate, "
-							+ "initials, jobFunction, answer, folder, sendType) "
-							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?, ?)", true, 
+							+ "postCode, locality, country, requestDate, insertDate, updateDate, "
+							+ "initials, jobFunction, answer, answerTitle, folder, sendType, letter) "
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?, ?, ?)", true, 
 							candidate.getTitle(), 
 							candidate.getLastName(), 
 							candidate.getFirstName(),
@@ -148,12 +174,13 @@ public class CandidateDAO extends ObjectDAO {
 							candidate.getCountry(),
 							candidate.getRequestDateSQLFormatted(),
 							// datetime -> NOW()
-							candidate.getSendDateSQLFormatted(),
 							candidate.getInitials(),
 							candidate.getJobFunction(),
 							candidate.getAnswer(),
+							candidate.getAnswerTitle(),
 							candidate.getFolder(),
-							candidate.getSendType()
+							candidate.getSendType(),
+							candidate.getLetter()
 					);
 
 			if (preparedStatement.executeUpdate() == 0) {
@@ -173,7 +200,6 @@ public class CandidateDAO extends ObjectDAO {
 		}
 	}
 
-	@Override
 	public Candidate read(Long id) throws DAOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -196,7 +222,6 @@ public class CandidateDAO extends ObjectDAO {
 		return candidate;
 	}
 
-	@Override
 	public void update(Bean bean) throws DAOException {
 		Candidate candidate = (Candidate) bean;
 		Connection connection = null;
@@ -207,7 +232,7 @@ public class CandidateDAO extends ObjectDAO {
 			preparedStatement = initPreparedStatement(connection, 
 					"UPDATE candidates SET title=?, lastName=?, firstName=?, email=?, livesAt=?, street=?, numStreet=?, "
 							+ "postCode=?, locality=?, country=?, requestDate=?, updateDate=NOW(), "
-							+ "initials=?, jobFunction=?, answer=?, folder=?, sendType=? "
+							+ "initials=?, jobFunction=?, answer=?, answerTitle=?, folder=?, sendType=?, letter=? "
 							+ "WHERE id=?", false, 
 							candidate.getTitle(), 
 							candidate.getLastName(), 
@@ -223,8 +248,10 @@ public class CandidateDAO extends ObjectDAO {
 							candidate.getInitials(),
 							candidate.getJobFunction(),
 							candidate.getAnswer(),
+							candidate.getAnswerTitle(),
 							candidate.getFolder(),
 							candidate.getSendType(),
+							candidate.getLetter(),
 							candidate.getId()
 					);
 
@@ -238,7 +265,6 @@ public class CandidateDAO extends ObjectDAO {
 		}
 	}
 
-	@Override
 	public void delete(Long id) throws DAOException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -248,7 +274,7 @@ public class CandidateDAO extends ObjectDAO {
 			preparedStatement = initPreparedStatement(connection, "DELETE FROM candidates WHERE id=?", false, id);
 
 			if (preparedStatement.executeUpdate() == 0) {
-				throw new DAOException("Fail to update candidate");
+				throw new DAOException("Fail to delete candidate");
 			}
 		} catch (SQLException e) {
 			throw new DAOException(e);
@@ -281,8 +307,8 @@ public class CandidateDAO extends ObjectDAO {
 				parseLocalDate(r.getString(requestDateField)),
 				parseLocalDateTime(r.getString(insertDateField), formatter),
 				parseLocalDateTime(r.getString(updateDateField), formatter),
-				parseLocalDateTime(r.getString(sendDateField), formatter),
 				r.getString(initialsField), r.getString(jobFunctionField),
-				r.getString(answerField), r.getString(folderField), r.getString(sendTypeField));
+				r.getString(answerField), r.getString(answerTitleField), r.getString(folderField), r.getString(sendTypeField), 
+				r.getString(letterField));
 	}
 }

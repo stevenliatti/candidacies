@@ -7,53 +7,42 @@ import java.util.Scanner;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import beans.Candidate;
-import core.ListLetter;
+import core.Letter;
 import core.Paths;
 import dao.CandidateDAO;
 import dao.DAOFactory;
 
 @SuppressWarnings("serial")
-public class GeneratePDFServlet extends HttpServlet {
+public class LatexServlet extends HttpServlet {
 	private static final String outputPath = Paths.getInstance().getOutputPath();
 	private static final String generatedFileName = Paths.getInstance().getGeneratedFileName();
 	private static final String latexPath = Paths.getInstance().getLatexPath();
-
-	private CandidateDAO candidateDAO;
+	private static final boolean DEBUGMODE = false;
+	
+	CandidateDAO candidateDAO;
 
 	public void init() throws ServletException {
 		this.candidateDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getCandidateDao();
 	}
-
-	@SuppressWarnings({ "unused", "resource" })
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Candidate> candidates = candidateDAO.candidatesOfDay("pdf");
-		if (candidates == null || candidates.isEmpty()) {
-			HttpSession session = request.getSession();
-			session.setAttribute("message", "Pas de candidats inscrits aujourd'hui");
-			response.sendRedirect(request.getContextPath());
-			return;
-		}
-		
-		candidates = candidateDAO.applySendDate(candidates);
+	
+	static void generateLetters(HttpServletRequest request, List<Candidate> candidatesPDF, List<Candidate> candidatesEmail) throws IllegalArgumentException, IOException {
 		String pathAndFile = latexPath + "/" + generatedFileName + ".tex";
-		
-		ListLetter lt = new ListLetter(candidates, pathAndFile);
+		Letter.writeLatexLetters(candidatesPDF, pathAndFile);
 		
 		try {
 			Process p = Runtime.getRuntime().exec("pdflatex -output-directory " + outputPath + " " + pathAndFile);
-			if (core.Debug.DEBUGMODE) {
+			if (DEBUGMODE) {
 				Scanner sc = new Scanner(p.getInputStream());    		
 				while (sc.hasNext()) System.out.println(sc.nextLine());
 			}
 		}
 		catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		
-		response.sendRedirect(request.getContextPath() + "download/" + generatedFileName + ".pdf");
+		request.setAttribute("candidatesEmail", candidatesEmail);
+		request.setAttribute("generatedFileName", generatedFileName);
 	}
 }

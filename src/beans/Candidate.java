@@ -1,12 +1,11 @@
 package beans;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-public class Candidate implements Bean {
+public class Candidate extends Bean {
 	private Long id;
 	private String title;
 	private String lastName;
@@ -21,21 +20,21 @@ public class Candidate implements Bean {
 	private LocalDate requestDate;
 	private LocalDateTime insertDate;
 	private LocalDateTime updateDate;
-	private LocalDateTime sendDate;
 	private String initials;
 	private String jobFunction;
 	private String answer;
+	private String answerTitle;
 	private String folder;
 	private String sendType;
-
-	private Map<String, String> map;
+	private String letter;
 
 	public Candidate() {}
 
 	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt,
 			String street, String numStreet, String postCode, String locality, String country, LocalDate requestDate,
-			LocalDateTime insertDate, LocalDateTime updateDate, LocalDateTime sendDate, String initials,
-			String jobFunction, String answer, String folder, String sendType) {
+			LocalDateTime insertDate, LocalDateTime updateDate, String initials, String jobFunction, String answer,
+			String answerTitle, String folder, String sendType, String letter) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.lastName = lastName;
@@ -50,19 +49,18 @@ public class Candidate implements Bean {
 		this.requestDate = requestDate;
 		this.insertDate = insertDate;
 		this.updateDate = updateDate;
-		this.sendDate = sendDate;
 		this.initials = initials;
 		this.jobFunction = jobFunction;
 		this.answer = answer;
+		this.answerTitle = answerTitle;
 		this.folder = folder;
 		this.sendType = sendType;
-
+		this.letter = letter;
+		
 		candidateAsMap();
 	}
 
-	public static String formatField(String field) {
-		return "<" + field + ">";
-	}
+
 
 	private void candidateAsMap() {
 		map = new HashMap<>();
@@ -73,15 +71,28 @@ public class Candidate implements Bean {
 		map.put(formatField(livesAtField), getFullLivesAtLatex());
 		map.put(formatField(streetField), street);
 		map.put(formatField(numStreetField), numStreet);
-		map.put(formatField(postCodeField), getFullPostCode());
+		map.put(formatField(postCodeField), getLatexPostCode());
 		map.put(formatField(localityField), locality);
 		map.put(formatField(countryField), country);
-		map.put(formatField(requestDateField), getRequestDateLatexFormatted());
-		map.put(formatField(sendDateField), getSendDateLatexFormatted());
+		map.put(formatField(requestDateField), getRequestDateLetterFormatted());
+		map.put(formatField(updateDateField), getUpdateDateLatexFormatted());
 		map.put(formatField(initialsField), initials);
 		map.put(formatField(jobFunctionField), jobFunction);
-		map.put(formatField(answerField), getFullAnswer());
-		map.put(formatField(folderField), getFullFolder());
+		map.put(formatField(answerField), answer);
+		map.put(formatField(folderField), getLatexFolder());
+	}
+	
+	public String getShortTitle() {
+		if (title.equals("Monsieur")) {
+			return "M.";
+		}
+		else if (title.equals("Madame")) {
+			return "Mme";
+		}
+		else if (title.equals("Mademoiselle")) {
+			return "Mlle";
+		}
+		return title;
 	}
 
 	private String getFullLivesAtLatex() {
@@ -93,22 +104,22 @@ public class Candidate implements Bean {
 		}
 	}
 
-	private String getFullPostCode() {
+	private String getLatexPostCode() {
 		if (postCode == null || postCode.isEmpty()) {
 			return null;
 		}
 		else if (country != null && !country.isEmpty() && !country.equalsIgnoreCase("suisse")) {
-			return country.charAt(0) + "-" + postCode;
+			return country.toUpperCase().charAt(0) + "-" + postCode;
 		}
 		return postCode;
 	}
 
 	public String getRequestDateFormatted() {
-		return requestDate == null ? null : requestDate.toString(dateShowFormatter);
+		return requestDate == null ? null : requestDate.toString(dateShortFormatter);
 	}
 
-	public String getRequestDateLatexFormatted() {
-		return requestDate == null ? null : "du " + requestDate.toString(dateShowFormatter);
+	public String getRequestDateLetterFormatted() {
+		return requestDate == null ? null : "du " + requestDate.toString(dateLatexFormatter);
 	}
 
 	public String getRequestDateFormFormatted() {
@@ -120,42 +131,18 @@ public class Candidate implements Bean {
 	}
 
 	public String getInsertDateFormatted() {
-		return insertDate == null ? null : insertDate.toString(dateTimeFormatter);
+		return insertDate == null ? null : insertDate.toString(dateTimeShortFormatter);
 	}
 
+	public String getUpdateDateLatexFormatted() {
+		return updateDate == null ? null : updateDate.toString(dateLatexFormatter);
+	}
+	
 	public String getUpdateDateFormatted() {
-		return updateDate == null ? null : updateDate.toString(dateTimeFormatter);
+		return updateDate == null ? null : updateDate.toString(dateTimeShortFormatter);
 	}
 
-	public String getSendDateLatexFormatted() {
-		return sendDate == null ? null : sendDate.toString(dateShowFormatter);
-	}
-
-	public String getSendDateShowFormatted() {
-		return sendDate == null ? null : sendDate.toString(dateTimeFormatter);
-	}
-
-	public String getSendDateSQLFormatted() {
-		return sendDate == null ? null : sendDate.toString(sqlDateTimeFormatter);
-	}
-
-	public String getFullAnswer() {
-		if (answer == null || answer.isEmpty()) {
-			return "";
-		}
-		else if (answer.equals(negative)) {
-			return "Réponse négative";
-		}
-		else if (answer.equals(negativeSixMonths)) {
-			return "Réponse négative après mise en suspens";
-		}
-		else if (answer.equals(suspendSixMonths)) {
-			return "Mise en suspens de votre dossier de candidature";
-		}
-		return "";
-	}
-
-	private String getFullFolder() {
+	private String getLatexFolder() {
 		if (folder == null || folder.isEmpty()) {
 			return "";
 		}
@@ -164,14 +151,15 @@ public class Candidate implements Bean {
 		}
 		return "";
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Candidate [id=" + id + ", title=" + title + ", lastName=" + lastName + ", firstName=" + firstName
 				+ ", email=" + email + ", livesAt=" + livesAt + ", street=" + street + ", numStreet=" + numStreet
 				+ ", postCode=" + postCode + ", locality=" + locality + ", country=" + country + ", requestDate="
-				+ requestDate + ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", sendDate=" + sendDate
-				+ ", writer=" + initials + ", jobFunction=" + jobFunction + ", answer=" + answer + ", map=" + map + "]";
+				+ requestDate + ", insertDate=" + insertDate + ", updateDate=" + updateDate + ", initials=" + initials
+				+ ", jobFunction=" + jobFunction + ", answer=" + answer + ", answerTitle=" + answerTitle + ", folder="
+				+ folder + ", sendType=" + sendType + ", letter=" + letter + "]";
 	}
 
 	public Long getId() {
@@ -286,15 +274,6 @@ public class Candidate implements Bean {
 		this.updateDate = updateDate;
 	}
 
-	public LocalDateTime getSendDate() {
-		return sendDate;
-	}
-
-	public void setSendDate(LocalDateTime sendDate) {
-		this.sendDate = sendDate;
-		candidateAsMap();
-	}
-
 	public String getInitials() {
 		return initials;
 	}
@@ -335,7 +314,19 @@ public class Candidate implements Bean {
 		this.sendType = sendType;
 	}
 
-	public Map<String, String> getMap() {
-		return map;
+	public String getLetter() {
+		return letter;
+	}
+
+	public void setLetter(String letter) {
+		this.letter = letter;
+	}
+	
+	public String getAnswerTitle() {
+		return answerTitle;
+	}
+
+	public void setAnswerTitle(String answerTitle) {
+		this.answerTitle = answerTitle;
 	}
 }
