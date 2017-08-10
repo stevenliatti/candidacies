@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS candidates (
 	answerTitle varchar(100) NOT NULL REFERENCES answers(title),
 	folder varchar(3) NOT NULL,
 	sendType varchar(10) NOT NULL,
-	letter text
+	letter text,
+	notTransmitted varchar(3)
 )
 
 ENGINE=INNODB;
@@ -107,29 +108,29 @@ En vous remerciant de l’intérêt que vous portez à l’EMS Les Châtaigniers
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, initials, 
-	jobFunction, answer, answerTitle, folder, sendType) 
+	jobFunction, answer, answerTitle, folder, sendType, notTransmitted) 
 
 VALUES 
 	("Madame", "Dupont", "Jessica", "Jessica@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", CURDATE(), NOW(), NOW(), 
-	"sl", "infirmier", "négatif", "Réponse négative", "yes", "pdf"),
+	"sl", "infirmier", "négatif", "Réponse négative", "yes", "pdf", "no"),
 
 	("Monsieur", "Dupont", "Jean", "Jean@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", CURDATE(), NOW(), NOW(), 
-	"sl", "infirmier", "négatif six mois", "Réponse négative après mise en suspens", "yes", "pdf"),
+	"sl", "infirmier", "négatif six mois", "Réponse négative après mise en suspens", "yes", "pdf", "no"),
 
 	("Mademoiselle", "Dupuis", "Nina", "Nina@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", CURDATE(), NOW(), NOW(), 
-	"sl", "animateur", "suspens six mois", "Mise en suspens de votre dossier de candidature", "no", "pdf"),
+	"sl", "animateur", "suspens six mois", "Mise en suspens de votre dossier de candidature", "no", "pdf", "no"),
 
 	("Monsieur", "Dupont", "Fred", "Fred@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", CURDATE(), NOW(), NOW(), 
-	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "pdf"),
+	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "pdf", "no"),
 
 	("Monsieur", "Dupont", "Max", "Max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NULL, NOW(), NOW(), 
-	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "pdf"),
+	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "pdf", "no"),
 
 	("Monsieur", "Dupont", "Paul", "Max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NULL, NOW(), NOW(), 
-	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "email");
+	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "email", "no");

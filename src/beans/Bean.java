@@ -28,6 +28,7 @@ public abstract class Bean {
 	public static final String sendTypeField = "sendType";
 	public static final String initialsField = "initials";
 	public static final String letterField = "letter";
+	public static final String notTransmittedField = "notTransmitted";
 	
 	public static final String nameField = "name";
 	public static final String contentField = "content";

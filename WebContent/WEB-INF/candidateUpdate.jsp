@@ -101,6 +101,12 @@
 				<span class="error">${form.errors['sendType']}</span>
 				<br />
 				
+				<label for="notTransmitted">Retour courrier ?<span class="required">*</span></label>
+				<input type="radio" name="notTransmitted" id="notTransmittedNo" value="no" <c:out value="${candidate.notTransmitted == 'no' ? 'checked' : '' }"/> required > Non
+				<input type="radio" name="notTransmitted" id="notTransmittedYes" value="yes" <c:out value="${candidate.notTransmitted == 'yes' ? 'checked' : '' }"/>> Oui
+				<span class="error">${form.errors['notTransmitted']}</span>
+				<br />
+				
 				<input type="submit" value="Modification" />
 				<br />
 				<p class="info">Les champs marqués d'un * sont obligatoires.</p>

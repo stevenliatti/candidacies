@@ -11,6 +11,7 @@ import static beans.Bean.jobFunctionField;
 import static beans.Bean.lastNameField;
 import static beans.Bean.livesAtField;
 import static beans.Bean.localityField;
+import static beans.Bean.notTransmittedField;
 import static beans.Bean.numStreetField;
 import static beans.Bean.postCodeField;
 import static beans.Bean.requestDateField;
@@ -70,7 +71,7 @@ public class CandidateForm extends Form {
 					getField(r, jobFunctionField), 
 					answer, null,
 					folder,
-					sendType, null
+					sendType, null, getField(r, notTransmittedField)
 					);
 			
 			Letter.makeLetter(candidate, answerDAO.read(answer));
@@ -128,7 +129,7 @@ public class CandidateForm extends Form {
 					getField(r, initialsField), getField(r, jobFunctionField), 
 					answer, null,
 					folder,
-					sendType, null
+					sendType, null, getField(r, notTransmittedField)
 					);
 
 			Letter.makeLetter(updateCandidate, answerDAO.read(answer));

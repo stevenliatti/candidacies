@@ -27,14 +27,14 @@ public class Candidate extends Bean {
 	private String folder;
 	private String sendType;
 	private String letter;
+	private String notTransmitted;
 
 	public Candidate() {}
 
 	public Candidate(Long id, String title, String lastName, String firstName, String email, String livesAt,
 			String street, String numStreet, String postCode, String locality, String country, LocalDate requestDate,
 			LocalDateTime insertDate, LocalDateTime updateDate, String initials, String jobFunction, String answer,
-			String answerTitle, String folder, String sendType, String letter) {
-		super();
+			String answerTitle, String folder, String sendType, String letter, String notTransmitted) {
 		this.id = id;
 		this.title = title;
 		this.lastName = lastName;
@@ -56,6 +56,7 @@ public class Candidate extends Bean {
 		this.folder = folder;
 		this.sendType = sendType;
 		this.letter = letter;
+		this.notTransmitted = notTransmitted;
 		
 		candidateAsMap();
 	}
@@ -328,5 +329,13 @@ public class Candidate extends Bean {
 
 	public void setAnswerTitle(String answerTitle) {
 		this.answerTitle = answerTitle;
+	}
+
+	public String getNotTransmitted() {
+		return notTransmitted;
+	}
+
+	public void setNotTransmitted(String notTransmitted) {
+		this.notTransmitted = notTransmitted;
 	}
 }

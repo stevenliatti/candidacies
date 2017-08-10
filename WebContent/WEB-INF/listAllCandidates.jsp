@@ -38,6 +38,7 @@
 				<th>Job</th>
 				<th>Réponse</th>
 				<th>Mail/PDF</th>
+				<th>Retour courrier</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -62,6 +63,7 @@
 				<td><c:out value="${candidate.jobFunction}"/></td>
 				<td><c:out value="${candidate.answer}"/></td>
 				<td><c:out value="${candidate.sendType}"/></td>
+				<td><c:out value="${candidate.notTransmitted == 'no' ? '-' : 'Retour'}"/></td>
 				<td><a href="<c:url value="/update?id="/><c:out value="${candidate.id}"/>">Modifier</a></td>
 				<td><a href="<c:url value="/delete?id="/><c:out value="${candidate.id}"/>">Supprimer</a></td>
 			</tr>
@@ -86,6 +88,7 @@
 				<th>Job</th>
 				<th>Réponse</th>
 				<th>Mail/PDF</th>
+				<th>Retour courrier</th>
 				<th></th>
 				<th></th>
 			</tr>

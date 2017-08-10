@@ -14,6 +14,7 @@ import static beans.Bean.lastNameField;
 import static beans.Bean.letterField;
 import static beans.Bean.livesAtField;
 import static beans.Bean.localityField;
+import static beans.Bean.notTransmittedField;
 import static beans.Bean.numStreetField;
 import static beans.Bean.postCodeField;
 import static beans.Bean.requestDateField;
@@ -160,8 +161,8 @@ public class CandidateDAO {
 			preparedStatement = initPreparedStatement(connection, 
 					"INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, "
 							+ "postCode, locality, country, requestDate, insertDate, updateDate, "
-							+ "initials, jobFunction, answer, answerTitle, folder, sendType, letter) "
-							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?, ?, ?)", true, 
+							+ "initials, jobFunction, answer, answerTitle, folder, sendType, letter, notTransmitted) "
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, ?, ?, ?, ?, ?, ?, ?)", true, 
 							candidate.getTitle(), 
 							candidate.getLastName(), 
 							candidate.getFirstName(),
@@ -180,7 +181,8 @@ public class CandidateDAO {
 							candidate.getAnswerTitle(),
 							candidate.getFolder(),
 							candidate.getSendType(),
-							candidate.getLetter()
+							candidate.getLetter(),
+							"no"
 					);
 
 			if (preparedStatement.executeUpdate() == 0) {
@@ -232,7 +234,7 @@ public class CandidateDAO {
 			preparedStatement = initPreparedStatement(connection, 
 					"UPDATE candidates SET title=?, lastName=?, firstName=?, email=?, livesAt=?, street=?, numStreet=?, "
 							+ "postCode=?, locality=?, country=?, requestDate=?, updateDate=NOW(), "
-							+ "initials=?, jobFunction=?, answer=?, answerTitle=?, folder=?, sendType=?, letter=? "
+							+ "initials=?, jobFunction=?, answer=?, answerTitle=?, folder=?, sendType=?, letter=?, notTransmitted=? "
 							+ "WHERE id=?", false, 
 							candidate.getTitle(), 
 							candidate.getLastName(), 
@@ -252,6 +254,7 @@ public class CandidateDAO {
 							candidate.getFolder(),
 							candidate.getSendType(),
 							candidate.getLetter(),
+							candidate.getNotTransmitted(),
 							candidate.getId()
 					);
 
@@ -309,6 +312,6 @@ public class CandidateDAO {
 				parseLocalDateTime(r.getString(updateDateField), formatter),
 				r.getString(initialsField), r.getString(jobFunctionField),
 				r.getString(answerField), r.getString(answerTitleField), r.getString(folderField), r.getString(sendTypeField), 
-				r.getString(letterField));
+				r.getString(letterField), r.getString(notTransmittedField));
 	}
 }
