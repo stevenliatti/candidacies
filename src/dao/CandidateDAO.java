@@ -46,6 +46,51 @@ public class CandidateDAO {
 	public CandidateDAO(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
 	}
+	
+	public List<Candidate> searchByName(String search) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Candidate> candidates = new ArrayList<>();
+		
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE firstName LIKE '%" + search + 
+					"%' OR lastName LIKE '%" + search + "%';", false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				candidates.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+		
+		return candidates;
+	}
+	
+	public List<Candidate> searchByJob(String search) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Candidate> candidates = new ArrayList<>();
+		
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE jobFunction LIKE '%" + search + "%';", false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				candidates.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+		
+		return candidates;
+	}
 
 	public List<Candidate> listCandidates(String[] ids, String sendType) {
 		if (ids == null || ids.length == 0) {
@@ -62,8 +107,6 @@ public class CandidateDAO {
 		}
 		query.delete(query.length() - 3, query.length());
 		query.append(");");
-		
-		System.out.println(query.toString());
 		
 		try {
 			connection = daoFactory.getConnection();

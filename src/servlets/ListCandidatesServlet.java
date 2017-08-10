@@ -29,16 +29,38 @@ public class ListCandidatesServlet extends LatexServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] ids = request.getParameterValues("ids");
-		if (ids == null || ids.length == 0) {
+		String search = request.getParameter("search");
+		String type = request.getParameter("type");
+
+		if ((ids == null || ids.length == 0) && (search == null || search.isEmpty())) {
+			System.out.println("first if");
 			response.sendRedirect(request.getContextPath() + "/candidates");
 		}
 		else {
-			List<Candidate> candidatesPDF = candidateDAO.listCandidates(ids, "pdf");
-			List<Candidate> candidatesEmail = candidateDAO.listCandidates(ids, "email");
-			
-			generateLetters(request, candidatesPDF, candidatesEmail);
-			
-			this.getServletContext().getRequestDispatcher(lettersView).forward(request, response);
+			System.out.println("first else");
+			if (!search.isEmpty()) {
+				System.out.println("second if");
+				List<Candidate> candidates = null;
+				if (type.equals("name")) {
+					System.out.println("third if");
+					candidates = candidateDAO.searchByName(search);
+				}
+				else if (type.equals("job")) {
+					System.out.println("else if");
+					candidates = candidateDAO.searchByJob(search);
+				}
+				request.setAttribute("candidates", candidates);
+				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
+			}
+			else {
+				System.out.println("second else");
+				List<Candidate> candidatesPDF = candidateDAO.listCandidates(ids, "pdf");
+				List<Candidate> candidatesEmail = candidateDAO.listCandidates(ids, "email");
+				
+				generateLetters(request, candidatesPDF, candidatesEmail);
+				
+				this.getServletContext().getRequestDispatcher(lettersView).forward(request, response);
+			}
 		}
 	}
 }
