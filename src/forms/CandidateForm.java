@@ -77,10 +77,10 @@ public class CandidateForm extends Form {
 
 			if (errors.isEmpty()) {
 				candidateDAO.create(candidate);
-				result = "success";
+				result = "Candidat bien inséré";
 			}
 			else {
-				result = "errors";
+				result = "Erreurs dans le formulaire";
 			}
 		} catch (DAOException e) {
 			result = "Échec de la création d'un candidat.";

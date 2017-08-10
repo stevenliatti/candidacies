@@ -106,6 +106,56 @@
 				<p class="info">Les champs marqués d'un * sont obligatoires.</p>
 			</fieldset>
 		</form>
+		
+		<c:if test="${!empty candidate.id}">
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Titre</th>
+				<th>Nom</th>
+				<th>Prénom</th>
+				<th>Email</th>
+				<th>Vit chez</th>
+				<th>Rue</th>
+				<th>N° rue</th>
+				<th>NPA</th>
+				<th>Localité</th>
+				<th>Pays</th>
+				<th>Date demande</th>
+				<th>Date insertion</th>
+				<th>Date modification</th>
+				<th>Auteur</th>
+				<th>Job</th>
+				<th>Réponse</th>
+				<th>Mail/PDF</th>
+				<th></th>
+				<th></th>
+			</tr>
+			<tr>
+				<td><c:out value="${candidate.id}"/></td>
+				<td><c:out value="${candidate.getShortTitle()}"/></td>
+				<td><c:out value="${candidate.lastName}"/></td>
+				<td><c:out value="${candidate.firstName}"/></td>
+				<td><a href="mailto:<c:out value="${candidate.email}"/>"><c:out value="${candidate.email}"/></a></td>
+				<td><c:out value="${candidate.livesAt}"/></td>
+				<td><c:out value="${candidate.street}"/></td>
+				<td><c:out value="${candidate.numStreet}"/></td>
+				<td><c:out value="${candidate.postCode}"/></td>
+				<td><c:out value="${candidate.locality}"/></td>
+				<td><c:out value="${candidate.country}"/></td>
+				<td><c:out value="${candidate.getRequestDateFormatted()}"/></td>
+				<td><c:out value="${candidate.getInsertDateFormatted()}"/></td>
+				<td><c:out value="${candidate.getUpdateDateFormatted()}"/></td>
+				<td><c:out value="${candidate.initials}"/></td>
+				<td><c:out value="${candidate.jobFunction}"/></td>
+				<td><c:out value="${candidate.answer}"/></td>
+				<td><c:out value="${candidate.sendType}"/></td>
+				<td><a href="<c:url value="/update?id="/><c:out value="${candidate.id}"/>">Modifier</a></td>
+				<td><a href="<c:url value="/delete?id="/><c:out value="${candidate.id}"/>">Supprimer</a></td>
+			</tr>
+		</table>
+		</c:if>
+		
 		<p class="${empty form.errors ? 'success' : 'error'}">${form.result}</p>
 	</body>
 </html>
