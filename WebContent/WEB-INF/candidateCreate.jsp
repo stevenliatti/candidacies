@@ -2,113 +2,159 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Candidat - Insertion</title>
-		<link type="text/css" rel="stylesheet" href="form.css" />
-	</head>
-	<body>
-		<p><a href="<c:url value="/"/>">Afficher tous les candidats</a></p>
+<head>
+	<meta charset="utf-8" />
+	<title>Candidat - Insertion</title>
+	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/bootstrap.min.css"/>" />
+	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/my.css"/>" />
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<p class="col-md-12"><a class="btn btn-primary" href="<c:url value="/candidates"/>" ><span class="glyphicon glyphicon-eye-open"></span> Afficher tous les candidats</a></p>
+		</div>
 		
-		<form method="post" action="<c:url value="create" />">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 >Candidat - Insertion</h1>
+				<hr>
+			</div>
+		</div>
+		
+		<form class="col-md-12" method="post" action="<c:url value="create" />">
 			<fieldset>
-				<legend>Candidat - Insertion</legend>
+				<div class="row">
+					<div class="col-md-12">
+						<label for="title">Titre :<span class="required">* </span></label>
+						<label for="title_mme"><input type="radio" name="title" id="title_mme" value="Madame" <c:out value="${candidate.title == 'Madame' ? 'checked' : '' }"/> required autofocus > Madame</label>
+						<label for="title_m"><input type="radio" name="title" id="title_m" value="Monsieur" <c:out value="${candidate.title == 'Monsieur' ? 'checked' : '' }"/>> Monsieur</label>
+						<label for="title_mlle"><input type="radio" name="title" id="title_mlle" value="Mademoiselle" <c:out value="${candidate.title == 'Mademoiselle' ? 'checked' : '' }"/>> Mademoiselle</label>
+						<span class="error">${form.errors['title']}</span>
+					</div>
+				</div>
+				<br>
 				
-				<label for="title">Titre<span class="required">*</span></label>
-				<input type="radio" name="title" id="title_mme" value="Madame" <c:out value="${candidate.title == 'Madame' ? 'checked' : '' }"/> required autofocus > Madame
-				<input type="radio" name="title" id="title_m" value="Monsieur" <c:out value="${candidate.title == 'Monsieur' ? 'checked' : '' }"/>> Monsieur
-				<input type="radio" name="title" id="title_mlle" value="Mademoiselle" <c:out value="${candidate.title == 'Mademoiselle' ? 'checked' : '' }"/>> Mademoiselle
-				<span class="error">${form.errors['title']}</span>
+				<div class="row">
+					<div class="col-md-4">
+						<label for="lastName">Nom<span class="required">*</span></label>
+						<input class="form-control" type="text" id="lastName" name="lastName" value="<c:out value="${empty form.errors ? '' : candidate.lastName }"/>" size="20" maxlength="50" required />
+						<span class="error">${form.errors['lastName']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="firstName">Prénom<span class="required">*</span></label>
+						<input class="form-control" type="text" id="firstName" name="firstName" value="<c:out value="${empty form.errors ? '' : candidate.firstName }"/>" size="20" maxlength="50" required />
+						<span class="error">${form.errors['firstName']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="email">Email</label>
+						<input class="form-control" type="email" id="email" name="email" value="<c:out value="${empty form.errors ? '' : candidate.email }"/>" size="30" maxlength="100" />
+						<span class="error">${form.errors['email']}</span>
+					</div>
+				</div>
+				<br>
+				
+				<div class="row">
+					<div class="col-md-4">
+						<label for="livesAt">Vit chez</label>
+						<input class="form-control" type="text" id="livesAt" name="livesAt" value="<c:out value="${empty form.errors ? '' : candidate.livesAt }"/>" size="30" maxlength="100" />
+						<span class="error">${form.errors['livesAt']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="street">Rue</label>
+						<input class="form-control" type="text" id="street" name="street" value="<c:out value="${empty form.errors ? '' : candidate.street }"/>" size="30" maxlength="100" />
+						<span class="error">${form.errors['street']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="numStreet">Numéro Rue</label>
+						<input class="form-control" type="text" id="numStreet" name="numStreet" value="<c:out value="${empty form.errors ? '' : candidate.numStreet }"/>" size="5" maxlength="10" />
+						<span class="error">${form.errors['numStreet']}</span>
+					</div>
+				</div>
+				<br>
+				
+				<div class="row">
+					<div class="col-md-4">
+						<label for="postCode">Code postal (chiffres uniquement)</label>
+						<input class="form-control" type="number" id="postCode" min="0" name="postCode" value="<c:out value="${empty form.errors ? '' : candidate.postCode }"/>" size="5" maxlength="10" />
+						<span class="error">${form.errors['postCode']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="locality">Localité</label>
+						<input class="form-control" type="text" id="locality" name="locality" value="<c:out value="${empty form.errors ? '' : candidate.locality }"/>" size="20" maxlength="50" />
+						<span class="error">${form.errors['locality']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="country">Pays</label>
+						<input class="form-control" type="text" id="country" name="country" value="<c:out value="${empty form.errors ? '' : candidate.country }"/>" size="20" maxlength="50" />
+						<span class="error">${form.errors['country']}</span>
+					</div>
+				</div>
+				<br>
+				
+				<div class="row">
+					<div class="col-md-4">
+						<label for="requestDate">Date de demande (format jj.mm.aaaa)</label>
+						<input class="form-control" type="date" id="requestDate" name="requestDate" value="<c:out value="${empty form.errors ? '' : candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" />
+						<span class="error">${form.errors['requestDate']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="initials">Initiales auteur<span class="required">*</span></label>
+						<input class="form-control" type="text" id="initials" name="initials" value="<c:out value="${empty form.errors ? '' : candidate.initials }"/>" size="10" maxlength="10" required />
+						<span class="error">${form.errors['initials']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="jobFunction">Job<span class="required">*</span></label>
+						<input class="form-control" type="text" id="jobFunction" name="jobFunction" value="<c:out value="${empty form.errors ? '' : candidate.jobFunction }"/>" size="20" maxlength="50" required />
+						<span class="error">${form.errors['jobFunction']}</span>
+					</div>
+				</div>
+				<br>
+				
+				<div class="row">
+					<div class="col-md-4">
+						<label for="answer">Réponse<span class="required">*</span></label>
+						<select class="form-control" name="answer">
+							<c:forEach items="${answers}" var="answer">
+							<option value="<c:out value="${answer.name}"/>" <c:out value="${candidate.answer == answer.name ? 'selected' : '' }"/>><c:out value="${answer.name}"/></option>
+							</c:forEach>
+						</select>
+						<span class="error">${form.errors['answer']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="folder">Annexe dossier ? :<span class="required">* </span></label>
+						<input type="radio" name="folder" id="folderYes" value="yes" <c:out value="${candidate.folder == 'yes' ? 'checked' : '' }"/> required > <label for="folderYes">Oui</label>
+						<input type="radio" name="folder" id="folderNo" value="no" <c:out value="${candidate.folder == 'no' ? 'checked' : '' }"/>> <label for="folderNo">Non</label>
+						<span class="error">${form.errors['folder']}</span>
+					</div>
+					
+					<div class="col-md-4">
+						<label for="sendType">Type d'envoi :<span class="required">* </span></label>
+						<input type="radio" name="sendType" id="sendTypePDF" value="pdf" <c:out value="${candidate.sendType == 'pdf' ? 'checked' : '' }"/> required > <label for="sendTypePDF">PDF (impression)</label>
+						<input type="radio" name="sendType" id="sendTypeEmail" value="email" <c:out value="${candidate.sendType == 'email' ? 'checked' : '' }"/>> <label for="sendTypeEmail">Email</label>
+						<span class="error">${form.errors['sendType']}</span>
+					</div>
+				</div>
+				<br>
+				
+				<button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-ok-sign"></span> Insertion</button>
 				<br />
-				
-				<label for="lastName">Nom<span class="required">*</span></label>
-				<input type="text" id="lastName" name="lastName" value="<c:out value="${empty form.errors ? '' : candidate.lastName }"/>" size="20" maxlength="50" required />
-				<span class="error">${form.errors['lastName']}</span>
-				<br />
-				
-				<label for="firstName">Prénom<span class="required">*</span></label>
-				<input type="text" id="firstName" name="firstName" value="<c:out value="${empty form.errors ? '' : candidate.firstName }"/>" size="20" maxlength="50" required />
-				<span class="error">${form.errors['firstName']}</span>
-				<br />
-				
-				<label for="email">Email</label>
-				<input type="email" id="email" name="email" value="<c:out value="${empty form.errors ? '' : candidate.email }"/>" size="30" maxlength="100" />
-				<span class="error">${form.errors['email']}</span>
-				<br />
-
-				<label for="livesAt">Vit chez</label>
-				<input type="text" id="livesAt" name="livesAt" value="<c:out value="${empty form.errors ? '' : candidate.livesAt }"/>" size="30" maxlength="100" />
-				<span class="error">${form.errors['livesAt']}</span>
-				<br />
-				
-				<label for="street">Rue</label>
-				<input type="text" id="street" name="street" value="<c:out value="${empty form.errors ? '' : candidate.street }"/>" size="30" maxlength="100" />
-				<span class="error">${form.errors['street']}</span>
-				
-				<label for="numStreet">Numéro Rue</label>
-				<input type="text" id="numStreet" name="numStreet" value="<c:out value="${empty form.errors ? '' : candidate.numStreet }"/>" size="5" maxlength="10" />
-				<span class="error">${form.errors['numStreet']}</span>
-				<br />
-				
-				<label for="postCode">Code postal (chiffres uniquement)</label>
-				<input type="number" id="postCode" name="postCode" value="<c:out value="${empty form.errors ? '' : candidate.postCode }"/>" size="5" maxlength="10" />
-				<span class="error">${form.errors['postCode']}</span>
-				<br />
-				
-				<label for="locality">Localité</label>
-				<input type="text" id="locality" name="locality" value="<c:out value="${empty form.errors ? '' : candidate.locality }"/>" size="20" maxlength="50" />
-				<span class="error">${form.errors['locality']}</span>
-				<br />
-				
-				<label for="country">Pays</label>
-				<input type="text" id="country" name="country" value="<c:out value="${empty form.errors ? '' : candidate.country }"/>" size="20" maxlength="50" />
-				<span class="error">${form.errors['country']}</span>
-				<br />
-				
-				<label for="requestDate">Date de demande (format jj.mm.aaaa)</label>
-				<input type="date" id="requestDate" name="requestDate" value="<c:out value="${empty form.errors ? '' : candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" />
-				<span class="error">${form.errors['requestDate']}</span>
-				<br />
-				
-				<label for="initials">Initiales auteur<span class="required">*</span></label>
-				<input type="text" id="initials" name="initials" value="<c:out value="${empty form.errors ? '' : candidate.initials }"/>" size="10" maxlength="10" required />
-				<span class="error">${form.errors['initials']}</span>
-				<br />
-				
-				<label for="jobFunction">Job<span class="required">*</span></label>
-				<input type="text" id="jobFunction" name="jobFunction" value="<c:out value="${empty form.errors ? '' : candidate.jobFunction }"/>" size="20" maxlength="50" required />
-				<span class="error">${form.errors['jobFunction']}</span>
-				<br />
-				
-				<label for="answer">Réponse<span class="required">*</span></label>
-				<select name="answer">
-					<c:forEach items="${answers}" var="answer">
-					<option value="<c:out value="${answer.name}"/>" <c:out value="${candidate.answer == answer.name ? 'selected' : '' }"/>><c:out value="${answer.name}"/></option>
-					</c:forEach>
-				</select>
-				<span class="error">${form.errors['answer']}</span>
-				<br />
-				
-				<label for="folder">Annexe dossier ?<span class="required">*</span></label>
-				<input type="radio" name="folder" id="folderYes" value="yes" <c:out value="${candidate.folder == 'yes' ? 'checked' : '' }"/> required > Oui
-				<input type="radio" name="folder" id="folderNo" value="no" <c:out value="${candidate.folder == 'no' ? 'checked' : '' }"/>> Non
-				<span class="error">${form.errors['folder']}</span>
-				<br />
-				
-				<label for="sendType">Type d'envoi<span class="required">*</span></label>
-				<input type="radio" name="sendType" id="sendTypePDF" value="pdf" <c:out value="${candidate.sendType == 'pdf' ? 'checked' : '' }"/> required > PDF (impression)
-				<input type="radio" name="sendType" id="sendTypeEmail" value="email" <c:out value="${candidate.sendType == 'email' ? 'checked' : '' }"/>> Email
-				<span class="error">${form.errors['sendType']}</span>
-				<br />
-				
-				<input type="submit" value="Insertion" />
 				<br />
 				<p class="info">Les champs marqués d'un * sont obligatoires.</p>
+				<p class="${empty form.errors ? 'success' : 'error'}">${form.result}</p>
 			</fieldset>
 		</form>
 		
 		<c:if test="${!empty candidate.id}">
-		<table>
+		<table class="col-md-12 table table-bordered table-striped table-condensed">
 			<tr>
 				<th>Id</th>
 				<th>Titre</th>
@@ -121,9 +167,9 @@
 				<th>NPA</th>
 				<th>Localité</th>
 				<th>Pays</th>
-				<th>Date demande</th>
-				<th>Date insertion</th>
-				<th>Date modification</th>
+				<th>Date de demande</th>
+				<th>Date d'insertion</th>
+				<th>Date de modification</th>
 				<th>Auteur</th>
 				<th>Job</th>
 				<th>Réponse</th>
@@ -136,16 +182,16 @@
 				<td><c:out value="${candidate.getShortTitle()}"/></td>
 				<td><c:out value="${candidate.lastName}"/></td>
 				<td><c:out value="${candidate.firstName}"/></td>
-				<td><a href="mailto:<c:out value="${candidate.email}"/>"><c:out value="${candidate.email}"/></a></td>
-				<td><c:out value="${candidate.livesAt}"/></td>
-				<td><c:out value="${candidate.street}"/></td>
-				<td><c:out value="${candidate.numStreet}"/></td>
-				<td><c:out value="${candidate.postCode}"/></td>
-				<td><c:out value="${candidate.locality}"/></td>
-				<td><c:out value="${candidate.country}"/></td>
-				<td><c:out value="${candidate.getRequestDateFormatted()}"/></td>
+				<td><a href="mailto:<c:out value="${candidate.email}"/>"><c:out value="${empty candidate.email ? '-' : candidate.email}"/></a></td>
+				<td><c:out value="${empty candidate.livesAt ? '-' : candidate.livesAt}"/></td>
+				<td><c:out value="${empty candidate.street ? '-' : candidate.street}"/></td>
+				<td><c:out value="${empty candidate.numStreet ? '-' : candidate.numStreet}"/></td>
+				<td><c:out value="${empty candidate.postCode ? '-' : candidate.postCode}"/></td>
+				<td><c:out value="${empty candidate.locality ? '-' : candidate.locality}"/></td>
+				<td><c:out value="${empty candidate.country ? '-' : candidate.country}"/></td>
+				<td><c:out value="${empty candidate.getRequestDateFormatted() ? '-' : candidate.getRequestDateFormatted()}"/></td>
 				<td><c:out value="${candidate.getInsertDateFormatted()}"/></td>
-				<td><c:out value="${candidate.getUpdateDateFormatted()}"/></td>
+				<td><c:out value="${candidate.getInsertDateFormatted() == candidate.getUpdateDateFormatted() ? '-' : candidate.getUpdateDateFormatted()}"/></td>
 				<td><c:out value="${candidate.initials}"/></td>
 				<td><c:out value="${candidate.jobFunction}"/></td>
 				<td><c:out value="${candidate.answer}"/></td>
@@ -156,6 +202,7 @@
 		</table>
 		</c:if>
 		
-		<p class="${empty form.errors ? 'success' : 'error'}">${form.result}</p>
-	</body>
+		
+	</div>
+</body>
 </html>

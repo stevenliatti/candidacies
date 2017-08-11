@@ -78,7 +78,7 @@ public class CandidateDAO {
 		try {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE firstName LIKE '%" + search + 
-					"%' OR lastName LIKE '%" + search + "%';", false);
+					"%' OR lastName LIKE '%" + search + "%' ORDER BY id DESC;", false);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				candidates.add(map(resultSet));
@@ -100,7 +100,8 @@ public class CandidateDAO {
 		
 		try {
 			connection = daoFactory.getConnection();
-			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE jobFunction LIKE '%" + search + "%';", false);
+			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE jobFunction LIKE '%" + search + 
+					"%' ORDER BY id DESC;", false);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				candidates.add(map(resultSet));

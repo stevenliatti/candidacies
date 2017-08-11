@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.error {
+	color: red;
+}
+
+.success {
+	color: green;
+}
+
+.border {
+	padding : 15px;
+	border: 1px solid black;
+	border-radius: 10px;
+}

@@ -35,7 +35,7 @@ public class ListCandidatesServlet extends LatexServlet {
 		String number = request.getParameter("number");
 
 		if ((ids == null || ids.length == 0) && (search == null || search.isEmpty()) && (number == null || number.isEmpty())) {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/candidates");
 		}
 		else {
 			if (!search.isEmpty()) {
@@ -56,7 +56,7 @@ public class ListCandidatesServlet extends LatexServlet {
 				} catch (NumberFormatException e) {
 					HttpSession session = request.getSession();
 					session.setAttribute("message", "Le nombre fourni est incorrect.");
-					response.sendRedirect(request.getContextPath());
+					response.sendRedirect(request.getContextPath() + "/candidates");
 				}
 				
 				List<Candidate> candidates = candidateDAO.listCandidates(Math.abs(num));

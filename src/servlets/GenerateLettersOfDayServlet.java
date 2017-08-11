@@ -22,7 +22,7 @@ public class GenerateLettersOfDayServlet extends LatexServlet {
 		if ((candidatesPDF == null || candidatesPDF.isEmpty()) && (candidatesEmail == null || candidatesEmail.isEmpty())) {
 			HttpSession session = request.getSession();
 			session.setAttribute("message", "Pas de candidats inscrits aujourd'hui");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath() + "/candidates");
 			return;
 		}
 		
