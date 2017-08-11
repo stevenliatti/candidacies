@@ -47,6 +47,28 @@ public class CandidateDAO {
 		this.daoFactory = daoFactory;
 	}
 	
+	public List<Candidate> listCandidates(int number) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Candidate> list = new ArrayList<>();
+
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates ORDER BY id DESC LIMIT " + number + ";", false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				list.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+
+		return list;
+	}
+	
 	public List<Candidate> searchByName(String search) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

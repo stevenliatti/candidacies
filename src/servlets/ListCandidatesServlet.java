@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import beans.Candidate;
 
@@ -18,7 +19,7 @@ public class ListCandidatesServlet extends LatexServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
 		int countEmail = candidateDAO.countCandidatesOfDay("email");
-		List<Candidate> candidates = candidateDAO.readAll();
+		List<Candidate> candidates = candidateDAO.listCandidates(100);
 		
 		request.setAttribute("countPDF", countPDF);
 		request.setAttribute("countEmail", countEmail);
@@ -31,29 +32,38 @@ public class ListCandidatesServlet extends LatexServlet {
 		String[] ids = request.getParameterValues("ids");
 		String search = request.getParameter("search");
 		String type = request.getParameter("type");
+		String number = request.getParameter("number");
 
-		if ((ids == null || ids.length == 0) && (search == null || search.isEmpty())) {
-			System.out.println("first if");
-			response.sendRedirect(request.getContextPath() + "/candidates");
+		if ((ids == null || ids.length == 0) && (search == null || search.isEmpty()) && (number == null || number.isEmpty())) {
+			response.sendRedirect(request.getContextPath());
 		}
 		else {
-			System.out.println("first else");
 			if (!search.isEmpty()) {
-				System.out.println("second if");
 				List<Candidate> candidates = null;
 				if (type.equals("name")) {
-					System.out.println("third if");
 					candidates = candidateDAO.searchByName(search);
 				}
 				else if (type.equals("job")) {
-					System.out.println("else if");
 					candidates = candidateDAO.searchByJob(search);
 				}
 				request.setAttribute("candidates", candidates);
 				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
 			}
+			else if (!number.isEmpty()) {
+				int num = 0;
+				try {
+					num = Integer.parseInt(number);
+				} catch (NumberFormatException e) {
+					HttpSession session = request.getSession();
+					session.setAttribute("message", "Le nombre fourni est incorrect.");
+					response.sendRedirect(request.getContextPath());
+				}
+				
+				List<Candidate> candidates = candidateDAO.listCandidates(Math.abs(num));
+				request.setAttribute("candidates", candidates);
+				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
+			}
 			else {
-				System.out.println("second else");
 				List<Candidate> candidatesPDF = candidateDAO.listCandidates(ids, "pdf");
 				List<Candidate> candidatesEmail = candidateDAO.listCandidates(ids, "email");
 				

@@ -8,4 +8,4 @@ RemoteSystemsTempFiles
 WebContent/META-INF/*
 *.class
 WebContent/WEB-INF/classes/*
-
+data/latex/letters.tex

@@ -12,15 +12,23 @@
 	<p><span class="error">${message}</span></p>
 	<c:remove var="message" scope="session" />
 	
-	<h1><a href="<c:url value="/" />">Liste des candidats</a></h1>
+	<h1><a href="<c:url value="/" />">Liste des candidats (les 100 derniers par défaut)</a></h1>
 	
 	<form method="post" action="<c:url value="candidates" />">
 		<input type="submit" value="Générer les lettres des candidats sélectionnés" />
+		<br>
 		
+		<label for="search">Rechercher</label>
 		<input type="text" name="search" size="30" maxlength="100" title="Saisir la recherche"/>
 		<input type="radio" name="type" id="typeName" value="name" checked /> Nom ou prénom
 		<input type="radio" name="type" id="typeJob" value="job" /> Job
 		<input type="submit" value="Rechercher" />
+		<br>
+		
+		<label for="number">Nombre de candidats à afficher (du dernier au premier inscrits)</label>
+		<input type="number" name="number" title="Saisir le nombre de candidats à afficher"/>
+		<input type="submit" value="Nombre de candidats à afficher" />
+		<br>
 		
 		<table>
 			<tr>
