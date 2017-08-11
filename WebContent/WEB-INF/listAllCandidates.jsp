@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Liste des candidats</title>
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/bootstrap.min.css"/>" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/my.css"/>" />
@@ -19,7 +20,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<p><a href="<c:url value="/create"/>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Créer candidat</a></p>
-				<p><a href="<c:url value="/generate"/>" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Générer les lettres des candidats du jour (<c:out value="${countPDF}" /> en pdf et <c:out value="${countEmail}" /> par mail)</a></p>
+				<p><a href="<c:url value="/generate"/>" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Générer lettres du jour (<c:out value="${countPDF}" /> pdf, <c:out value="${countEmail}" /> mail)</a></p>
 				<p><span class="error">${message}</span></p>
 				<c:remove var="message" scope="session" />
 			</div>
@@ -28,7 +29,7 @@
 		<form method="post" action="<c:url value="candidates" />">
 			<div class="row">
 				<div class="col-lg-12">
-					<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Générer les lettres des candidats sélectionnés</button>
+					<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Générer lettres des candidats sélectionnés</button>
 				</div>
 			</div>
 			<br>
