@@ -81,4 +81,8 @@ public class DAOFactory {
 	public AnswerDAO getAnswerDao() {
 		return new AnswerDAO(this);
 	}
+	
+	public AutoCompleteDAO getAutoCompleteDAO() {
+		return new AutoCompleteDAO(this);
+	}
 }

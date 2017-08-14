@@ -86,7 +86,15 @@
     <url-pattern>/download/*</url-pattern>
   </servlet-mapping>
   
-  
+  <servlet>
+    <servlet-name>AutoCompleteServlet</servlet-name>
+    <servlet-class>servlets.AutoCompleteServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AutoCompleteServlet</servlet-name>
+    <url-pattern>/autocomplete</url-pattern>
+  </servlet-mapping>
 
   <listener>
     <listener-class>config.InitDAOFactory</listener-class>

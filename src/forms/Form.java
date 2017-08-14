@@ -29,6 +29,13 @@ public abstract class Form {
 	public Map<String, String> getErrors() {
 		return errors;
 	}
+	
+	public static String upperFirst(String str) {
+		if (str == null || str.isEmpty()) {
+			return str;
+		}
+		return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+	}
 
 	protected String validateString(String name, String field, String message) throws Exception {
 		try {

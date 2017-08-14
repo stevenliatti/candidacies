@@ -33,6 +33,11 @@ public class ListCandidatesServlet extends LatexServlet {
 		String search = request.getParameter("search");
 		String type = request.getParameter("type");
 		String number = request.getParameter("number");
+		
+		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
+		int countEmail = candidateDAO.countCandidatesOfDay("email");
+		request.setAttribute("countPDF", countPDF);
+		request.setAttribute("countEmail", countEmail);
 
 		if ((ids == null || ids.length == 0) && (search == null || search.isEmpty()) && (number == null || number.isEmpty())) {
 			response.sendRedirect(request.getContextPath() + "/candidates");

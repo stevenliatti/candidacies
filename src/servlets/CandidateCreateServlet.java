@@ -1,5 +1,13 @@
 package servlets;
 
+import static beans.Bean.countryField;
+import static beans.Bean.firstNameField;
+import static beans.Bean.jobFunctionField;
+import static beans.Bean.lastNameField;
+import static beans.Bean.localityField;
+import static beans.Bean.plural;
+import static beans.Bean.streetField;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -11,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import beans.Answer;
 import beans.Candidate;
 import dao.AnswerDAO;
+import dao.AutoCompleteDAO;
 import dao.CandidateDAO;
 import dao.DAOFactory;
 import forms.CandidateForm;
@@ -21,10 +30,12 @@ public class CandidateCreateServlet extends HttpServlet {
 	
 	private CandidateDAO candidateDAO;
 	private AnswerDAO answerDAO;
+	private AutoCompleteDAO autoCompleteDAO;
 	
 	public void init() throws ServletException {
         this.candidateDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getCandidateDao();
         this.answerDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getAnswerDao();
+        this.autoCompleteDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getAutoCompleteDAO();
     }
 	
 	@Override
@@ -38,6 +49,14 @@ public class CandidateCreateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CandidateForm form = new CandidateForm(candidateDAO, answerDAO);
 		Candidate candidate = form.createCandidate(request);
+		autoCompleteDAO
+			.checkOrCreate(plural(lastNameField), candidate.getLastName())
+			.checkOrCreate(plural(firstNameField), candidate.getFirstName())
+			.checkOrCreate(plural(streetField), candidate.getStreet())
+			.checkOrCreate(plural(localityField), candidate.getLocality())
+			.checkOrCreate(plural(countryField), candidate.getCountry())
+			.checkOrCreate(plural(jobFunctionField), candidate.getJobFunction())
+			;
 		List<Answer> answers = answerDAO.readAll();
 		
 		request.setAttribute("answers", answers);

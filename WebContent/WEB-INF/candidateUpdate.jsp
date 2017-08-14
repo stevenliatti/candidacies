@@ -6,6 +6,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Candidat - Modification</title>
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/bootstrap.min.css"/>" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/my.css"/>" />
 </head>
@@ -38,19 +39,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="lastName">Nom<span class="required">*</span></label>
-						<input class="form-control" type="text" id="lastName" name="lastName" value="<c:out value="${ candidate.lastName }"/>" size="20" maxlength="50" required />
+						<input autocomplete="off" class="form-control" type="text" id="lastName" name="lastName" value="<c:out value="${ candidate.lastName }"/>" size="20" maxlength="50" required />
 						<span class="error">${form.errors['lastName']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="firstName">Prénom<span class="required">*</span></label>
-						<input class="form-control" type="text" id="firstName" name="firstName" value="<c:out value="${ candidate.firstName }"/>" size="20" maxlength="50" required />
+						<input autocomplete="off" class="form-control" type="text" id="firstName" name="firstName" value="<c:out value="${ candidate.firstName }"/>" size="20" maxlength="50" required />
 						<span class="error">${form.errors['firstName']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="email">Email</label>
-						<input class="form-control" type="email" id="email" name="email" value="<c:out value="${ candidate.email }"/>" size="30" maxlength="100" />
+						<input autocomplete="off" class="form-control" type="email" id="email" name="email" value="<c:out value="${ candidate.email }"/>" size="30" maxlength="100" />
 						<span class="error">${form.errors['email']}</span>
 					</div>
 				</div>
@@ -59,19 +60,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="livesAt">Vit chez</label>
-						<input class="form-control" type="text" id="livesAt" name="livesAt" value="<c:out value="${ candidate.livesAt }"/>" size="30" maxlength="100" />
+						<input autocomplete="off" class="form-control" type="text" id="livesAt" name="livesAt" value="<c:out value="${ candidate.livesAt }"/>" size="30" maxlength="100" />
 						<span class="error">${form.errors['livesAt']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="street">Rue</label>
-						<input class="form-control" type="text" id="street" name="street" value="<c:out value="${ candidate.street }"/>" size="30" maxlength="100" />
+						<input autocomplete="off" class="form-control" type="text" id="street" name="street" value="<c:out value="${ candidate.street }"/>" size="30" maxlength="100" />
 						<span class="error">${form.errors['street']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="numStreet">Numéro Rue</label>
-						<input class="form-control" type="text" id="numStreet" name="numStreet" value="<c:out value="${ candidate.numStreet }"/>" size="5" maxlength="10" />
+						<input autocomplete="off" class="form-control" type="text" id="numStreet" name="numStreet" value="<c:out value="${ candidate.numStreet }"/>" size="5" maxlength="10" />
 						<span class="error">${form.errors['numStreet']}</span>
 					</div>
 				</div>
@@ -80,19 +81,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="postCode">Code postal (chiffres uniquement)</label>
-						<input class="form-control" type="number" id="postCode" min="0" name="postCode" value="<c:out value="${ candidate.postCode }"/>" size="5" maxlength="10" />
+						<input autocomplete="off" class="form-control" type="number" id="postCode" min="0" name="postCode" value="<c:out value="${ candidate.postCode }"/>" size="5" maxlength="10" />
 						<span class="error">${form.errors['postCode']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="locality">Localité</label>
-						<input class="form-control" type="text" id="locality" name="locality" value="<c:out value="${ candidate.locality }"/>" size="20" maxlength="50" />
+						<input autocomplete="off" class="form-control" type="text" id="locality" name="locality" value="<c:out value="${ candidate.locality }"/>" size="20" maxlength="50" />
 						<span class="error">${form.errors['locality']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="country">Pays</label>
-						<input class="form-control" type="text" id="country" name="country" value="<c:out value="${ candidate.country }"/>" size="20" maxlength="50" />
+						<input autocomplete="off" class="form-control" type="text" id="country" name="country" value="<c:out value="${ candidate.country }"/>" size="20" maxlength="50" />
 						<span class="error">${form.errors['country']}</span>
 					</div>
 				</div>
@@ -113,7 +114,7 @@
 					
 					<div class="col-md-4">
 						<label for="jobFunction">Job<span class="required">*</span></label>
-						<input class="form-control" type="text" id="jobFunction" name="jobFunction" value="<c:out value="${ candidate.jobFunction }"/>" size="20" maxlength="50" required />
+						<input autocomplete="off" class="form-control" type="text" id="jobFunction" name="jobFunction" value="<c:out value="${ candidate.jobFunction }"/>" size="20" maxlength="50" required />
 						<span class="error">${form.errors['jobFunction']}</span>
 					</div>
 				</div>
@@ -164,5 +165,15 @@
 			</fieldset>
 		</form>
 	</div>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js"></script>
+	<script type="text/javascript">
+	<c:forTokens var="field" items="lastName;firstName;street;locality;country;jobFunction" delims=";">
+		$('#${field}').autocomplete({
+			source : "<c:url value="/autocomplete" />?field=${field}"
+		});
+	</c:forTokens>
+	</script>
 </body>
 </html>

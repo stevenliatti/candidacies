@@ -49,4 +49,13 @@ public abstract class Bean {
 	public Map<String, String> getMap() {
 		return map;
 	}
+	
+	public static String plural(String str) {
+		if (str.charAt(str.length() - 1) == 'y') {
+			return str.substring(0, str.length() - 1) + "ies";
+		}
+		else {
+			return str.substring(0, str.length()) + "s";
+		}
+	}
 }

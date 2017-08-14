@@ -64,10 +64,10 @@ public class CandidateForm extends Form {
 					getField(r, countryField), sendType);
 			LocalDateTime now = LocalDateTime.now();
 
-			candidate = new Candidate(null, title, lastName, 
-					firstName, email, getField(r, livesAtField), getField(r, streetField),
-					getField(r, numStreetField), postCode, getField(r, localityField),
-					getField(r, countryField), requestDate, now, now, getField(r, initialsField), 
+			candidate = new Candidate(null, title, upperFirst(lastName), 
+					upperFirst(firstName), email, upperFirst(getField(r, livesAtField)), upperFirst(getField(r, streetField)),
+					getField(r, numStreetField), postCode, upperFirst(getField(r, localityField)),
+					upperFirst(getField(r, countryField)), requestDate, now, now, getField(r, initialsField), 
 					getField(r, jobFunctionField), 
 					answer, null,
 					folder,
@@ -122,10 +122,10 @@ public class CandidateForm extends Form {
 			
 			Candidate candidate = candidateDAO.read(id);
 
-			updateCandidate = new Candidate(id, getField(r, titleField), lastName, 
-					firstName, email, getField(r, livesAtField), getField(r, streetField),
-					getField(r, numStreetField), postCode, getField(r, localityField),
-					getField(r, countryField), requestDate, candidate.getInsertDate(), now, 
+			updateCandidate = new Candidate(id, title, upperFirst(lastName), 
+					upperFirst(firstName), email, upperFirst(getField(r, livesAtField)), upperFirst(getField(r, streetField)),
+					getField(r, numStreetField), postCode, upperFirst(getField(r, localityField)),
+					upperFirst(getField(r, countryField)), requestDate, candidate.getInsertDate(), now, 
 					getField(r, initialsField), getField(r, jobFunctionField), 
 					answer, null,
 					folder,

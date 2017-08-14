@@ -15,7 +15,7 @@ import dao.CandidateDAO;
 import dao.DAOFactory;
 
 @SuppressWarnings("serial")
-public class LatexServlet extends HttpServlet {
+public abstract class LatexServlet extends HttpServlet {
 	private static final String outputPath = Paths.getInstance().getOutputPath();
 	private static final String generatedFileName = Paths.getInstance().getGeneratedFileName();
 	private static final String latexPath = Paths.getInstance().getLatexPath();

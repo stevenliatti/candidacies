@@ -9,6 +9,21 @@ GRANT ALL ON candidacies.* TO 'candidacies'@'localhost';
 
 USE candidacies;
 
+CREATE TABLE IF NOT EXISTS lastNames (
+	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	name varchar(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS firstNames (
+	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	name varchar(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS streets (
+	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	name varchar(100) NOT NULL UNIQUE
+);
+
 CREATE TABLE IF NOT EXISTS localities (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	name varchar(50) NOT NULL UNIQUE
@@ -19,9 +34,9 @@ CREATE TABLE IF NOT EXISTS countries (
 	name varchar(50) NOT NULL UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS jobsFunctions (
+CREATE TABLE IF NOT EXISTS jobFunctions (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
-	title varchar(20) NOT NULL UNIQUE
+	name varchar(20) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS answers (
@@ -34,11 +49,11 @@ CREATE TABLE IF NOT EXISTS answers (
 CREATE TABLE IF NOT EXISTS candidates (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	title varchar(15) NOT NULL,
-	lastName varchar(50) NOT NULL,
-	firstName varchar(50) NOT NULL,
+	lastName varchar(50) NOT NULL REFERENCES lastNames(name),
+	firstName varchar(50) NOT NULL REFERENCES firstNames(name),
 	email varchar(100),
 	livesAt varchar(100),
-	street varchar(100),
+	street varchar(100) REFERENCES streets(name),
 	numStreet varchar(10),
 	postCode varchar(10),
 	locality varchar(50) REFERENCES localities(name),
@@ -47,7 +62,7 @@ CREATE TABLE IF NOT EXISTS candidates (
 	insertDate datetime NOT NULL,
 	updateDate datetime NOT NULL,
 	initials varchar(10) NOT NULL,
-	jobFunction varchar(50) REFERENCES jobsFunctions(title),
+	jobFunction varchar(50) REFERENCES jobFunctions(name),
 	answer varchar(50) NOT NULL REFERENCES answers(name),
 	answerTitle varchar(100) NOT NULL REFERENCES answers(title),
 	folder varchar(3) NOT NULL,
@@ -58,9 +73,10 @@ CREATE TABLE IF NOT EXISTS candidates (
 
 ENGINE=INNODB;
 
+INSERT INTO streets (name) VALUES ('Rue de la Servette'), ('Rue de Lyon'), ('Chemin des Marais'), ('Route de Veyrier');
 INSERT INTO localities (name) VALUES ('Genève'), ('Carouge'), ('Meyrin'), ('Veyrier');
-
 INSERT INTO countries (name) VALUES ('Suisse'), ('France'), ('Allemagne'), ('Belgique');
+INSERT INTO jobFunctions (name) VALUES ('infirmier'), ('animateur'), ('aide-soignant'), ('cuisinier');
 
 INSERT INTO answers (name, title, content) 
 VALUES 
@@ -112,11 +128,11 @@ INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numS
 
 VALUES 
 	("Madame", "Dupont", "Jessica", "Jessica@mail.com", 
-	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", CURDATE(), NOW(), NOW(), 
+	"Bob", "Rue des tests", "42", "999", "Test Ville", "France", CURDATE(), NOW(), NOW(), 
 	"sl", "infirmier", "négatif", "Réponse négative", "yes", "pdf", "no"),
 
 	("Monsieur", "Dupont", "Jean", "Jean@mail.com", 
-	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", CURDATE(), NOW(), NOW(), 
+	"Bob", "Rue des tests", "42", "999", "Test Ville", "Allemagne", CURDATE(), NOW(), NOW(), 
 	"sl", "infirmier", "négatif six mois", "Réponse négative après mise en suspens", "yes", "pdf", "no"),
 
 	("Mademoiselle", "Dupuis", "Nina", "Nina@mail.com", 
@@ -129,7 +145,7 @@ VALUES
 
 	("Monsieur", "Dupont", "Max", "Max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NULL, NOW(), NOW(), 
-	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "pdf", "no"),
+	"sl", "cuisinier", "négatif", "Réponse négative", "yes", "email", "no"),
 
 	("Monsieur", "Dupont", "Paul", "Max@mail.com", 
 	"Bob", "Rue des tests", "42", "999", "Test Ville", "Suisse", NULL, NOW(), NOW(), 
