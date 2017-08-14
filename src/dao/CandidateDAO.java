@@ -193,6 +193,28 @@ public class CandidateDAO {
 
 		return candidates;
 	}
+	
+	public int countAll() {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		int count = 0;
+
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT COUNT(*) FROM candidates;", false);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				count = resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+
+		return count;
+	}
 
 	public List<Candidate> readAll() {
 		Connection connection = null;

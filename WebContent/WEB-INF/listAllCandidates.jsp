@@ -13,14 +13,14 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1><a href="<c:url value="/candidates" />">Liste des candidats (100 derniers)</a></h1>
+				<h1><a href="<c:url value="/candidates" />">Liste des 100 derniers candidats</a></h1>
 			</div>
 		</div>
 	
 		<div class="row">
 			<div class="col-lg-12">
-				<p><a href="<c:url value="/create"/>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Créer candidat</a></p>
-				<p><a href="<c:url value="/generate"/>" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Générer lettres du jour (<c:out value="${countPDF}" /> pdf, <c:out value="${countEmail}" /> mail)</a></p>
+				<a href="<c:url value="/create"/>" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Créer candidat</a>
+				<a href="<c:url value="/generate"/>" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Générer lettres du jour (<c:out value="${countPDF}" /> pdf, <c:out value="${countEmail}" /> mail)</a>
 				<p><span class="error">${message}</span></p>
 				<c:remove var="message" scope="session" />
 			</div>
@@ -28,18 +28,15 @@
 		
 		<form method="post" action="<c:url value="candidates" />">
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-3">
 					<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-download"></span> Générer lettres des candidats sélectionnés</button>
 				</div>
-			</div>
-			<br>
-			
-			<div class="row">
-				<div class="col-lg-12">
+
+				<div class="col-lg-8">
 					<label for="search">Rechercher</label>
-					<input type="search" name="search" size="30" maxlength="100" title="Saisir la recherche" placeholder="Rechercher"/>
-					<input type="radio" name="type" id="typeName" value="name" checked /> <label for="typeName">Nom ou prénom</label>
-					<input type="radio" name="type" id="typeJob" value="job" /> <label for="typeJob">Job</label>
+					<input autocomplete="off" type="search" name="search" size="30" maxlength="100" title="Saisir la recherche" placeholder="Rechercher"/>
+					<input type="radio" name="type" id="typeName" value="name" checked /> <label for="typeName">Par nom ou prénom</label>
+					<input type="radio" name="type" id="typeJob" value="job" /> <label for="typeJob">Par job</label>
 					<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
 				</div>
 			</div>
@@ -48,8 +45,9 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<label for="number">Nombre de candidats à afficher (du dernier au premier inscrits)</label>
-					<input type="number" name="number" min="0" title="Saisir le nombre de candidats à afficher"/>
+					<input autocomplete="off" id="number" type="number" name="number" min="0" title="Saisir le nombre de candidats à afficher"/>
 					<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-eye-open"></span> Nombre de candidats à afficher</button>
+					<button onclick="document.getElementById('number').value = <c:out value="${countAll}" />;" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-eye-open"></span> Afficher tous les candidats (<c:out value="${countAll}" />)</button>
 				</div>
 			</div>
 			<br>

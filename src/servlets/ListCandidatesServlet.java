@@ -19,10 +19,12 @@ public class ListCandidatesServlet extends LatexServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
 		int countEmail = candidateDAO.countCandidatesOfDay("email");
+		int countAll = candidateDAO.countAll();
 		List<Candidate> candidates = candidateDAO.listCandidates(100);
 		
 		request.setAttribute("countPDF", countPDF);
 		request.setAttribute("countEmail", countEmail);
+		request.setAttribute("countAll", countAll);
 		request.setAttribute("candidates", candidates);
 		this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
 	}
@@ -36,8 +38,10 @@ public class ListCandidatesServlet extends LatexServlet {
 		
 		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
 		int countEmail = candidateDAO.countCandidatesOfDay("email");
+		int countAll = candidateDAO.countAll();
 		request.setAttribute("countPDF", countPDF);
 		request.setAttribute("countEmail", countEmail);
+		request.setAttribute("countAll", countAll);
 
 		if ((ids == null || ids.length == 0) && (search == null || search.isEmpty()) && (number == null || number.isEmpty())) {
 			response.sendRedirect(request.getContextPath() + "/candidates");
