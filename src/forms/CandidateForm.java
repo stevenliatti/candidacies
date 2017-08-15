@@ -136,10 +136,10 @@ public class CandidateForm extends Form {
 			
 			if (errors.isEmpty()) {
 				candidateDAO.update(updateCandidate);
-				result = "success";
+				result = "Candidat bien modifié";
 			}
 			else {
-				result = "errors";
+				result = "Erreurs dans le formulaire";
 			}
 		} catch (DAOException e) {
 			result = "Échec de la modification d'un candidat.";

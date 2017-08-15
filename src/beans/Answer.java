@@ -7,16 +7,19 @@ public class Answer extends Bean {
 	private String name;
 	private String title;
 	private String content;
-	
-	public Answer(Long id, String name, String title, String content) {
+	private String hide;
+
+	public Answer(Long id, String name, String title, String content, String hide) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.title = title;
 		this.content = content;
+		this.hide = hide;
 		
 		answerAsMap();
 	}
-	
+
 	private void answerAsMap() {
 		map = new HashMap<>();
 		map.put(formatField(nameField), name);
@@ -26,7 +29,8 @@ public class Answer extends Bean {
 	
 	@Override
 	public String toString() {
-		return "Answer [id=" + id + ", name=" + name + ", title=" + title + ", content=" + content + "]";
+		return "Answer [id=" + id + ", name=" + name + ", title=" + title + ", content=" + content + ", hide=" + hide
+				+ "]";
 	}
 
 	public Long getId() {
@@ -59,5 +63,13 @@ public class Answer extends Bean {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getHide() {
+		return hide;
+	}
+
+	public void setHide(String hide) {
+		this.hide = hide;
 	}
 }

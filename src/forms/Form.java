@@ -21,6 +21,15 @@ import beans.Bean;
 public abstract class Form {
 	protected String result;
 	protected Map<String, String> errors = new HashMap<>();
+	
+	public String getFieldCheckbox(HttpServletRequest request, String fieldName) {
+		if (fieldName == null || fieldName.isEmpty()) {
+			return "off";
+		}
+		String value = request.getParameter(fieldName);
+		if (value == null || value.isEmpty()) { return "off"; }
+		else { return value.trim(); }
+	}
 
 	public String getResult() {
 		return result;

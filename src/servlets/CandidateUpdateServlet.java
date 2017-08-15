@@ -20,7 +20,7 @@ import beans.Candidate;
 import forms.CandidateForm;
 
 @SuppressWarnings("serial")
-public class CandidateUpdateServlet extends LatexServlet {
+public class CandidateUpdateServlet extends CandidaciesServlet {
 	private static final String view = "/WEB-INF/candidateUpdate.jsp";
 	
 	@Override

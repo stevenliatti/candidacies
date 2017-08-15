@@ -14,7 +14,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
-				<p><a class="btn btn-primary" href="<c:url value="/candidates"/>"><span class="glyphicon glyphicon-eye-open"></span> Afficher tous les candidats</a></p>
+				<p><a class="btn btn-primary" href="<c:url value="/candidates"/>"><span class="glyphicon glyphicon-eye-open"></span> Afficher les candidats</a></p>
 			</div>
 		</div>
 		

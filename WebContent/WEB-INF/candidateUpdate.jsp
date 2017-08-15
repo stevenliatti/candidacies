@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<p class="col-md-12"><a class="btn btn-primary" href="<c:url value="/candidates"/>"><span class="glyphicon glyphicon-eye-open"></span> Afficher tous les candidats</a></p>
+			<p class="col-md-12"><a class="btn btn-primary" href="<c:url value="/candidates"/>"><span class="glyphicon glyphicon-eye-open"></span> Afficher les candidats</a></p>
 		</div>
 		
 		<div class="row">

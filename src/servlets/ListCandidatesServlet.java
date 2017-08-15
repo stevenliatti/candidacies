@@ -12,8 +12,8 @@ import beans.Answer;
 import beans.Candidate;
 
 @SuppressWarnings("serial")
-public class ListCandidatesServlet extends LatexServlet {
-	private static final String listCandidatesView = "/WEB-INF/listAllCandidates.jsp";
+public class ListCandidatesServlet extends CandidaciesServlet {
+	private static final String listCandidatesView = "/WEB-INF/listCandidates.jsp";
 	private static final String lettersView = "/WEB-INF/letters.jsp";
 
 	private void statsAndStuff(HttpServletRequest request) {

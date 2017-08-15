@@ -32,6 +32,7 @@ public abstract class Bean {
 	
 	public static final String nameField = "name";
 	public static final String contentField = "content";
+	public static final String hideField = "hide";
 	
 	public final static DateTimeFormatter dateFormFormatter = DateTimeFormat.forPattern("dd.MM.yyyy");
 	public final static DateTimeFormatter dateLatexFormatter = DateTimeFormat.forPattern("d MMMM yyyy");

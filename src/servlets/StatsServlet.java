@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-public class StatsServlet extends LatexServlet {
+public class StatsServlet extends CandidaciesServlet {
 	private static final String view = "/WEB-INF/stats.jsp";
 	
 	@Override

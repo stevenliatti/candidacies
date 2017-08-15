@@ -43,7 +43,8 @@ CREATE TABLE IF NOT EXISTS answers (
 	id int UNSIGNED PRIMARY KEY AUTO_INCREMENT,
 	name varchar(50) NOT NULL UNIQUE,
 	title varchar(100) NOT NULL,
-	content text NOT NULL
+	content text NOT NULL,
+	hide varchar(3)
 );
 
 CREATE TABLE IF NOT EXISTS candidates (
@@ -78,7 +79,7 @@ INSERT INTO localities (name) VALUES ('Genève'), ('Carouge'), ('Meyrin'), ('Vey
 INSERT INTO countries (name) VALUES ('Suisse'), ('France'), ('Allemagne'), ('Belgique');
 INSERT INTO jobFunctions (name) VALUES ('infirmier'), ('animateur'), ('aide-soignant'), ('cuisinier');
 
-INSERT INTO answers (name, title, content) 
+INSERT INTO answers (name, title, content, hide) 
 VALUES 
 ('négatif', 'Réponse négative',
 
@@ -92,7 +93,7 @@ Dès lors, nous vous encourageons à déposer votre candidature en ligne sur le 
 
 Nous vous souhaitons de trouver rapidement une opportunité conforme à vos aspirations et vous adressons, <title>, nos sincères salutations.
 
-'),
+', 'off'),
 
 ('négatif six mois', 'Réponse négative après mise en suspens',
 
@@ -106,7 +107,7 @@ Nous vous remercions de la confiance et de l’intérêt manifesté pour l’EMS
 
 Veuillez agréer, <title>, nos sincères salutations.
 
-'),
+', 'off'),
 
 ('suspens six mois', 'Mise en suspens de votre dossier de candidature',
 
@@ -120,7 +121,7 @@ Aussi, nous vous encourageons à déposer votre candidature en ligne sur le site
 
 En vous remerciant de l’intérêt que vous portez à l’EMS Les Châtaigniers, nous vous prions d’agréer, <title>, nos salutations distinguées.
 
-');
+', 'off');
 
 INSERT INTO candidates (title, lastName, firstName, email, livesAt, street, numStreet, 
 	postCode, locality, country, requestDate, insertDate, updateDate, initials, 

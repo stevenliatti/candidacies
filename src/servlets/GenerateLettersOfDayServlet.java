@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import beans.Candidate;
 
 @SuppressWarnings("serial")
-public class GenerateLettersOfDayServlet extends LatexServlet {
+public class GenerateLettersOfDayServlet extends CandidaciesServlet {
 	private static final String lettersView = "/WEB-INF/letters.jsp";
 	
 	@Override

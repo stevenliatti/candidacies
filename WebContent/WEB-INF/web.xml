@@ -106,6 +106,36 @@
     <url-pattern>/stats</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>AnswerCreateServlet</servlet-name>
+    <servlet-class>servlets.AnswerCreateServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AnswerCreateServlet</servlet-name>
+    <url-pattern>/admin/createAnswer</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AnswerUpdateServlet</servlet-name>
+    <servlet-class>servlets.AnswerUpdateServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AnswerUpdateServlet</servlet-name>
+    <url-pattern>/admin/updateAnswer</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListAnswersServlet</servlet-name>
+    <servlet-class>servlets.ListAnswersServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListAnswersServlet</servlet-name>
+    <url-pattern>/admin/answers</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>config.InitDAOFactory</listener-class>
   </listener>
