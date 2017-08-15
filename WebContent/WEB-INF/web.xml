@@ -96,6 +96,16 @@
     <url-pattern>/autocomplete</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>StatsServlet</servlet-name>
+    <servlet-class>servlets.StatsServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StatsServlet</servlet-name>
+    <url-pattern>/stats</url-pattern>
+  </servlet-mapping>
+
   <listener>
     <listener-class>config.InitDAOFactory</listener-class>
   </listener>

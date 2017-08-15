@@ -1,6 +1,6 @@
 package dao;
 
-import static beans.Bean.*;
+import static beans.Bean.answerField;
 import static beans.Bean.answerTitleField;
 import static beans.Bean.countryField;
 import static beans.Bean.emailField;
@@ -30,7 +30,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -45,6 +47,28 @@ public class CandidateDAO {
 
 	public CandidateDAO(DAOFactory daoFactory) {
 		this.daoFactory = daoFactory;
+	}
+	
+	public Map<String, Integer> countBy(String field) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		Map<String, Integer> map = new HashMap<>();
+
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT " + field + ", COUNT(*) FROM candidates GROUP BY " + field + ";", false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				map.put(resultSet.getString(1), resultSet.getInt(2));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+
+		return map;
 	}
 	
 	public List<Candidate> listCandidates(String answer, String jobFunction, String locality, String country) {
@@ -87,7 +111,6 @@ public class CandidateDAO {
 		}
 		
 		sb.append(";");
-		System.out.println(sb.toString());
 		
 		try {
 			connection = daoFactory.getConnection();

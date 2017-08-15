@@ -14,8 +14,11 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-10">
 				<h1><a href="<c:url value="/candidates" />">Liste des 100 derniers candidats (max)</a></h1>
+			</div>
+			<div class="col-lg-offset-10 col-lg-2">
+				<a class="btn btn-primary" href="<c:url value="/stats" />">Statistiques</a>
 			</div>
 		</div>
 	
