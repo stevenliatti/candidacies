@@ -6,6 +6,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Candidat - Modification</title>
+	<link rel="shortcut icon" href="<c:url value="/inc/favicon.ico"/>" />
 	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/bootstrap.min.css"/>" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/my.css"/>" />

@@ -6,6 +6,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Liste des candidats</title>
+	<link rel="shortcut icon" href="<c:url value="/inc/favicon.ico"/>" />
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/smoothness/jquery-ui.css" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/bootstrap.min.css"/>" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/my.css"/>" />
 </head>
@@ -13,7 +15,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1><a href="<c:url value="/candidates" />">Liste des 100 derniers candidats</a></h1>
+				<h1><a href="<c:url value="/candidates" />">Liste des 100 derniers candidats (max)</a></h1>
 			</div>
 		</div>
 	
@@ -33,10 +35,8 @@
 				</div>
 
 				<div class="col-lg-8">
-					<label for="search">Rechercher</label>
+					<label for="search">Rechercher par nom ou prénom</label>
 					<input autocomplete="off" type="search" name="search" size="30" maxlength="100" title="Saisir la recherche" placeholder="Rechercher"/>
-					<input type="radio" name="type" id="typeName" value="name" checked /> <label for="typeName">Par nom ou prénom</label>
-					<input type="radio" name="type" id="typeJob" value="job" /> <label for="typeJob">Par job</label>
 					<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Rechercher</button>
 				</div>
 			</div>
@@ -48,6 +48,50 @@
 					<input autocomplete="off" id="number" type="number" name="number" min="0" title="Saisir le nombre de candidats à afficher"/>
 					<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-eye-open"></span> Nombre de candidats à afficher</button>
 					<button onclick="document.getElementById('number').value = <c:out value="${countAll}" />;" class="btn btn-success" type="submit"><span class="glyphicon glyphicon-eye-open"></span> Afficher tous les candidats (<c:out value="${countAll}" />)</button>
+				</div>
+			</div>
+			<br>
+
+			<div class="row">
+				<div class="col-lg-3">
+					<span style="font-weight: bold;">Afficher : </span>
+					<label for="answer">Par réponse </label>
+					<select name="answer">
+						<option value="all" selected>Toutes</option>
+						<c:forEach items="${answers}" var="answer">
+						<option value="<c:out value="${answer.name}"/>"><c:out value="${answer.name}"/></option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-lg-2">
+					<label for="jobFunction">Par job </label>
+					<select name="jobFunction">
+						<option value="all" selected>Tous</option>
+						<c:forEach items="${jobs}" var="job">
+						<option value="<c:out value="${job}"/>"><c:out value="${job}"/></option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-lg-2">
+					<label for="locality">Par localité </label>
+					<select name="locality">
+						<option value="all" selected>Toutes</option>
+						<c:forEach items="${localities}" var="locality">
+						<option value="<c:out value="${locality}"/>"><c:out value="${locality}"/></option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-lg-2">
+					<label for="country">Par pays </label>
+					<select name="country">
+						<option value="all" selected>Tous</option>
+						<c:forEach items="${countries}" var="country">
+						<option value="<c:out value="${country}"/>"><c:out value="${country}"/></option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-lg-2">
+					<button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-eye-open"></span> Afficher selon les critères</button>
 				</div>
 			</div>
 			<br>

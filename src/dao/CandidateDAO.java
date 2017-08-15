@@ -1,6 +1,6 @@
 package dao;
 
-import static beans.Bean.answerField;
+import static beans.Bean.*;
 import static beans.Bean.answerTitleField;
 import static beans.Bean.countryField;
 import static beans.Bean.emailField;
@@ -47,6 +47,64 @@ public class CandidateDAO {
 		this.daoFactory = daoFactory;
 	}
 	
+	public List<Candidate> listCandidates(String answer, String jobFunction, String locality, String country) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Candidate> list = new ArrayList<>();
+		String all = "all";
+		
+		StringBuilder sb = new StringBuilder("SELECT * FROM candidates WHERE answer LIKE ");
+		if (!answer.equals(all)) {
+			sb.append("'" + answer + "'");
+		}
+		else {
+			sb.append("'%%'");
+		}
+		
+		sb.append(" AND jobFunction LIKE ");
+		if (!jobFunction.equals(all)) {
+			sb.append("'" + jobFunction + "'");
+		}
+		else {
+			sb.append("'%%'");
+		}
+		
+		sb.append(" AND (locality LIKE ");
+		if (!locality.equals(all)) {
+			sb.append("'" + locality + "')");
+		}
+		else {
+			sb.append("'%%' OR locality IS NULL)");
+		}
+		
+		sb.append(" AND (country LIKE ");
+		if (!country.equals(all)) {
+			sb.append("'" + country + "')");
+		}
+		else {
+			sb.append("'%%' OR country IS NULL)");
+		}
+		
+		sb.append(";");
+		System.out.println(sb.toString());
+		
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, sb.toString(), false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				list.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+
+		return list;
+	}
+	
 	public List<Candidate> listCandidates(int number) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -79,29 +137,6 @@ public class CandidateDAO {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE firstName LIKE '%" + search + 
 					"%' OR lastName LIKE '%" + search + "%' ORDER BY id DESC;", false);
-			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				candidates.add(map(resultSet));
-			}
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		} finally {
-			closeAll(resultSet, preparedStatement, connection);
-		}
-		
-		return candidates;
-	}
-	
-	public List<Candidate> searchByJob(String search) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-		List<Candidate> candidates = new ArrayList<>();
-		
-		try {
-			connection = daoFactory.getConnection();
-			preparedStatement = initPreparedStatement(connection, "SELECT * FROM candidates WHERE jobFunction LIKE '%" + search + 
-					"%' ORDER BY id DESC;", false);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				candidates.add(map(resultSet));

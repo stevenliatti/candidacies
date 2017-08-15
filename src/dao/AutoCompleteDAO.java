@@ -28,7 +28,7 @@ public class AutoCompleteDAO {
 			connection = daoFactory.getConnection();
 			readStatement = initPreparedStatement(connection, "SELECT name FROM " + field + " WHERE name = '" + name + "';", false);
 			resultSet = readStatement.executeQuery();
-			if (!resultSet.next()) {
+			if (!resultSet.next() && name != null && !name.isEmpty()) {
 				createStatement = initPreparedStatement(connection, "INSERT INTO " + field + " (name) VALUES (?);", false, name);
 
 				if (createStatement.executeUpdate() == 0) {
@@ -54,6 +54,28 @@ public class AutoCompleteDAO {
 		try {
 			connection = daoFactory.getConnection();
 			preparedStatement = initPreparedStatement(connection, "SELECT name FROM " + field + " WHERE name LIKE '%" + term + "%' LIMIT 30;", false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				list.add(resultSet.getString("name"));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+
+		return list;
+	}
+	
+	public List<String> readAll(String field) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<String> list = new ArrayList<>();
+
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT name FROM " + field + ";", false);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				list.add(resultSet.getString("name"));

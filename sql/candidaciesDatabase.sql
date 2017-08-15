@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS candidates (
 	insertDate datetime NOT NULL,
 	updateDate datetime NOT NULL,
 	initials varchar(10) NOT NULL,
-	jobFunction varchar(50) REFERENCES jobFunctions(name),
+	jobFunction varchar(50) NOT NULL REFERENCES jobFunctions(name),
 	answer varchar(50) NOT NULL REFERENCES answers(name),
 	answerTitle varchar(100) NOT NULL REFERENCES answers(title),
 	folder varchar(3) NOT NULL,

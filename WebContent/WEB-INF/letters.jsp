@@ -6,6 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 	<title>Lettres générées</title>
+	<link rel="shortcut icon" href="<c:url value="/inc/favicon.ico"/>" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/bootstrap.min.css"/>" />
 	<link type="text/css" rel="stylesheet" href="<c:url value="/inc/css/my.css"/>" />
 </head>

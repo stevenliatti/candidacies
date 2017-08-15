@@ -12,31 +12,16 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Answer;
 import beans.Candidate;
-import dao.AnswerDAO;
-import dao.AutoCompleteDAO;
-import dao.CandidateDAO;
-import dao.DAOFactory;
 import forms.CandidateForm;
 
 @SuppressWarnings("serial")
-public class CandidateUpdateServlet extends HttpServlet {
+public class CandidateUpdateServlet extends LatexServlet {
 	private static final String view = "/WEB-INF/candidateUpdate.jsp";
-	
-	private CandidateDAO candidateDAO;
-	private AnswerDAO answerDAO;
-	private AutoCompleteDAO autoCompleteDAO;
-	
-	public void init() throws ServletException {
-        this.candidateDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getCandidateDao();
-        this.answerDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getAnswerDao();
-        this.autoCompleteDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getAutoCompleteDAO();
-    }
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

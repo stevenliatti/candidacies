@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import beans.Candidate;
 import core.Letter;
 import core.Paths;
+import dao.AnswerDAO;
+import dao.AutoCompleteDAO;
 import dao.CandidateDAO;
 import dao.DAOFactory;
 
@@ -22,9 +24,13 @@ public abstract class LatexServlet extends HttpServlet {
 	private static final boolean DEBUGMODE = false;
 	
 	CandidateDAO candidateDAO;
+	AnswerDAO answerDAO;
+	AutoCompleteDAO autoCompleteDAO;
 
 	public void init() throws ServletException {
 		this.candidateDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getCandidateDao();
+		this.answerDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getAnswerDao();
+		this.autoCompleteDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getAutoCompleteDAO();
 	}
 	
 	static void generateLetters(HttpServletRequest request, List<Candidate> candidatesPDF, List<Candidate> candidatesEmail) throws IllegalArgumentException, IOException {

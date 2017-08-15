@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.Answer;
 import beans.Candidate;
 
 @SuppressWarnings("serial")
@@ -15,46 +16,57 @@ public class ListCandidatesServlet extends LatexServlet {
 	private static final String listCandidatesView = "/WEB-INF/listAllCandidates.jsp";
 	private static final String lettersView = "/WEB-INF/letters.jsp";
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void statsAndStuff(HttpServletRequest request) {
+		List<Answer> answers = answerDAO.readAll();
+		List<String> jobs = autoCompleteDAO.readAll("jobFunctions");
+		List<String> localities = autoCompleteDAO.readAll("localities");
+		List<String> countries = autoCompleteDAO.readAll("countries");
 		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
 		int countEmail = candidateDAO.countCandidatesOfDay("email");
 		int countAll = candidateDAO.countAll();
-		List<Candidate> candidates = candidateDAO.listCandidates(100);
-		
+
+		request.setAttribute("answers", answers);
+		request.setAttribute("jobs", jobs);
+		request.setAttribute("localities", localities);
+		request.setAttribute("countries", countries);
 		request.setAttribute("countPDF", countPDF);
 		request.setAttribute("countEmail", countEmail);
 		request.setAttribute("countAll", countAll);
+	}
+
+	private boolean checkStr(String str) {
+		return str == null || str.isEmpty();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Candidate> candidates = candidateDAO.listCandidates(100);
+		statsAndStuff(request);
+		
 		request.setAttribute("candidates", candidates);
 		this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		statsAndStuff(request);
+
+		String all = "all";
 		String[] ids = request.getParameterValues("ids");
 		String search = request.getParameter("search");
-		String type = request.getParameter("type");
 		String number = request.getParameter("number");
-		
-		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
-		int countEmail = candidateDAO.countCandidatesOfDay("email");
-		int countAll = candidateDAO.countAll();
-		request.setAttribute("countPDF", countPDF);
-		request.setAttribute("countEmail", countEmail);
-		request.setAttribute("countAll", countAll);
+		String answer = request.getParameter("answer");
+		String jobFunction = request.getParameter("jobFunction");
+		String locality = request.getParameter("locality");
+		String country = request.getParameter("country");
 
-		if ((ids == null || ids.length == 0) && (search == null || search.isEmpty()) && (number == null || number.isEmpty())) {
+		if ((ids == null || ids.length == 0) && checkStr(search) && checkStr(number) && checkStr(answer) 
+				&& checkStr(jobFunction) && checkStr(locality) && checkStr(country)) {
 			response.sendRedirect(request.getContextPath() + "/candidates");
 		}
 		else {
 			if (!search.isEmpty()) {
-				List<Candidate> candidates = null;
-				if (type.equals("name")) {
-					candidates = candidateDAO.searchByName(search);
-				}
-				else if (type.equals("job")) {
-					candidates = candidateDAO.searchByJob(search);
-				}
+				List<Candidate> candidates = candidateDAO.searchByName(search);
 				request.setAttribute("candidates", candidates);
 				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
 			}
@@ -67,17 +79,25 @@ public class ListCandidatesServlet extends LatexServlet {
 					session.setAttribute("message", "Le nombre fourni est incorrect.");
 					response.sendRedirect(request.getContextPath() + "/candidates");
 				}
-				
+
 				List<Candidate> candidates = candidateDAO.listCandidates(Math.abs(num));
+				request.setAttribute("candidates", candidates);
+				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
+			}
+			else if (answer.equals(all) && jobFunction.equals(all) && locality.equals(all) && country.equals(all)) {
+				response.sendRedirect(request.getContextPath() + "/candidates");
+			}
+			else if (!answer.equals(all) || !jobFunction.equals(all) || !locality.equals(all) || !country.equals(all)) {
+				List<Candidate> candidates = candidateDAO.listCandidates(answer, jobFunction, locality, country);
 				request.setAttribute("candidates", candidates);
 				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
 			}
 			else {
 				List<Candidate> candidatesPDF = candidateDAO.listCandidates(ids, "pdf");
 				List<Candidate> candidatesEmail = candidateDAO.listCandidates(ids, "email");
-				
+
 				generateLetters(request, candidatesPDF, candidatesEmail);
-				
+
 				this.getServletContext().getRequestDispatcher(lettersView).forward(request, response);
 			}
 		}
