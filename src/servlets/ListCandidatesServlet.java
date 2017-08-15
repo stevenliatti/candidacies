@@ -17,7 +17,7 @@ public class ListCandidatesServlet extends CandidaciesServlet {
 	private static final String lettersView = "/WEB-INF/letters.jsp";
 
 	private void statsAndStuff(HttpServletRequest request) {
-		List<Answer> answers = answerDAO.readAll();
+		List<Answer> answers = answerDAO.readAllVisible();
 		List<String> jobs = autoCompleteDAO.readAll("jobFunctions");
 		List<String> localities = autoCompleteDAO.readAll("localities");
 		List<String> countries = autoCompleteDAO.readAll("countries");

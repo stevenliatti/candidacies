@@ -25,7 +25,7 @@ public class CandidateCreateServlet extends CandidaciesServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Answer> answers = answerDAO.readAll();
+		List<Answer> answers = answerDAO.readAllVisible();
 		request.setAttribute("answers", answers);
 		this.getServletContext().getRequestDispatcher(view).forward(request, response);
 	}
@@ -42,7 +42,7 @@ public class CandidateCreateServlet extends CandidaciesServlet {
 			.checkOrCreate(plural(countryField), candidate.getCountry())
 			.checkOrCreate(plural(jobFunctionField), candidate.getJobFunction())
 			;
-		List<Answer> answers = answerDAO.readAll();
+		List<Answer> answers = answerDAO.readAllVisible();
 		
 		request.setAttribute("answers", answers);
 		request.setAttribute("form", form);

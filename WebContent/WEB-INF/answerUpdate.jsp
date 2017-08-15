@@ -51,7 +51,7 @@
 				
 				<div class="row">
 					<div class="col-md-12">
-						<label for="content">Contenu<span class="required">*</span> </label>
+						<p style="font-weight: bold;" for="content">Contenu<span class="required">*</span> </p>
 						<textarea id="content" class="col-xs-12 col-lg-8" name="content" rows="20" ><c:out value="${answer.content}"/></textarea>
 						<span class="error">${form.errors['content']}</span>
 					</div>

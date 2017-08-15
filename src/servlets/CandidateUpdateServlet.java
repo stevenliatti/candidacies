@@ -28,7 +28,7 @@ public class CandidateUpdateServlet extends CandidaciesServlet {
 		String id = request.getParameter("id");
 		if (id != null) {
 			Candidate candidate = candidateDAO.read(Long.parseLong(id));
-			List<Answer> answers = answerDAO.readAll();
+			List<Answer> answers = answerDAO.readAllVisible();
 			request.setAttribute("candidate", candidate);
 			request.setAttribute("answers", answers);
 			this.getServletContext().getRequestDispatcher(view).forward(request, response);
@@ -50,7 +50,7 @@ public class CandidateUpdateServlet extends CandidaciesServlet {
 			.checkOrCreate(plural(countryField), candidate.getCountry())
 			.checkOrCreate(plural(jobFunctionField), candidate.getJobFunction())
 			;
-		List<Answer> answers = answerDAO.readAll();
+		List<Answer> answers = answerDAO.readAllVisible();
 		
 		request.setAttribute("answers", answers);
 		request.setAttribute("form", form);

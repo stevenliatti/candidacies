@@ -24,6 +24,28 @@ public class AnswerDAO {
 		this.daoFactory = daoFactory;
 	}
 	
+	public List<Answer> readAllVisible() {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		List<Answer> list = new ArrayList<>();
+
+		try {
+			connection = daoFactory.getConnection();
+			preparedStatement = initPreparedStatement(connection, "SELECT * FROM answers WHERE hide = 'off';", false);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				list.add(map(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			closeAll(resultSet, preparedStatement, connection);
+		}
+
+		return list;
+	}
+	
 	public void create(Answer answer) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
