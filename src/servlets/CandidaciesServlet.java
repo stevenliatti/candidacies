@@ -33,6 +33,10 @@ public abstract class CandidaciesServlet extends HttpServlet {
 		this.autoCompleteDAO = ((DAOFactory) getServletContext().getAttribute("daofactory")).getAutoCompleteDAO();
 	}
 	
+	boolean checkAdmin(HttpServletRequest request) {
+		return request.getSession().getAttribute("sessionUser").equals(Paths.getInstance().getAdmin()); 
+	}
+	
 	static void generateLetters(HttpServletRequest request, List<Candidate> candidatesPDF, List<Candidate> candidatesEmail) throws IllegalArgumentException, IOException {
 		String pathAndFile = latexPath + "/" + generatedFileName + ".tex";
 		Letter.writeLatexLetters(candidatesPDF, pathAndFile);

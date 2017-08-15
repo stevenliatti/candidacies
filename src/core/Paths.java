@@ -13,6 +13,8 @@ public class Paths {
 	private String generatedFileName;
 	private String emsName;
 	private String rhWriter;
+	private String admin;
+	private String user;
 	
 	private final static Paths instance = new Paths();
 	
@@ -31,6 +33,8 @@ public class Paths {
 			generatedFileName = properties.getProperty("generatedFileName");
 			emsName = properties.getProperty("emsName");
 			rhWriter = properties.getProperty("rhWriter");
+			admin = properties.getProperty("admin");
+			user = properties.getProperty("user");
 		} catch (IOException e) {
 			throw new DAOConfigurationException("Impossible to load the properties file " + PROPERTIES_FILE, e);
 		}
@@ -58,5 +62,13 @@ public class Paths {
 
 	public String getRhWriter() {
 		return rhWriter;
+	}
+
+	public String getAdmin() {
+		return admin;
+	}
+
+	public String getUser() {
+		return user;
 	}
 }

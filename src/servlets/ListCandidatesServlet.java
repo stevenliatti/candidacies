@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import beans.Answer;
 import beans.Candidate;
+import core.Paths;
 
 @SuppressWarnings("serial")
 public class ListCandidatesServlet extends CandidaciesServlet {
@@ -24,6 +25,8 @@ public class ListCandidatesServlet extends CandidaciesServlet {
 		int countPDF = candidateDAO.countCandidatesOfDay("pdf");
 		int countEmail = candidateDAO.countCandidatesOfDay("email");
 		int countAll = candidateDAO.countAll();
+		
+		request.setAttribute("admin", Paths.getInstance().getAdmin());
 
 		request.setAttribute("answers", answers);
 		request.setAttribute("jobs", jobs);

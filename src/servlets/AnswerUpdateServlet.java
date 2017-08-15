@@ -16,6 +16,11 @@ public class AnswerUpdateServlet extends CandidaciesServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (!checkAdmin(request)) {
+			response.sendRedirect(request.getContextPath() + "/candidates");
+			return;
+		}
+		
 		String id = request.getParameter("id");
 		if (id != null) {
 			Answer answer = answerDAO.read(Long.parseLong(id));
@@ -30,6 +35,11 @@ public class AnswerUpdateServlet extends CandidaciesServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (!checkAdmin(request)) {
+			response.sendRedirect(request.getContextPath() + "/candidates");
+			return;
+		}
+		
 		AnswerForm form = new AnswerForm(answerDAO);
 		Answer answer = form.updateAnswer(request);
 		

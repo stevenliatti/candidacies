@@ -15,11 +15,22 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-10">
+				<a class="btn btn-danger" href="<c:url value="/logout" />">Déconnexion</a>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-10">
 				<h1><a href="<c:url value="/candidates" />">Liste des 100 derniers candidats (max)</a></h1>
 			</div>
-			<div class="col-lg-offset-10 col-lg-2">
+			<div class="col-lg-offset-8 col-lg-2">
 				<a class="btn btn-primary" href="<c:url value="/stats" />">Statistiques</a>
 			</div>
+			<c:if test="${sessionScope.sessionUser == admin}">
+			<div class="col-lg-2">
+				<a class="btn btn-warning" href="<c:url value="/admin/answers" />">Liste des réponses</a>
+			</div>
+			</c:if>
 		</div>
 	
 		<div class="row">

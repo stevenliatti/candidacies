@@ -15,6 +15,11 @@ public class ListAnswersServlet extends CandidaciesServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (!checkAdmin(request)) {
+			response.sendRedirect(request.getContextPath() + "/candidates");
+			return;
+		}
+		
 		List<Answer> answers = answerDAO.readAll();
 		request.setAttribute("answers", answers);
 		this.getServletContext().getRequestDispatcher(view).forward(request, response);
