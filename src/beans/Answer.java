@@ -10,7 +10,6 @@ public class Answer extends Bean {
 	private String hide;
 
 	public Answer(Long id, String name, String title, String content, String hide) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.title = title;

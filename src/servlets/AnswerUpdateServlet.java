@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Answer;
+import beans.Bean;
 import forms.AnswerForm;
 
 @SuppressWarnings("serial")
@@ -19,6 +20,7 @@ public class AnswerUpdateServlet extends CandidaciesServlet {
 		if (id != null) {
 			Answer answer = answerDAO.read(Long.parseLong(id));
 			request.setAttribute("answer", answer);
+			request.setAttribute("fields", Bean.getFields());
 			this.getServletContext().getRequestDispatcher(view).forward(request, response);
 		}
 		else {
@@ -31,6 +33,7 @@ public class AnswerUpdateServlet extends CandidaciesServlet {
 		AnswerForm form = new AnswerForm(answerDAO);
 		Answer answer = form.updateAnswer(request);
 		
+		request.setAttribute("fields", Bean.getFields());
 		request.setAttribute("form", form);
 		request.setAttribute("answer", answer);
 		

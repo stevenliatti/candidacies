@@ -61,8 +61,6 @@ public class Candidate extends Bean {
 		candidateAsMap();
 	}
 
-
-
 	private void candidateAsMap() {
 		map = new HashMap<>();
 		map.put(formatField(titleField), title);

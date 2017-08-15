@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import beans.Answer;
+import beans.Bean;
 import forms.AnswerForm;
 
 @SuppressWarnings("serial")
@@ -15,6 +16,7 @@ public class AnswerCreateServlet extends CandidaciesServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("fields", Bean.getFields());
 		this.getServletContext().getRequestDispatcher(view).forward(request, response);
 	}
 
@@ -23,6 +25,7 @@ public class AnswerCreateServlet extends CandidaciesServlet {
 		AnswerForm form = new AnswerForm(answerDAO);
 		Answer answer = form.createAnswer(request);
 		
+		request.setAttribute("fields", Bean.getFields());
 		request.setAttribute("form", form);
 		request.setAttribute("answer", answer);
 		
