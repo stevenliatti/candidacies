@@ -103,7 +103,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="requestDate">Date de demande (format jj.mm.aaaa)</label>
-						<input autocomplete="on" class="form-control" type="date" id="requestDate" name="requestDate" value="<c:out value="${empty form.errors ? '' : candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" placeholder="30.04.1993" />
+						<input autocomplete="on" class="form-control" type="text" id="requestDate" name="requestDate" value="<c:out value="${empty form.errors ? '' : candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" placeholder="30.04.1993" />
 						<span class="error">${form.errors['requestDate']}</span>
 					</div>
 					

@@ -56,6 +56,7 @@ public class ListCandidatesServlet extends CandidaciesServlet {
 
 		String all = "all";
 		String[] ids = request.getParameterValues("ids");
+		
 		String search = request.getParameter("search");
 		String number = request.getParameter("number");
 		String answer = request.getParameter("answer");
@@ -68,7 +69,19 @@ public class ListCandidatesServlet extends CandidaciesServlet {
 			response.sendRedirect(request.getContextPath() + "/candidates");
 		}
 		else {
-			if (!search.isEmpty()) {
+			if (ids != null) {
+				System.out.println("ids");
+				for (int i = 0; i < ids.length; i++) {
+					System.out.println(ids[i]);
+				}
+				List<Candidate> candidatesPDF = candidateDAO.listCandidates(ids, "pdf");
+				List<Candidate> candidatesEmail = candidateDAO.listCandidates(ids, "email");
+
+				generateLetters(request, candidatesPDF, candidatesEmail);
+
+				this.getServletContext().getRequestDispatcher(lettersView).forward(request, response);
+			}
+			else if (!search.isEmpty()) {
 				List<Candidate> candidates = candidateDAO.searchByName(search);
 				request.setAttribute("candidates", candidates);
 				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
@@ -94,14 +107,6 @@ public class ListCandidatesServlet extends CandidaciesServlet {
 				List<Candidate> candidates = candidateDAO.listCandidates(answer, jobFunction, locality, country);
 				request.setAttribute("candidates", candidates);
 				this.getServletContext().getRequestDispatcher(listCandidatesView).forward(request, response);
-			}
-			else {
-				List<Candidate> candidatesPDF = candidateDAO.listCandidates(ids, "pdf");
-				List<Candidate> candidatesEmail = candidateDAO.listCandidates(ids, "email");
-
-				generateLetters(request, candidatesPDF, candidatesEmail);
-
-				this.getServletContext().getRequestDispatcher(lettersView).forward(request, response);
 			}
 		}
 	}

@@ -40,19 +40,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="lastName">Nom<span class="required">*</span></label>
-						<input autocomplete="off" class="form-control" type="text" id="lastName" name="lastName" value="<c:out value="${ candidate.lastName }"/>" size="20" maxlength="50" required />
+						<input autocomplete="off" class="form-control" type="text" id="lastName" name="lastName" value="<c:out value="${ candidate.lastName }"/>" size="20" maxlength="50" placeholder="Dupont" required />
 						<span class="error">${form.errors['lastName']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="firstName">Prénom<span class="required">*</span></label>
-						<input autocomplete="off" class="form-control" type="text" id="firstName" name="firstName" value="<c:out value="${ candidate.firstName }"/>" size="20" maxlength="50" required />
+						<input autocomplete="off" class="form-control" type="text" id="firstName" name="firstName" value="<c:out value="${ candidate.firstName }"/>" size="20" maxlength="50" placeholder="Jean" required />
 						<span class="error">${form.errors['firstName']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="email">Email</label>
-						<input autocomplete="off" class="form-control" type="email" id="email" name="email" value="<c:out value="${ candidate.email }"/>" size="30" maxlength="100" />
+						<input autocomplete="off" class="form-control" type="email" id="email" name="email" value="<c:out value="${ candidate.email }"/>" size="30" maxlength="100" placeholder="jean@mail.ch" />
 						<span class="error">${form.errors['email']}</span>
 					</div>
 				</div>
@@ -61,19 +61,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="livesAt">Vit chez</label>
-						<input autocomplete="off" class="form-control" type="text" id="livesAt" name="livesAt" value="<c:out value="${ candidate.livesAt }"/>" size="30" maxlength="100" />
+						<input autocomplete="off" class="form-control" type="text" id="livesAt" name="livesAt" value="<c:out value="${ candidate.livesAt }"/>" size="30" maxlength="100" placeholder="Bob Lampion" />
 						<span class="error">${form.errors['livesAt']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="street">Rue</label>
-						<input autocomplete="off" class="form-control" type="text" id="street" name="street" value="<c:out value="${ candidate.street }"/>" size="30" maxlength="100" />
+						<input autocomplete="off" class="form-control" type="text" id="street" name="street" value="<c:out value="${ candidate.street }"/>" size="30" maxlength="100" placeholder="Rue des ponts" />
 						<span class="error">${form.errors['street']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="numStreet">Numéro Rue</label>
-						<input autocomplete="off" class="form-control" type="text" id="numStreet" name="numStreet" value="<c:out value="${ candidate.numStreet }"/>" size="5" maxlength="10" />
+						<input autocomplete="off" class="form-control" type="text" id="numStreet" name="numStreet" value="<c:out value="${ candidate.numStreet }"/>" size="5" maxlength="10" placeholder="42" />
 						<span class="error">${form.errors['numStreet']}</span>
 					</div>
 				</div>
@@ -82,19 +82,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="postCode">Code postal (chiffres uniquement)</label>
-						<input autocomplete="off" class="form-control" type="number" id="postCode" min="0" name="postCode" value="<c:out value="${ candidate.postCode }"/>" size="5" maxlength="10" />
+						<input autocomplete="off" class="form-control" type="number" id="postCode" min="0" name="postCode" value="<c:out value="${ candidate.postCode }"/>" size="5" maxlength="10" placeholder="4321" />
 						<span class="error">${form.errors['postCode']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="locality">Localité</label>
-						<input autocomplete="off" class="form-control" type="text" id="locality" name="locality" value="<c:out value="${ candidate.locality }"/>" size="20" maxlength="50" />
+						<input autocomplete="off" class="form-control" type="text" id="locality" name="locality" value="<c:out value="${ candidate.locality }"/>" size="20" maxlength="50" placeholder="Jean-Ville" />
 						<span class="error">${form.errors['locality']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="country">Pays</label>
-						<input autocomplete="off" class="form-control" type="text" id="country" name="country" value="<c:out value="${ candidate.country }"/>" size="20" maxlength="50" />
+						<input autocomplete="off" class="form-control" type="text" id="country" name="country" value="<c:out value="${ candidate.country }"/>" size="20" maxlength="50" placeholder="Pays-d'jean" />
 						<span class="error">${form.errors['country']}</span>
 					</div>
 				</div>
@@ -103,19 +103,19 @@
 				<div class="row">
 					<div class="col-md-4">
 						<label for="requestDate">Date de demande (format jj.mm.aaaa)</label>
-						<input class="form-control" type="date" id="requestDate" name="requestDate" value="<c:out value="${ candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" />
+						<input class="form-control" type="text" id="requestDate" name="requestDate" value="<c:out value="${ candidate.getRequestDateFormFormatted() }"/>" size="20" maxlength="50" placeholder="30.04.1993" />
 						<span class="error">${form.errors['requestDate']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="initials">Initiales auteur<span class="required">*</span></label>
-						<input class="form-control" type="text" id="initials" name="initials" value="<c:out value="${ candidate.initials }"/>" size="10" maxlength="10" required />
+						<input class="form-control" type="text" id="initials" name="initials" value="<c:out value="${ candidate.initials }"/>" size="10" maxlength="10" placeholder="sl" required />
 						<span class="error">${form.errors['initials']}</span>
 					</div>
 					
 					<div class="col-md-4">
 						<label for="jobFunction">Job<span class="required">*</span></label>
-						<input autocomplete="off" class="form-control" type="text" id="jobFunction" name="jobFunction" value="<c:out value="${ candidate.jobFunction }"/>" size="20" maxlength="50" required />
+						<input autocomplete="off" class="form-control" type="text" id="jobFunction" name="jobFunction" value="<c:out value="${ candidate.jobFunction }"/>" size="20" maxlength="50" placeholder="moine fromager" required />
 						<span class="error">${form.errors['jobFunction']}</span>
 					</div>
 				</div>

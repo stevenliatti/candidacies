@@ -137,7 +137,7 @@
 						<th></th>
 					</tr>
 					<c:forEach items="${candidates}" var="candidate">
-					<tr>
+					<tr class="<c:if test="${candidate.todayCandidate()}"><c:out value="success"/></c:if>">
 						<td><input type="checkbox" name="ids" value="<c:out value="${candidate.id}"/>"></td>
 						<td><c:out value="${candidate.id}"/></td>
 						<td><c:out value="${candidate.getShortTitle()}"/></td>

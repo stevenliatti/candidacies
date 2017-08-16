@@ -81,6 +81,10 @@ public class Candidate extends Bean {
 		map.put(formatField(folderField), getLatexFolder());
 	}
 	
+	public boolean todayCandidate() {
+		return insertDate.toLocalDate().equals(LocalDate.now()) || updateDate.toLocalDate().equals(LocalDate.now());
+	}
+	
 	public String getShortTitle() {
 		if (title.equals("Monsieur")) {
 			return "M.";
