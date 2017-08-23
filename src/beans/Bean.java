@@ -7,6 +7,12 @@ import java.util.Map;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ * Represent a bean, a model for a table in database.
+ * 
+ * @author stevenliatti
+ *
+ */
 public abstract class Bean {
 	public static final String idField = "id";
 	public static final String titleField = "title";
@@ -44,6 +50,12 @@ public abstract class Bean {
 
 	Map<String, String> map;
 
+	/**
+	 * Return the list of fields that are usable in answers creation/edition.
+	 * Example : title, requestDate, etc.
+	 * 
+	 * @return
+	 */
 	public static List<String> getFields() {
 		List<String> list = new ArrayList<>();
 		list.add(formatField(titleField));
@@ -74,6 +86,12 @@ public abstract class Bean {
 		return map;
 	}
 
+	/**
+	 * Change the word str singular to his same in plural.
+	 * 
+	 * @param str
+	 * @return
+	 */
 	public static String plural(String str) {
 		if (str.charAt(str.length() - 1) == 'y') {
 			return str.substring(0, str.length() - 1) + "ies";

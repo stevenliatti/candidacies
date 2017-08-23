@@ -12,6 +12,12 @@ import java.util.regex.Pattern;
 import beans.Answer;
 import beans.Candidate;
 
+/**
+ * This class make a latex file or a text (for email) from the candidate and answer given.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class Letter {
 	private static final String latexPath = Paths.getInstance().getLatexPath();
 	private static final String emsName = Paths.getInstance().getEmsName();
@@ -60,6 +66,12 @@ public class Letter {
 		return model;
 	}
 
+	/**
+	 * Replace the generic field found by the candidate field.
+	 * 
+	 * @param matcher
+	 * @return
+	 */
 	private String processField(Matcher matcher) {
 		String group = matcher.group(0);
 		if (group.equals("<emsName>")) {
@@ -77,6 +89,9 @@ public class Letter {
 		return candidateData;
 	}
 
+	/**
+	 * Read the model and replace the generic fields by the candidate/answer fields.
+	 */
 	private void parse() {
 		Pattern pattern = Pattern.compile("<[a-zA-Z0-9]*>");
 		Matcher matcher = pattern.matcher(model);
@@ -89,6 +104,14 @@ public class Letter {
 		candidate.setLetter(sb.toString());
 	}
 
+	/**
+	 * Generator of latex letters from the candidate's list and write to filename.
+	 * 
+	 * @param candidates
+	 * @param filename
+	 * @throws IllegalArgumentException
+	 * @throws IOException
+	 */
 	public static void writeLatexLetters(List<Candidate> candidates, String filename) throws IllegalArgumentException, IOException {
 		StringBuilder sb = new StringBuilder();
 		String newPage = "\\newpage\n";
@@ -98,6 +121,7 @@ public class Letter {
 			sb.append(candidate.getLetter());
 			sb.append(newPage);
 		}
+		// Next instruction is for delete the last "\newpage" inserted.
 		sb.delete(sb.length() - newPage.length(), sb.length());
 		sb.append("\\end{document}");
 

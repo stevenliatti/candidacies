@@ -11,6 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class regroup all the queries for the autocomplete form.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class AutoCompleteDAO {
 	private DAOFactory daoFactory;
 
@@ -18,7 +24,15 @@ public class AutoCompleteDAO {
 		this.daoFactory = daoFactory;
 	}
 
-	public AutoCompleteDAO checkOrCreate(String field, String name) throws DAOException {
+	/**
+	 * Insert a new element in table if inexistent.
+	 * 
+	 * @param table
+	 * @param name
+	 * @return
+	 * @throws DAOException
+	 */
+	public AutoCompleteDAO checkOrCreate(String table, String name) throws DAOException {
 		Connection connection = null;
 		PreparedStatement readStatement = null;
 		PreparedStatement createStatement = null;
@@ -26,10 +40,10 @@ public class AutoCompleteDAO {
 
 		try {
 			connection = daoFactory.getConnection();
-			readStatement = initPreparedStatement(connection, "SELECT name FROM " + field + " WHERE name = '" + name + "';", false);
+			readStatement = initPreparedStatement(connection, "SELECT name FROM " + table + " WHERE name = '" + name + "';", false);
 			resultSet = readStatement.executeQuery();
 			if (!resultSet.next() && name != null && !name.isEmpty()) {
-				createStatement = initPreparedStatement(connection, "INSERT INTO " + field + " (name) VALUES (?);", false, name);
+				createStatement = initPreparedStatement(connection, "INSERT INTO " + table + " (name) VALUES (?);", false, name);
 
 				if (createStatement.executeUpdate() == 0) {
 					throw new DAOException("Fail to create new entry");
@@ -45,7 +59,14 @@ public class AutoCompleteDAO {
 		return this;
 	}
 
-	public List<String> readAll(String field, String term) {
+	/**
+	 * Return a list of String from the table that correspond to the term in argument.
+	 * 
+	 * @param table
+	 * @param term
+	 * @return
+	 */
+	public List<String> readAll(String table, String term) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -53,7 +74,7 @@ public class AutoCompleteDAO {
 
 		try {
 			connection = daoFactory.getConnection();
-			preparedStatement = initPreparedStatement(connection, "SELECT name FROM " + field + " WHERE name LIKE '%" + term + "%' LIMIT 30;", false);
+			preparedStatement = initPreparedStatement(connection, "SELECT name FROM " + table + " WHERE name LIKE '%" + term + "%' LIMIT 30;", false);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				list.add(resultSet.getString("name"));
@@ -67,7 +88,13 @@ public class AutoCompleteDAO {
 		return list;
 	}
 	
-	public List<String> readAll(String field) {
+	/**
+	 * Return a list of String of the table in argument.
+	 * 
+	 * @param table
+	 * @return
+	 */
+	public List<String> readAll(String table) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
@@ -75,7 +102,7 @@ public class AutoCompleteDAO {
 
 		try {
 			connection = daoFactory.getConnection();
-			preparedStatement = initPreparedStatement(connection, "SELECT name FROM " + field + ";", false);
+			preparedStatement = initPreparedStatement(connection, "SELECT name FROM " + table + ";", false);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				list.add(resultSet.getString("name"));

@@ -17,6 +17,12 @@ import java.util.List;
 
 import beans.Answer;
 
+/**
+ * This class regroup all the queries concern answers.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class AnswerDAO {
 	private DAOFactory daoFactory;
 

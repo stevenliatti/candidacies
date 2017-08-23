@@ -6,6 +6,12 @@ import java.util.Properties;
 
 import dao.DAOConfigurationException;
 
+/**
+ * This class read the path.properties file and offer getters for informations.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class Paths {
 	private final static String PROPERTIES_FILE = "/core/path.properties";
 	private String outputPath;

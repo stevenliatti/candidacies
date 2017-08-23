@@ -12,11 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * A basic filter that don't allow users without password to access to the app.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class RestrictionFilter implements Filter {
 	
-	public void init(FilterConfig config) throws ServletException {
-
-    }
+	public void init(FilterConfig config) throws ServletException {}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
@@ -26,6 +30,7 @@ public class RestrictionFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		String path = request.getRequestURI().substring(request.getContextPath().length());
 
+		// For the public ressources (css, javascript)
         if (path.startsWith("/inc")) {
             chain.doFilter(request, response);
             return;
@@ -41,8 +46,5 @@ public class RestrictionFilter implements Filter {
 		}
 	}
 	
-	public void destroy() {
-
-    }
-
+	public void destroy() {}
 }

@@ -2,11 +2,18 @@ package beans;
 
 import java.util.HashMap;
 
+/**
+ * Represent a answer type in database.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class Answer extends Bean {
 	private Long id;
 	private String name;
 	private String title;
 	private String content;
+	// hide is for hidden the answer (not usable anymore).
 	private String hide;
 
 	public Answer(Long id, String name, String title, String content, String hide) {

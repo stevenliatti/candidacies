@@ -5,6 +5,12 @@ import java.util.HashMap;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+/**
+ * Represent a candidate type in database.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class Candidate extends Bean {
 	private Long id;
 	private String title;
@@ -81,6 +87,11 @@ public class Candidate extends Bean {
 		map.put(formatField(folderField), getLatexFolder());
 	}
 	
+	/**
+	 * Return true if insertDate or updateDate are equal to today.
+	 * 
+	 * @return
+	 */
 	public boolean todayCandidate() {
 		return insertDate.toLocalDate().equals(LocalDate.now()) || updateDate.toLocalDate().equals(LocalDate.now());
 	}

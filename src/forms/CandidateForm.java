@@ -30,6 +30,12 @@ import dao.AnswerDAO;
 import dao.CandidateDAO;
 import dao.DAOException;
 
+/**
+ * Create or update candidate from form. Generate the letters at this time.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class CandidateForm extends Form {
 	private CandidateDAO candidateDAO; 
 	private AnswerDAO answerDAO;

@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * This class manage the download of files (pdf generated more specifically).
+ * 
+ * @author stevenliatti
+ *
+ */
 @SuppressWarnings("serial")
 public class DownloadServlet extends HttpServlet {
 	public static final int bufferSize = 10240; // 10ko

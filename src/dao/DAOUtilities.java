@@ -8,7 +8,8 @@ import java.sql.Statement;
 
 public class DAOUtilities {
 	/**
-	 * Init 
+	 * Init a statement for database query.
+	 * 
 	 * @param connection
 	 * @param sql
 	 * @param returnGeneratedKeys

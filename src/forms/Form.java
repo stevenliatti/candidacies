@@ -18,6 +18,12 @@ import org.joda.time.LocalDate;
 
 import beans.Bean;
 
+/**
+ * This class manage the validation of form.
+ * 
+ * @author stevenliatti
+ *
+ */
 public abstract class Form {
 	protected String result;
 	protected Map<String, String> errors = new HashMap<>();

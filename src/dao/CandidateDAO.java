@@ -42,6 +42,12 @@ import org.joda.time.format.DateTimeFormatter;
 import beans.Bean;
 import beans.Candidate;
 
+/**
+ * This class regroup all the queries concern candidates.
+ * 
+ * @author stevenliatti
+ *
+ */
 public class CandidateDAO {
 	private DAOFactory daoFactory;
 

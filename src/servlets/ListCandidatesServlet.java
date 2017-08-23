@@ -63,6 +63,8 @@ public class ListCandidatesServlet extends CandidaciesServlet {
 		String jobFunction = request.getParameter("jobFunction");
 		String locality = request.getParameter("locality");
 		String country = request.getParameter("country");
+		
+		// the next conditions are for the right demands.
 
 		if ((ids == null || ids.length == 0) && checkStr(search) && checkStr(number) && checkStr(answer) 
 				&& checkStr(jobFunction) && checkStr(locality) && checkStr(country)) {

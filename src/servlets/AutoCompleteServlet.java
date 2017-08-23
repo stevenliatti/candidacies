@@ -12,6 +12,11 @@ import beans.Bean;
 import dao.AutoCompleteDAO;
 import dao.DAOFactory;
 
+/**
+ * This servlet is used for the ajax call in creation/update of a candidate.
+ * @author stevenliatti
+ *
+ */
 @SuppressWarnings("serial")
 public class AutoCompleteServlet extends HttpServlet {
 
@@ -24,6 +29,7 @@ public class AutoCompleteServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String field = request.getParameter("field");
+		// the next parameter is send by the jquery plugin, it's what the user has typed.
 		String term = request.getParameter("term");
 		StringBuilder sb = new StringBuilder();
 		
@@ -36,6 +42,8 @@ public class AutoCompleteServlet extends HttpServlet {
 			}
 			sb.deleteCharAt(sb.length() - 1);
 			sb.append("]");
+			
+			// return a list example : ["Berne", "Bâle"]
 			
 			response.setContentType("text/xml");
 			response.getWriter().write(sb.toString());
